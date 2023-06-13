@@ -1,0 +1,601 @@
+const {any, sep1, commaSep, commaSep1} = require('./grammar/helper');
+
+const DIGITS = token(sep1(/[0-9]+/, /_+/));
+
+const PREC = {
+  COMMENT: 0,      // //  /*  */
+  ASSIGN: 1,       // =  += -=  *=  /= 
+  DECL: 2,
+  ELEMENT_VAL: 2,
+  TERNARY: 3,      // ?:
+  OR: 4,           // ||
+  AND: 5,          // &&
+  BIT_OR: 6,       // |
+  BIT_XOR: 7,      // ^
+  BIT_AND: 8,      // &
+  EQUALITY: 9,     // ==  !=
+  GENERIC: 10,
+  REL: 10,         // <  <=  >  >=  instanceof
+  SHIFT: 11,       // <<  >>  >>>
+  ADD: 12,         // +  -
+  MULT: 13,        // *  /  %
+  CAST: 14,        // (Type)
+  OBJ_INST: 14,    // new
+  UNARY: 15,       // ++a  --a  a++  a--  +  -  !  ~
+  ARRAY: 16,       // [Index]
+  OBJ_ACCESS: 16,  // .
+  PARENS: 16,      // (Expression)
+  CLASS_LITERAL: 17,  // .
+};
+
+const _keywords = require('./grammar/keywords');
+const _oo = require('./grammar/oo');
+const _pp = require('./grammar/preprocessor_directives');
+
+module.exports = grammar({
+  name: 'abl',
+
+  externals: $ => [
+    $.block_comment,
+    $.preprocessor,
+  ],
+    
+  extras: $ => [
+    $.line_comment,
+    $.block_comment,
+    $.preprocessor,
+    /\s/,
+  ],
+
+
+  rules: {
+    program: $ => repeat(
+      choice(
+        $.preprocessor_directive,
+        $.statement,
+      )
+    ),
+
+    line_comment: $ => seq('//', /[^\n]*/),
+
+    // Literals
+
+    _literal: $ => choice(
+      $.decimal_integer_literal,
+      $.true,
+      $.false,
+      $.character_literal,
+      $.null_literal
+    ),
+
+    decimal_integer_literal: $ => token(DIGITS),
+
+    true: $ => $.kwTRUE,
+    
+    false: $ => $.kwFALSE,
+
+    character_literal: $ => seq(
+      field('literal', $.string_literal),
+      field('modifier', optional($.string_modifier))
+    ),
+
+    string_literal: $ => choice(
+      seq("'",repeat(choice(/[^~'\n]/, /~(.|\n)/)), "'"),
+      seq('"',repeat(choice(/[^~"\n]/, /~(.|\n)/)), '"'),
+    ),
+
+    string_modifier: $ => choice(
+      ':U'
+    ),
+    
+    null_literal: $ => '?',
+
+    // Types
+    _type: $ => choice(
+      $.primitive_type
+    ),
+
+    primitive_type: $ => choice(
+      $.kwBLOB,
+      $.kwCHARACTER,
+      $.kwCLOB,
+      $.kwCOM_HANDLE,
+      $.kwDATE,
+      $.kwDATETIME,
+      $.kwDATETIME_TZ,
+      $.kwDECIMAL,
+      $.kwHANDLE,
+      $.kwINT64,
+      $.kwINTEGER,
+      $.kwLOGICAL,
+      $.kwLONGCHAR,
+      $.kwMEMPTR,
+      $.kwRAW,
+      $.kwRECID,
+      $.kwROWID,
+      $.kwWIDGET_HANDLE
+    ),
+
+    // Expressions
+   
+    expression: $ => choice(
+      $.binary_expression,
+      $.primary_expression,
+      $.unary_expression
+    ),
+
+    unary_expression: $ => choice(
+      ...[
+        ['+', PREC.UNARY],
+        ['-', PREC.UNARY],
+        [$.kwNOT, PREC.UNARY],
+      ].map(([operator, precedence]) =>
+        prec.left(precedence, seq(
+          field('operator', operator),
+          field('operand', $.expression)
+        ))
+      )
+    ),
+
+    binary_expression: $ => choice(
+      ...[
+        
+        [$.kwGT, PREC.REL],
+        [$.kwLT, PREC.REL],
+        [$.kwGE, PREC.REL],
+        [$.kwLE, PREC.REL],
+        ['>', PREC.REL],
+        ['<', PREC.REL],
+        ['>=', PREC.REL],
+        ['<=', PREC.REL],
+        
+        [$.kwEQ, PREC.EQUALITY],
+        [$.kwNE, PREC.EQUALITY],
+        ['=', PREC.EQUALITY],
+        ['<>', PREC.EQUALITY],
+        
+        ['AND', PREC.AND],
+        ['OR', PREC.OR],
+        ['+', PREC.ADD],
+        ['-', PREC.ADD],
+        ['*', PREC.MULT],
+        ['/', PREC.MULT],
+      ].map(([operator, precedence]) =>
+        prec.left(precedence, seq(
+          field('left', $.expression),
+          field('operator', operator),
+          field('right', $.expression)
+        ))
+      )
+    ),
+
+    assignment_expression: $ => prec.right(PREC.ASSIGN, seq(
+      field('left', choice(
+        $.identifier,
+        $.pseudo_function,
+        $.property_access
+      )),
+      field('operator', choice('=', '+=', '-=', '*=', '/=')),
+      field('right', $.expression),
+
+      // TODO this must be conditional when in an assign statement
+      optional(seq($.kwWHEN, field('when', $.expression)))
+    )),
+
+    primary_expression: $ => choice(
+      $._literal,
+      //TODO: move this to system handles?
+      $.kwTHIS_PROCEDURE,
+      $.identifier,
+      $.builtin_function,
+      $.property_access,
+      $.method_invocation,
+    ),
+
+    builtin_function: $ => choice(
+      $.replace_function
+    ),
+
+    pseudo_function: $ => choice(
+      $.entry_function 
+    ),
+
+    property_access: $ => prec.dynamic(PREC.OBJ_ACCESS, seq(
+      field('object', $.primary_expression),
+      ':',
+      field('field', $.identifier)
+    )),
+
+    method_invocation: $ => seq(
+      choice(
+        $.identifier,
+        seq(
+          $.primary_expression,
+          ':',
+          $.identifier,
+        )
+      ),
+      $.argument_list
+    ),
+
+    argument_list: $ => seq('(', commaSep($.expression), ')'),
+
+    // System Handles
+
+    // Functions
+
+    entry_function: $ => seq($.kwENTRY, $.argument_list),
+    
+    replace_function: $ => seq($.kwREPLACE, $.argument_list),
+    
+    // Statements
+
+    statement: $ => choice(
+      $.annotation_statement,
+     
+      $.assign_statement,
+      
+      $.block_level_statement,
+
+
+      $.class_statement,
+      $.create_statement,
+      
+      $.define_buffer_statement,
+      $.define_dataset_statement,
+      $.define_procedure_parameter_statement,
+      $.define_stream_statement,
+
+      $.empty_statement,
+      $.empty_temp_table_statement,
+      $.expression_statement,
+
+      $.function_forward_statement,
+
+      $.if_then_else_statement,
+      $.interface_statement,
+      
+      $.message_statement,
+
+      $.procedure_statement,
+      
+      $.return_statement,
+      $.routine_level_statement,
+
+      $.temp_table_statement,
+      
+      $.using_statement,
+
+      $.variable_statement
+    ),
+
+    code_block: $ => seq(':', repeat($.statement), $.kwEND),
+
+    expression_statement: $ => choice(
+      seq($.expression, '.'),
+      seq($.assignment_expression, '.')
+    ),
+
+    empty_statement: $ => '.',
+
+    identifier: $ => /[a-zA-Z_]\w*/,
+
+    _name: $ => choice(
+      $.identifier,
+      $.scoped_identifier
+    ),
+
+    scoped_identifier: $ => prec(PREC.OBJ_ACCESS, seq(
+      field('scope', $._name),
+      '.',
+      field('name', $.identifier)
+    )),
+
+
+    // Statement Helpers?
+
+    _parameter_list: $ => seq(
+      '(',
+      repeat(
+        choice(
+          seq(
+            optional(choice($.kwINPUT, $.kwOUTPUT, $.kwINPUT_OUTPUT)),
+            choice(
+              seq($.identifier, $._as_datatype),
+              seq($.kwLIKE, $.scoped_identifier),
+              seq(
+                choice(
+                  $.kwTABLE,
+                  $.kwTABLE_HANDLE,
+                  $.kwDATASET,
+                  $.kwDATASET_HANDLE
+                ),
+                $.identifier,
+                repeat(
+                  choice(
+                    $.kwAPPEND,
+                    $.kwBIND,
+                    $.kwBY_VALUE,
+                  )
+                )
+              )
+            )
+          ),
+          seq(
+            $.kwBUFFER,
+            $.identifier,
+            $.kwFOR,
+            $.identifier,
+            optional($.kwPRESELECT)
+          )
+        )
+      ),
+      ')'
+    ),
+
+    _define_statement: $ => seq(
+       $.kwDEFINE,
+       repeat(
+        choice(
+          seq(optional(seq($.kwNEW, optional($.kwGLOBAL))), $.kwSHARED),
+          choice($.kwPUBLIC, $.kwPROTECTED, $.kwPRIVATE),
+          choice($.kwSTATIC, $.kwABSTRACT),
+          $.kwOVERRIDE,
+          choice($.kwSERIALIZABLE, $.kwNON_SERIALIZABLE)
+        )
+      )
+    ),
+
+    _datatype: $ => field('type', seq(choice($.primitive_type, seq(optional($.kwCLASS), $._name)), optional(seq($.kwEXTENT, $.decimal_integer_literal)))),
+    _as_datatype: $ => prec.right(PREC.ASSIGN, seq($.kwAS, $._datatype)),
+    _format: $ => seq($.kwFORMAT, field('format', $.character_literal)),
+    _initial: $ => seq($.kwINITIAL, field('initial', $._literal)),
+    _label: $ => seq($.kwLABEL, field('label', $.character_literal)),
+    _namespace_uri: $ => seq($.kwNAMESPACE_URI, field('namespace_uri', $.character_literal)),
+    _namespace_prefix: $ => seq($.kwNAMESPACE_PREFIX, field('namespace_prefix', $.character_literal)),
+    _xml_node_name: $ => seq($.kwXML_NODE_NAME, field('xml_node_name', $.character_literal)),
+    _serialize_name: $ => seq($.kwSERIALIZE_NAME, field('serialize_name', $.character_literal)),
+    _validate_use_index: $ => choice($.kwVALIDATE, seq($.kwUSE_INDEX, $.identifier, optional(seq($.kwAS, $.kwPRIMARY)))),
+
+    // OpenEdge Language Statements
+
+    annotation_statement: $ => seq(
+      '@',
+      field('name', $._name),
+      optional(field('scope', $.kwFILE)),
+      optional(field('arguments', seq('(', commaSep1(seq($.identifier, '=', $.character_literal)), ')'))),
+      '.'
+    ),
+
+    assign_statement: $ => seq($.kwASSIGN, repeat($.assignment_expression), optional($.kwNO_ERROR), '.'),
+
+  
+    block_level_statement: $ => seq($.kwBLOCK_LEVEL, $.kwON, $.kwERROR, $.kwUNDO, ',', $.kwTHROW, '.'),
+
+    create_statement: $ => seq(
+      $.kwCREATE,
+      $._name,
+      optional($.kwNO_ERROR),
+      '.'
+    ),
+
+    define_buffer_statement: $ => seq(
+      $._define_statement,
+      $.kwBUFFER,
+      $.identifier,
+      $.kwFOR,
+      optional($.kwTEMP_TABLE),
+      $.identifier,
+      repeat(
+        choice(
+          $.kwPRESELECT,
+          $._label,
+          $._namespace_uri,
+          $._namespace_prefix,
+          $._xml_node_name,
+          $._serialize_name
+        )
+      ),
+      '.'
+    ),
+
+    define_dataset_statement: $ => seq(
+      $._define_statement,
+      $.kwDATASET,
+      $.identifier,
+      repeat(
+        choice(
+          // TODO: missing options
+          $._namespace_uri,
+          $._namespace_prefix,
+          $._xml_node_name,
+          $._serialize_name,
+          $.kwREFERENCE_ONLY,
+        )
+      ),
+      $.kwFOR,
+      commaSep1($.identifier),
+
+      '.'
+    ),
+
+    define_procedure_parameter_statement: $ => seq(
+      $._define_statement,
+      choice($.kwINPUT, $.kwOUTPUT),
+      $.kwPARAMETER,
+      $.identifier,
+      $._as_datatype,
+      optional($.kwNO_UNDO),
+      '.'
+    ),
+
+    define_stream_statement: $ => seq(
+      $._define_statement,
+      $.kwSTREAM,
+      $.identifier
+    ),
+
+    empty_temp_table_statement: $ => seq(
+      $.kwEMPTY,
+      $.kwTEMP_TABLE,
+      $.identifier,
+      optional($.kwNO_ERROR),
+      '.'
+    ),
+
+    function_forward_statement: $ => seq(
+      $.kwFUNCTION,
+      $.identifier,
+      $.kwRETURNS,
+      $._datatype,
+      $._parameter_list,
+      $.kwFORWARD,
+      '.'
+    ),
+
+    if_then_else_statement: $ => prec.right(PREC.ASSIGN, seq(
+      $.kwIF,
+      $.expression,
+      $.kwTHEN,
+      choice(
+        seq($.kwDO, $.code_block, '.'),
+        $.statement,
+        $.expression_statement
+      ),
+      optional(
+        seq(
+          $.kwELSE,
+          choice(
+            seq($.kwDO, $.code_block, '.'),
+            $.statement,
+            $.expression_statement
+          )
+        )
+      )
+    )),
+
+    message_statement: $ => /* prec.left(PREC.PARENS, */ seq(
+      $.kwMESSAGE,
+      repeat(choice($.expression, $.kwSKIP)),
+      repeat(
+        choice(
+          seq($.kwVIEW_AS, 
+              $.kwALERT_BOX, 
+              optional(choice($.kwMESSAGE, $.kwQUESTION, $.kwINFORMATION, $.kwERROR, $.kwWARNING)),
+              optional(seq($.kwBUTTONS, choice($.kwYES_NO, $.kwYES_NO_CANCEL, $.kwOK, $.kwOK_CANCEL, $.kwRETRY_CANCEL))),
+              optional(seq($.kwTITLE, $.character_literal))
+          ),
+          seq(
+            choice($.kwSET, $.kwUPDATE),
+            $.identifier,
+            choice($._as_datatype, seq($.kwLIKE, $.identifier)),
+            optional(seq($.kwFORMAT, $.character_literal)),
+            optional($.kwAUTO_RETURN)
+          ),
+          seq(
+            $.kwIN,
+            $.kwWINDOW,
+            $.identifier
+          )
+        )
+      ),
+      '.'
+    /*) */),
+
+    procedure_statement: $ => seq(
+      $.kwPROCEDURE,
+      $.identifier,
+      $.code_block,
+      optional($.kwPROCEDURE),
+      '.'
+    ),
+
+    return_statement: $ => seq(
+      $.kwRETURN,
+      optional(
+        choice(
+          seq($.kwERROR, optional($.expression)),
+          $.kwNO_APPLY,
+          $.expression
+        )
+      ),
+      '.'
+    ),
+    
+    routine_level_statement: $ => seq($.kwROUTINE_LEVEL, $.kwON, $.kwERROR, $.kwUNDO, ',', $.kwTHROW, '.'),
+
+    temp_table_statement: $ => seq(
+      $._define_statement,
+      $.kwTEMP_TABLE,
+      $.identifier,
+      repeat(
+        choice(
+          $.kwNO_UNDO,
+          $._namespace_uri,
+          $._namespace_prefix,
+          $._xml_node_name,
+          $._serialize_name,
+          $.kwREFERENCE_ONLY,
+          seq($.kwLIKE, $.identifier, repeat($._validate_use_index)),
+          seq($.kwLIKE_SEQUENTIAL, $.identifier, repeat($._validate_use_index)),
+          $.kwRCODE_INFORMATION,
+          seq($.kwBEFORE_TABLE, $.identifier)
+        )
+      ),
+      repeat(
+        seq(
+          $.kwFIELD, 
+          $.identifier, 
+          choice($._as_datatype, seq($.kwLIKE, $.identifier, optional($.kwVALIDATE))),
+          repeat(
+            choice(
+              // TODO: missing properties
+              $._serialize_name
+            )
+          )
+        )
+      ),
+      repeat(
+        seq(
+          $.kwINDEX, 
+          $.identifier, 
+          repeat(
+            choice(
+              choice($.kwAS, $.kwIS),
+              $.kwUNIQUE,
+              $.kwPRIMARY,
+              $.kwWORD_INDEX 
+            ) 
+          ),
+          $.identifier,
+          optional(choice($.kwASCENDING, $.kwDESCENDING)) 
+        )
+      ),
+      '.'
+    ),
+
+    using_statement: $ => seq($.kwUSING, $._name, optional(seq('.', '*')), optional(seq($.kwFROM, choice($.kwASSEMBLY, $.kwPROPATH))), '.'),
+
+    variable_statement: $ => seq(
+      $._define_statement,
+      $.kwVARIABLE,
+      $.identifier,
+      $._as_datatype,
+      repeat(
+        choice(
+          $._serialize_name,
+          $._label,
+          $._initial,
+          $._format,
+          $.kwNO_UNDO
+        )
+      ),
+      '.'
+    ),
+
+    ..._pp,
+    ..._oo,
+    ..._keywords
+  }
+});
+

@@ -1,0 +1,11 @@
+==============
+empty statment
+==============
+
+.
+
+---
+
+(program
+  (statement
+    (empty_statement)))

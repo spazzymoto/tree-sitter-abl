@@ -1,0 +1,94 @@
+================
+plain annotation
+================
+
+@openapi.
+
+---
+
+(program
+  (statement
+    (annotation_statement
+      (identifier))))
+
+========================
+annotation with dot name
+========================
+
+@openapi.openedge.export.
+
+---
+
+(program
+  (statement
+    (annotation_statement
+      (scoped_identifier
+        (scoped_identifier
+          (identifier)
+          (identifier))
+        (identifier)))))
+
+=====================
+annotation with scope
+=====================
+
+@openapi.openedge.export FILE.
+
+---
+
+(program
+  (statement
+    (annotation_statement
+      (scoped_identifier
+        (scoped_identifier
+          (identifier)
+          (identifier))
+        (identifier))
+      (kwFILE))))
+
+====================================
+annotation with scope and attributes
+====================================
+
+@openapi.openedge.export FILE (type="ESB",executionMode="external").
+
+---
+
+(program
+  (statement
+    (annotation_statement
+      (scoped_identifier
+        (scoped_identifier
+          (identifier)
+          (identifier))
+        (identifier))
+      (kwFILE)
+      (identifier)
+      (character_literal
+        (string_literal))
+      (identifier)
+      (character_literal
+        (string_literal)))))
+
+====================================
+annotation and attributes
+====================================
+
+@openapi.openedge.export (type="ESB",executionMode="external").
+
+---
+
+(program
+  (statement
+    (annotation_statement
+      (scoped_identifier
+        (scoped_identifier
+          (identifier)
+          (identifier))
+        (identifier))
+      (identifier)
+      (character_literal
+        (string_literal))
+      (identifier)
+      (character_literal
+        (string_literal)))))

@@ -1,0 +1,35 @@
+============
+line comment
+============
+
+// this is a line comment
+
+---
+
+(program
+  (line_comment))
+
+=============
+block comment
+=============
+
+/* this is 
+   a block comment */
+
+---
+
+(program
+  (block_comment))
+
+====================
+nested block comment
+====================
+
+/* this is a
+   /* nested /* block */
+   comment */*/
+
+---
+
+(program
+  (block_comment))

@@ -1,0 +1,108 @@
+=======================
+define buffer statement
+=======================
+
+DEFINE BUFFER bufTable FOR db_table.
+
+---
+
+(program
+  (statement
+    (define_buffer_statement
+	  (kwDEFINE)
+      (kwBUFFER)
+	  (identifier)
+	  (kwFOR)
+	  (identifier))))
+
+=========================
+define variable statement
+=========================
+
+DEFINE VARIABLE cTest 	AS CHARACTER 	NO-UNDO.
+
+---
+
+(program
+  (statement
+    (variable_statement
+	  (kwDEFINE)
+	  (kwVARIABLE)
+	  (identifier)
+	  (kwAS)
+	  (primitive_type
+	    (kwCHARACTER))
+	  (kwNO_UNDO))))
+
+===========================
+define temp-table statement
+===========================
+
+DEFINE TEMP-TABLE ttTempTable NO-UNDO SERIALIZE-NAME "temp-table":U
+  FIELD cFieldOne AS CHARACTER            SERIALIZE-NAME "field-one":U
+  FIELD oFieldTwo AS Progress.Lang.Object SERIALIZE-NAME "field-two":U
+  INDEX cFieldOne AS PRIMARY DESCENDING.
+
+---
+
+(program
+  (statement
+    (temp_table_statement
+      (kwDEFINE)
+      (kwTEMP_TABLE)
+      (identifier)
+      (kwNO_UNDO)
+      (kwSERIALIZE_NAME)
+      (character_literal
+        (string_literal)
+        (string_modifier))
+      (kwFIELD)
+      (identifier)
+      (kwAS)
+      (primitive_type
+        (kwCHARACTER))
+      (kwSERIALIZE_NAME)
+      (character_literal
+        (string_literal)
+        (string_modifier))
+      (kwFIELD)
+      (identifier)
+      (kwAS)
+      (scoped_identifier
+        (scoped_identifier
+          (identifier)
+          (identifier))
+        (identifier))
+      (kwSERIALIZE_NAME)
+      (character_literal
+        (string_literal)
+        (string_modifier))
+      (kwINDEX)
+      (identifier)
+      (kwAS)
+      (kwPRIMARY)
+      (identifier))))
+
+========================
+define dataset statement
+========================
+
+DEFINE DATASET dsTest SERIALIZE-NAME "test":U
+  FOR ttTable1,
+      ttTable2.
+
+---
+
+(program
+  (statement
+    (define_dataset_statement
+      (kwDEFINE)
+      (kwDATASET)
+      (identifier)
+      (kwSERIALIZE_NAME)
+      (character_literal
+        (string_literal)
+        (string_modifier))
+      (kwFOR)
+      (identifier)
+      (identifier))))

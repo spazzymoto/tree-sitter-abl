@@ -1,0 +1,109 @@
+======================
+assign entry statement
+======================
+
+ASSIGN ENTRY(1, cFile, "/":U) = "":U.
+
+---
+
+(program
+  (statement
+    (assign_statement
+      (kwASSIGN)
+      (assignment_expression
+        (pseudo_function
+          (entry_function
+            (kwENTRY)
+            (argument_list
+              (expression
+                (primary_expression
+                  (decimal_integer_literal)))
+              (expression
+                (primary_expression
+                  (identifier)))
+              (expression
+                (primary_expression
+                  (character_literal
+                    (string_literal)
+                    (string_modifier)))))))
+        (expression
+          (primary_expression
+            (character_literal
+              (string_literal)
+              (string_modifier))))))))
+
+=================
+assign multi line
+=================
+
+ASSIGN
+  cOne = "One":U
+  dTwo = 2 NO-ERROR.
+
+---
+
+(program
+  (statement
+    (assign_statement
+      (kwASSIGN)
+      (assignment_expression
+        (identifier)
+        (expression
+          (primary_expression
+            (character_literal
+              (string_literal)
+              (string_modifier)))))
+      (assignment_expression
+        (identifier)
+        (expression
+          (primary_expression
+            (decimal_integer_literal))))
+      (kwNO_ERROR))))
+
+========================
+assign binary expression
+========================
+
+ASSIGN lTest = a = b.
+
+---
+
+(program
+  (statement
+    (assign_statement
+      (kwASSIGN)
+      (assignment_expression
+        (identifier)
+        (expression
+          (binary_expression
+            (expression
+              (primary_expression
+                (identifier)))
+            (expression
+              (primary_expression
+                (identifier)))))))))
+
+=====================
+assign when statement
+=====================
+
+ASSIGN cTest = "value":U WHEN TRUE.
+
+---
+
+(program
+  (statement
+    (assign_statement
+      (kwASSIGN)
+      (assignment_expression
+        (identifier)
+        (expression
+          (primary_expression
+            (character_literal
+              (string_literal)
+              (string_modifier))))
+        (kwWHEN)
+        (expression
+          (primary_expression
+            (true
+              (kwTRUE))))))))

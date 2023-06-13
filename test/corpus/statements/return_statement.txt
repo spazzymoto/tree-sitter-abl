@@ -1,0 +1,61 @@
+================
+return statement
+================
+
+RETURN.
+
+---
+
+(program
+  (statement
+    (return_statement
+	  (kwRETURN))))
+
+======================
+return value statement
+======================
+
+RETURN cTest.
+
+---
+
+(program
+  (statement
+    (return_statement
+	  (kwRETURN)
+	  (expression
+	    (primary_expression
+		  (identifier))))))
+
+======================
+return error statement
+======================
+
+RETURN ERROR.
+
+---
+
+(program
+  (statement
+    (return_statement
+	  (kwRETURN)
+	  (kwERROR))))
+	
+============================
+return error value statement
+============================
+
+RETURN ERROR "whoops":U.
+
+---
+
+(program
+  (statement
+    (return_statement
+	  (kwRETURN)
+	  (kwERROR)
+	  (expression
+	    (primary_expression
+		  (character_literal
+        (string_literal)
+        (string_modifier)))))))

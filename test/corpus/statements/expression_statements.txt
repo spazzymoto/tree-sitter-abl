@@ -1,0 +1,189 @@
+===============================
+assignment expression statement
+===============================
+
+a = 1.
+
+---
+
+(program
+  (statement
+    (expression_statement
+      (assignment_expression
+        (identifier)
+        (expression
+          (primary_expression
+            (decimal_integer_literal)))))))
+
+===============================
+complex assignment expression statement
+===============================
+
+a = 1 + 2 - 3.
+
+---
+
+(program
+  (statement
+    (expression_statement
+      (assignment_expression
+        (identifier)
+        (expression
+          (binary_expression
+            (expression
+              (binary_expression
+                (expression
+                  (primary_expression
+                    (decimal_integer_literal)))
+                (expression
+                  (primary_expression
+                    (decimal_integer_literal)))))
+            (expression
+              (primary_expression
+                (decimal_integer_literal)))))))))
+
+=================
+binary expression
+=================
+
+1 + 1.
+
+---
+
+(program
+  (statement
+    (expression_statement
+	  (expression
+	    (binary_expression
+	      (expression
+		    (primary_expression
+		      (decimal_integer_literal)))
+		  (expression
+		    (primary_expression
+		      (decimal_integer_literal))))))))
+
+================
+unary expression
+================
+
+-1.
+
+---
+
+(program
+  (statement
+    (expression_statement
+      (expression
+        (unary_expression
+          (expression
+            (primary_expression
+              (decimal_integer_literal))))))))      
+
+====================
+not unary expression
+====================
+
+lLogical = NOT TRUE.
+
+---
+(program
+  (statement
+    (expression_statement
+      (assignment_expression
+        (identifier)
+        (expression
+          (unary_expression
+            (kwNOT)
+            (expression
+              (primary_expression
+                (true
+                  (kwTRUE))))))))))
+
+=======================
+assign unary expression
+=======================
+
+a = +10.
+
+---
+
+(program
+  (statement
+    (expression_statement
+      (assignment_expression
+        (identifier)
+        (expression
+          (unary_expression
+            (expression
+              (primary_expression
+                (decimal_integer_literal)))))))))      
+
+==========================
+assign property expression
+==========================
+
+oObject:oSubObject:Property = "Value":U.
+
+---
+
+(program
+  (statement
+    (expression_statement
+      (assignment_expression
+        (property_access
+          (primary_expression
+            (property_access
+              (primary_expression
+                (identifier))
+              (identifier)))
+          (identifier))
+        (expression
+          (primary_expression
+            (character_literal
+              (string_literal)
+              (string_modifier))))))))
+
+============================
+method invocation expression
+============================
+
+cTest = oObject:getCharacterValue().
+
+---
+
+(program
+  (statement
+    (expression_statement
+      (assignment_expression
+        (identifier)
+        (expression
+          (primary_expression
+            (method_invocation
+              (primary_expression
+                (identifier))
+              (identifier)
+              (argument_list))))))))
+
+============================
+method invocation expression
+============================
+
+cTest = oObject:oSubObject:getCharacterValue().
+
+---
+
+(program
+  (statement
+    (expression_statement
+      (assignment_expression
+        (identifier)
+        (expression
+          (primary_expression
+            (method_invocation
+              (primary_expression
+                (property_access
+                  (primary_expression
+                    (identifier))
+                  (identifier)))
+              (identifier)
+              (argument_list))))))))

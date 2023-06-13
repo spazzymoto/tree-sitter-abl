@@ -1,0 +1,257 @@
+===============
+class statement
+===============
+
+CLASS package.implementation IMPLEMENTS a.b.c, d.e.f 
+                             INHERITS superclass
+							 FINAL 
+							 USE-WIDGET-POOL:
+
+END CLASS.
+
+---
+
+(program
+  (statement
+    (class_statement
+      (kwCLASS)
+      (scoped_identifier
+        (identifier)
+        (identifier))
+      (kwIMPLEMENTS)
+        (scoped_identifier
+          (scoped_identifier
+            (identifier)
+            (identifier))
+          (identifier))
+        (scoped_identifier
+          (scoped_identifier
+            (identifier)
+            (identifier))
+          (identifier))
+      (kwINHERITS)
+      (identifier)
+	  (kwFINAL)
+      (kwUSE_WIDGET_POOL)
+      (kwEND)
+      (kwCLASS))))
+
+=========================
+define event statement
+=========================
+
+CLASS test:
+  DEFINE PUBLIC EVENT SomeEvent VOID ().
+END CLASS.
+
+---
+
+(program
+  (statement
+    (class_statement
+      (kwCLASS)
+      (identifier)
+      (define_event_statement
+        (kwDEFINE)
+        (kwPUBLIC)
+        (kwEVENT)
+        (identifier)
+        (kwVOID))
+      (kwEND)
+      (kwCLASS))))
+
+=========================
+define property statement
+=========================
+
+CLASS test:
+  DEFINE PUBLIC PROPERTY Test AS CHARACTER INITIAL "":U SERIALIZE-NAME "test":U NO-UNDO 
+  GET():
+  
+  END GET.
+  SET(INPUT ipcValue AS CHARACTER):
+
+  END SET.
+END CLASS.
+
+---
+
+(program
+  (statement
+    (class_statement
+      (kwCLASS)
+      (identifier)
+      (define_property_statement
+        (kwDEFINE)
+        (kwPUBLIC)
+        (kwPROPERTY)
+        (identifier)
+        (kwAS)
+        (primitive_type
+          (kwCHARACTER))
+        (kwINITIAL)
+        (character_literal
+          (string_literal)
+          (string_modifier))
+        (kwSERIALIZE_NAME)
+        (character_literal
+          (string_literal)
+          (string_modifier))
+        (kwNO_UNDO)
+        (kwGET)
+        (code_block
+          (kwEND))
+        (kwGET)
+        (kwSET)
+        (kwINPUT)
+        (identifier)
+        (kwAS)
+        (primitive_type
+          (kwCHARACTER))
+        (code_block
+          (kwEND))
+        (kwSET))
+      (kwEND)
+      (kwCLASS))))
+
+================
+method statement
+================
+
+CLASS test:
+  METHOD PUBLIC LOGICAL isTRUE():
+    RETURN TRUE.
+  END METHOD.
+END CLASS.
+
+---
+
+(program
+  (statement
+    (class_statement
+      (kwCLASS)
+      (identifier)
+      (method_statement
+        (kwMETHOD)
+        (kwPUBLIC)
+        (primitive_type
+          (kwLOGICAL))
+        (identifier)
+        (code_block
+          (statement
+            (return_statement
+              (kwRETURN)
+              (expression
+                (primary_expression
+                  (true
+                    (kwTRUE))))))
+          (kwEND))
+        (kwMETHOD))
+      (kwEND)
+      (kwCLASS))))
+  
+===================
+interface statement
+===================
+
+INTERFACE Package.ISomeInterface INHERITS Package.ISuperInterface:
+
+END INTERFACE.
+
+---
+
+(program
+  (statement
+    (interface_statement
+      (kwINTERFACE)
+      (scoped_identifier
+        (identifier)
+        (identifier))
+      (kwINHERITS)
+      (scoped_identifier
+        (identifier)
+        (identifier))
+      (kwEND)
+      (kwINTERFACE))))
+
+
+======================
+interface event prototype
+======================
+
+INTERFACE test:
+  DEFINE PUBLIC EVENT SomeEvent VOID ().
+END INTERFACE.
+
+---
+
+(program
+  (statement
+    (interface_statement
+      (kwINTERFACE)
+      (identifier)
+      (define_event_prototype
+        (kwDEFINE)
+        (kwPUBLIC)
+        (kwEVENT)
+        (identifier)
+        (kwVOID))
+      (kwEND)
+      (kwINTERFACE))))
+
+==========================
+interface method prototype
+==========================
+
+INTERFACE test:
+  METHOD PUBLIC LOGICAL isTRUE().
+END INTERFACE.
+
+---
+
+(program
+  (statement
+    (interface_statement
+      (kwINTERFACE)
+      (identifier)
+      (method_prototype
+        (kwMETHOD)
+        (kwPUBLIC)
+        (primitive_type
+          (kwLOGICAL))
+        (identifier))
+      (kwEND)
+      (kwINTERFACE))))
+  
+============================
+interface property prototype
+============================
+
+INTERFACE Package.ISomeInterface:
+
+  DEFINE PUBLIC PROPERTY SomeProperty AS CHARACTER NO-UNDO GET. SET.
+
+END INTERFACE.
+
+---
+
+(program
+  (statement
+    (interface_statement
+      (kwINTERFACE)
+      (scoped_identifier
+        (identifier)
+        (identifier))
+      (define_property_prototype
+        (kwDEFINE)
+        (kwPUBLIC)
+        (kwPROPERTY)
+        (identifier)
+        (kwAS)
+        (primitive_type
+          (kwCHARACTER))
+        (kwNO_UNDO)
+        (kwGET)
+        (kwSET))
+      (kwEND)
+      (kwINTERFACE))))

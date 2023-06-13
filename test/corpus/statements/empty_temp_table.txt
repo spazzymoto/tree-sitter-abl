@@ -1,0 +1,15 @@
+================
+empty temp-table
+================
+
+EMPTY TEMP-TABLE ttTest NO-ERROR.
+
+---
+
+(program
+  (statement
+    (empty_temp_table_statement
+      (kwEMPTY)
+      (kwTEMP_TABLE)
+      (identifier)
+      (kwNO_ERROR))))
