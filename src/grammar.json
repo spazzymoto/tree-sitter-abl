@@ -4138,6 +4138,32 @@
         }
       ]
     },
+    "kwAND": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "AND"
+        },
+        {
+          "type": "STRING",
+          "value": "and"
+        }
+      ]
+    },
+    "kwANYWHERE": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "ANYWHERE"
+        },
+        {
+          "type": "STRING",
+          "value": "anywhere"
+        }
+      ]
+    },
     "kwAPPEND": {
       "type": "CHOICE",
       "members": [
@@ -4226,6 +4252,19 @@
         {
           "type": "STRING",
           "value": "before-table"
+        }
+      ]
+    },
+    "kwBEGINS": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "BEGINS"
+        },
+        {
+          "type": "STRING",
+          "value": "begins"
         }
       ]
     },
@@ -4333,19 +4372,6 @@
         }
       ]
     },
-    "kwCREATE": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "CREATE"
-        },
-        {
-          "type": "STRING",
-          "value": "create"
-        }
-      ]
-    },
     "kwCLASS": {
       "type": "CHOICE",
       "members": [
@@ -4382,6 +4408,19 @@
         {
           "type": "STRING",
           "value": "com-handle"
+        }
+      ]
+    },
+    "kwCREATE": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "CREATE"
+        },
+        {
+          "type": "STRING",
+          "value": "create"
         }
       ]
     },
@@ -4515,19 +4554,6 @@
         }
       ]
     },
-    "kwERROR": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "ERROR"
-        },
-        {
-          "type": "STRING",
-          "value": "error"
-        }
-      ]
-    },
     "kwEMPTY": {
       "type": "CHOICE",
       "members": [
@@ -4577,6 +4603,19 @@
         {
           "type": "STRING",
           "value": "eq"
+        }
+      ]
+    },
+    "kwERROR": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "ERROR"
+        },
+        {
+          "type": "STRING",
+          "value": "error"
         }
       ]
     },
@@ -5048,16 +5087,16 @@
         }
       ]
     },
-    "kwMESSAGE": {
+    "kwMATCHES": {
       "type": "CHOICE",
       "members": [
         {
           "type": "STRING",
-          "value": "MESSAGE"
+          "value": "MATCHES"
         },
         {
           "type": "STRING",
-          "value": "message"
+          "value": "matches"
         }
       ]
     },
@@ -5074,6 +5113,19 @@
         }
       ]
     },
+    "kwMESSAGE": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "MESSAGE"
+        },
+        {
+          "type": "STRING",
+          "value": "message"
+        }
+      ]
+    },
     "kwMETHOD": {
       "type": "CHOICE",
       "members": [
@@ -5087,19 +5139,6 @@
         }
       ]
     },
-    "kwNAMESPACE_URI": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "NAMESPACE-URI"
-        },
-        {
-          "type": "STRING",
-          "value": "namespace-uri"
-        }
-      ]
-    },
     "kwNAMESPACE_PREFIX": {
       "type": "CHOICE",
       "members": [
@@ -5110,6 +5149,19 @@
         {
           "type": "STRING",
           "value": "namespace-prefix"
+        }
+      ]
+    },
+    "kwNAMESPACE_URI": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "NAMESPACE-URI"
+        },
+        {
+          "type": "STRING",
+          "value": "namespace-uri"
         }
       ]
     },
@@ -5138,6 +5190,10 @@
           "value": "new"
         }
       ]
+    },
+    "kwNON_SERIALIZABLE": {
+      "type": "STRING",
+      "value": "NON-SERIALIZABLE"
     },
     "kwNOT": {
       "type": "CHOICE",
@@ -5178,10 +5234,6 @@
         }
       ]
     },
-    "kwNON_SERIALIZABLE": {
-      "type": "STRING",
-      "value": "NON-SERIALIZABLE"
-    },
     "kwNO_UNDO": {
       "type": "CHOICE",
       "members": [
@@ -5205,6 +5257,19 @@
         {
           "type": "STRING",
           "value": "null"
+        }
+      ]
+    },
+    "kwOF": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "OF"
+        },
+        {
+          "type": "STRING",
+          "value": "of"
         }
       ]
     },
@@ -5234,6 +5299,19 @@
         }
       ]
     },
+    "kwOLD": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "OLD"
+        },
+        {
+          "type": "STRING",
+          "value": "old"
+        }
+      ]
+    },
     "kwON": {
       "type": "CHOICE",
       "members": [
@@ -5244,6 +5322,19 @@
         {
           "type": "STRING",
           "value": "on"
+        }
+      ]
+    },
+    "kwOR": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "OR"
+        },
+        {
+          "type": "STRING",
+          "value": "or"
         }
       ]
     },
@@ -5283,6 +5374,19 @@
         {
           "type": "STRING",
           "value": "parameter"
+        }
+      ]
+    },
+    "kwPERSISTENT": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "PERSISTENT"
+        },
+        {
+          "type": "STRING",
+          "value": "persistent"
         }
       ]
     },
@@ -5416,19 +5520,6 @@
         }
       ]
     },
-    "kwRECID": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "RECID"
-        },
-        {
-          "type": "STRING",
-          "value": "recid"
-        }
-      ]
-    },
     "kwRCODE_INFORMATION": {
       "type": "CHOICE",
       "members": [
@@ -5442,6 +5533,19 @@
         }
       ]
     },
+    "kwRECID": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "RECID"
+        },
+        {
+          "type": "STRING",
+          "value": "recid"
+        }
+      ]
+    },
     "kwREFERENCE_ONLY": {
       "type": "CHOICE",
       "members": [
@@ -5452,6 +5556,19 @@
         {
           "type": "STRING",
           "value": "reference-only"
+        }
+      ]
+    },
+    "kwREPLACE": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "REPLACE"
+        },
+        {
+          "type": "STRING",
+          "value": "replace"
         }
       ]
     },
@@ -5494,16 +5611,16 @@
         }
       ]
     },
-    "kwREPLACE": {
+    "kwREVERT": {
       "type": "CHOICE",
       "members": [
         {
           "type": "STRING",
-          "value": "REPLACE"
+          "value": "REVERT"
         },
         {
           "type": "STRING",
-          "value": "replace"
+          "value": "revert"
         }
       ]
     },
@@ -5530,6 +5647,32 @@
         {
           "type": "STRING",
           "value": "rowid"
+        }
+      ]
+    },
+    "kwRUN": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "RUN"
+        },
+        {
+          "type": "STRING",
+          "value": "run"
+        }
+      ]
+    },
+    "kwSELF": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "SELF"
+        },
+        {
+          "type": "STRING",
+          "value": "self"
         }
       ]
     },
@@ -5650,6 +5793,19 @@
         }
       ]
     },
+    "kwTARGET_PROCEDURE": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "TARGET-PROCEDURE"
+        },
+        {
+          "type": "STRING",
+          "value": "target-procedure"
+        }
+      ]
+    },
     "kwTEMP_TABLE": {
       "type": "CHOICE",
       "members": [
@@ -5676,16 +5832,16 @@
         }
       ]
     },
-    "kwTITLE": {
+    "kwTHIS_OBJECT": {
       "type": "CHOICE",
       "members": [
         {
           "type": "STRING",
-          "value": "TITLE"
+          "value": "THIS-OBJECT"
         },
         {
           "type": "STRING",
-          "value": "title"
+          "value": "this-object"
         }
       ]
     },
@@ -5712,6 +5868,19 @@
         {
           "type": "STRING",
           "value": "throw"
+        }
+      ]
+    },
+    "kwTITLE": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "TITLE"
+        },
+        {
+          "type": "STRING",
+          "value": "title"
         }
       ]
     },
@@ -5816,6 +5985,19 @@
         {
           "type": "STRING",
           "value": "validate"
+        }
+      ]
+    },
+    "kwVALUE": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "VALUE"
+        },
+        {
+          "type": "STRING",
+          "value": "value"
         }
       ]
     },

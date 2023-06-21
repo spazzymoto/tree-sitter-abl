@@ -1,185 +1,225 @@
 module.exports = {
-    ppANALYZE_SUSPEND: $ => kw('&ANALYZE-SUSPEND'),
-    ppANALYZE_RESUME: $ => kw('&ANALYZE-RESUME'),
-    ppSCOPED_DEFINE: $ => kw('&SCOPED-DEFINE'),
-    ppIF: $ => kw('&IF'),
-    ppTHEN: $ => kw('&THEN'),
-    ppENDIF: $ => kw('&ENDIF'),
 
-    // A
-    kwABSTRACT: $ => kw('ABSTRACT'),
-    kwALERT_BOX: $ => kw('ALERT-BOX'),
-    kwAPPEND: $ => kw('APPEND'),
-    kwAS: $ => kw('AS'),
-    kwASCENDING: $ => kw('ASCENDING'),
-    kwASSEMBLY: $ => kw('ASSEMBLY'),
-    kwASSIGN: $ => kw('ASSIGN'),
-    kwAUTO_RETURN: $ => kw('AUTO-RETURN'),
-    // B
-    kwBEFORE_TABLE: $ => kw('BEFORE-TABLE'),
-    kwBGCOLOR: $ => kw('BGCOLOR'),
-    kwBIND: $ => kw('BIND'),
-    kwBLOB: $ => kw('BLOB'),
-    kwBLOCK_LEVEL: $ => kw('BLOCK-LEVEL', 'BLOCK-LEV'),
-    kwBUFFER: $ => kw('BUFFER'),
-    kwBUTTONS: $ => kw('BUTTONS'),
-    kwBY_VALUE: $ => kw('BY-VALUE'),
-    // C
-    kwCHARACTER: $ => kw('CHARACTER'),
-    kwCREATE: $ => kw('CREATE'),
-    kwCLASS: $ => kw('CLASS'),
-    kwCLOB: $ => kw('CLOB'),
-    kwCOM_HANDLE: $ => kw('COM-HANDLE'),
-    // D
-    kwDATASET: $ => kw('DATASET'),
-    kwDATASET_HANDLE: $ => kw('DATASET-HANDLE'),
-    kwDATE: $ => kw('DATE'),
-    kwDATETIME: $ => kw('DATETIME'),
-    kwDATETIME_TZ: $ => kw('DATETIME-TZ'),
-    kwDECIMAL: $ => kw('DECIMAL'),
-    kwDEFINE: $ => kw('DEFINE'),
-    kwDESCENDING: $ => kw('DESCENDING'),
-    kwDO: $ => kw('DO'),
-    // E
-    kwELSE: $ => kw('ELSE'),
-    kwERROR: $ => kw('ERROR'),
-    kwEMPTY: $ => kw('EMPTY'),
-    kwEND: $ => kw('END'),
-    kwENTRY: $ => kw('ENTRY'),
-    kwEQ: $ => kw('EQ'),
-    kwEVENT: $ => kw('EVENT'),
-    kwEXTENT: $ => kw('EXTENT'),
-    // F
-    kwFALSE: $ => kw('FALSE'),
-    kwFIELD: $ => kw('FIELD'),
-    kwFILE: $ => kw('FILE'),
-    kwFINAL: $ => kw('FINAL'),
-    kwFOR: $ => kw('FOR'),
-    kwFORMAT: $ => kw('FORMAT'),
-    kwFORWARD: $ => kw('FORWARD'),
-    kwFROM: $ => kw('FROM'),
-    kwFUNCTION: $ => kw('FUNCTION'),
-    
-    // G
-    kwGE: $ => kw('GE'),
-    kwGET: $ => kw('GET'),
-    kwGLOBAL: $ => kw('GLOBAL'),
-    kwGT: $ => kw('GT'),
-    // H
-    kwHANDLE: $ => kw('HANDLE'),
-    // I
-    kwIF: $ => kw('IF'),
-    kwIMPLEMENTS: $ => kw('IMPLEMENTS'),
-    kwIN: $ => kw('IN'),
-    kwINDEX: $ => kw('INDEX'),
-    kwINFORMATION: $ => kw('INFORMATION'),
-    kwINHERITS: $ => kw('INHERITS'),
-    kwINITIAL: $ => kw('INITIAL'),
-    kwINPUT: $ => kw('INPUT'),
-    kwINPUT_OUTPUT: $ => kw('INPUT-OUTPUT'),
-    kwINT64: $ => kw('INT64'),
-    kwINTEGER: $ => kw('INTEGER'),
-    kwINTERFACE: $ => kw('INTERFACE'),
-    kwIS: $ => kw('IS'),
-    // J
-    // K
-    // L
-    kwLABEL: $ => kw('LABEL'),
-    kwLE: $ => kw('LE'),
-    kwLIKE: $ => kw('LIKE'),
-    kwLIKE_SEQUENTIAL: $ => kw ('LIKE-SEQUENTIAL'),
-    kwLOGICAL: $ => kw('LOGICAL'),
-    kwLONGCHAR: $ => kw('LONGCHAR'),
-    kwLT: $ => kw('LT'),
-    // M
-    kwMESSAGE: $ => kw('MESSAGE'),
-    kwMEMPTR: $ => kw('MEMPTR'),
-    kwMETHOD: $ => kw('METHOD'),
-    // N
-    kwNAMESPACE_URI: $ => kw('NAMESPACE-URI'),
-    kwNAMESPACE_PREFIX: $ => kw('NAMESPACE-PREFIX'),
-    kwNE: $ => kw('NE'),
-    kwNEW: $ => kw('NEW'),
-    kwNOT: $ => kw('NOT'),
-    kwNO_APPLY: $ => kw('NO-APPLY'),
-    kwNO_ERROR: $ => kw('NO-ERROR'),
-    kwNON_SERIALIZABLE: $ => ('NON-SERIALIZABLE'),
-    kwNO_UNDO: $ => kw('NO-UNDO'),
-    kwNULL: $ => kw('NULL'),
-    // O
-    kwOK: $ => kw('OK'),
-    kwOK_CANCEL: $ => kw('OK-CANCEL'),
-    kwON: $ => kw('ON'),
-    kwOUTPUT: $ => kw('OUTPUT'),
-    kwOVERRIDE: $ => kw('OVERRIDE'),
-    // P
-    kwPARAMETER: $ => kw('PARAMETER'),
-    kwPRESELECT: $ => kw('PRESELECT'),
-    kwPRIMARY: $ => kw('PRIMARY'),
-    kwPRIVATE: $ => kw('PRIVATE'),
-    kwPROCEDURE: $ => kw('PROCEDURE'),
-    kwPROPATH: $ => kw('PROPATH'),
-    kwPROPERTY: $ => kw('PROPERTY'),
-    kwPROTECTED: $ => kw('PROTECTED'),
-    kwPUBLIC: $ => kw('PUBLIC'),
-    // Q
-    kwQUESTION: $ => kw('QUESTION'),
-    // R
-    kwRAW: $ => kw('RAW'),
-    kwRECID: $ => kw('RECID'),
-    kwRCODE_INFORMATION: $ => kw('RCODE-INFORMATION'),
-    kwREFERENCE_ONLY: $ => kw('REFERENCE-ONLY'),
-    kwRETRY_CANCEL: $ => kw('RETRY-CANCEL'),
-    kwRETURN: $ => kw('RETURN'),
-    kwRETURNS: $ => kw('RETURNS'),
-    kwREPLACE: $ => kw('REPLACE'),
-    kwROUTINE_LEVEL: $ => kw('ROUTINE-LEVEL'),
-    kwROWID: $ => kw('ROWID'),
-    // S
-    kwSERIALIZABLE: $ => kw('SERIALIZABLE'),
-    kwSERIALIZE_NAME: $ => kw('SERIALIZE-NAME'),
-    kwSET: $ => kw('SET'),
-    kwSHARED: $ => kw('SHARED'),
-    kwSKIP: $ => kw('SKIP'),
-    kwSTATIC: $ => kw('STATIC'),
-    kwSTREAM: $ => kw('STREAM'),
-    // T
-    kwTABLE: $ => kw('TABLE'),
-    kwTABLE_HANDLE: $ => kw('TABLE-HANDLE'),
-    kwTEMP_TABLE: $ => kw('TEMP-TABLE'),
-    kwTHEN: $ => kw('THEN'),
-    kwTITLE: $ => kw('TITLE'),
-    kwTHIS_PROCEDURE: $ => kw('THIS-PROCEDURE'),
-    kwTHROW: $ => kw('THROW'),
-    kwTRUE: $ => kw('TRUE'),
-    // U
-    kwUNDO: $ => kw('UNDO'),
-    kwUNIQUE: $ => kw('UNIQUE'),
-    kwUPDATE: $ => kw('UPDATE'),
-    kwUSE_INDEX: $ => kw('USE-INDEX'),
-    kwUSE_WIDGET_POOL: $ => kw('USE-WIDGET-POOL'),
-    kwUSING: $ => kw('USING'),
-    // V
-    kwVALIDATE: $ => kw('VALIDATE'),
-    kwVARIABLE: $ => kw('VARIABLE'),
-    kwVIEW_AS: $ => kw('VIEW-AS'),
-    kwVOID: $ => kw('VOID'),
-    // W
-    kwWARNING: $ => kw('WARNING'),
-    kwWHEN: $ => kw('WHEN'),
-    kwWIDGET_HANDLE: $ => kw('WIDGET-HANDLE'),
-    kwWINDOW: $ => kw('WINDOW'),
-    kwWORD_INDEX: $ => kw('WORD-INDEX'),
-    // X
-    kwXML_NODE_NAME: $ => kw('XML-NODE-NAME'),
-    // Y
-    // Z 
-    kwYES_NO: $=> kw('YES-NO'),
-    kwYES_NO_CANCEL: $ => kw('YES-NO-CANCEL')
+  // Preprocessor
+  ppANALYZE_SUSPEND: _ => kw('&ANALYZE-SUSPEND'),
+  ppANALYZE_RESUME: _ => kw('&ANALYZE-RESUME'),
+  ppSCOPED_DEFINE: _ => kw('&SCOPED-DEFINE'),
+  ppIF: _ => kw('&IF'),
+  ppTHEN: _ => kw('&THEN'),
+  ppENDIF: _ => kw('&ENDIF'),
+
+  // A
+  kwABSTRACT: _ => kw('ABSTRACT'),
+  kwALERT_BOX: _ => kw('ALERT-BOX'),
+  kwAND: _ => kw('AND'),
+  kwANYWHERE: _ => kw('ANYWHERE'),
+  kwAPPEND: _ => kw('APPEND'),
+  kwAS: _ => kw('AS'),
+  kwASCENDING: _ => kw('ASCENDING'),
+  kwASSEMBLY: _ => kw('ASSEMBLY'),
+  kwASSIGN: _ => kw('ASSIGN'),
+  kwAUTO_RETURN: _ => kw('AUTO-RETURN'),
+
+  // B
+  kwBEFORE_TABLE: _ => kw('BEFORE-TABLE'),
+  kwBEGINS: _ => kw('BEGINS'),
+  kwBGCOLOR: _ => kw('BGCOLOR'),
+  kwBIND: _ => kw('BIND'),
+  kwBLOB: _ => kw('BLOB'),
+  kwBLOCK_LEVEL: _ => kw('BLOCK-LEVEL', 'BLOCK-LEV'),
+  kwBUFFER: _ => kw('BUFFER'),
+  kwBUTTONS: _ => kw('BUTTONS'),
+  kwBY_VALUE: _ => kw('BY-VALUE'),
+
+  // C
+  kwCHARACTER: _ => kw('CHARACTER'),
+  kwCLASS: _ => kw('CLASS'),
+  kwCLOB: _ => kw('CLOB'),
+  kwCOM_HANDLE: _ => kw('COM-HANDLE'),
+  kwCREATE: _ => kw('CREATE'),
+
+  // D
+  kwDATASET: _ => kw('DATASET'),
+  kwDATASET_HANDLE: _ => kw('DATASET-HANDLE'),
+  kwDATE: _ => kw('DATE'),
+  kwDATETIME: _ => kw('DATETIME'),
+  kwDATETIME_TZ: _ => kw('DATETIME-TZ'),
+  kwDECIMAL: _ => kw('DECIMAL'),
+  kwDEFINE: _ => kw('DEFINE'),
+  kwDESCENDING: _ => kw('DESCENDING'),
+  kwDO: _ => kw('DO'),
+
+  // E
+  kwELSE: _ => kw('ELSE'),
+  kwEMPTY: _ => kw('EMPTY'),
+  kwEND: _ => kw('END'),
+  kwENTRY: _ => kw('ENTRY'),
+  kwEQ: _ => kw('EQ'),
+  kwERROR: _ => kw('ERROR'),
+  kwEVENT: _ => kw('EVENT'),
+  kwEXTENT: _ => kw('EXTENT'),
+
+  // F
+  kwFALSE: _ => kw('FALSE'),
+  kwFIELD: _ => kw('FIELD'),
+  kwFILE: _ => kw('FILE'),
+  kwFINAL: _ => kw('FINAL'),
+  kwFOR: _ => kw('FOR'),
+  kwFORMAT: _ => kw('FORMAT'),
+  kwFORWARD: _ => kw('FORWARD'),
+  kwFROM: _ => kw('FROM'),
+  kwFUNCTION: _ => kw('FUNCTION'),
+
+  // G
+  kwGE: _ => kw('GE'),
+  kwGET: _ => kw('GET'),
+  kwGLOBAL: _ => kw('GLOBAL'),
+  kwGT: _ => kw('GT'),
+
+  // H
+  kwHANDLE: _ => kw('HANDLE'),
+
+  // I
+  kwIF: _ => kw('IF'),
+  kwIMPLEMENTS: _ => kw('IMPLEMENTS'),
+  kwIN: _ => kw('IN'),
+  kwINDEX: _ => kw('INDEX'),
+  kwINFORMATION: _ => kw('INFORMATION'),
+  kwINHERITS: _ => kw('INHERITS'),
+  kwINITIAL: _ => kw('INITIAL'),
+  kwINPUT: _ => kw('INPUT'),
+  kwINPUT_OUTPUT: _ => kw('INPUT-OUTPUT'),
+  kwINT64: _ => kw('INT64'),
+  kwINTEGER: _ => kw('INTEGER'),
+  kwINTERFACE: _ => kw('INTERFACE'),
+  kwIS: _ => kw('IS'),
+
+  // J
+
+  // K
+
+  // L
+  kwLABEL: _ => kw('LABEL'),
+  kwLE: _ => kw('LE'),
+  kwLIKE: _ => kw('LIKE'),
+  kwLIKE_SEQUENTIAL: _ => kw('LIKE-SEQUENTIAL'),
+  kwLOGICAL: _ => kw('LOGICAL'),
+  kwLONGCHAR: _ => kw('LONGCHAR'),
+  kwLT: _ => kw('LT'),
+
+  // M
+  kwMATCHES: _ => kw('MATCHES'),
+  kwMEMPTR: _ => kw('MEMPTR'),
+  kwMESSAGE: _ => kw('MESSAGE'),
+  kwMETHOD: _ => kw('METHOD'),
+
+  // N
+  kwNAMESPACE_PREFIX: _ => kw('NAMESPACE-PREFIX'),
+  kwNAMESPACE_URI: _ => kw('NAMESPACE-URI'),
+  kwNE: _ => kw('NE'),
+  kwNEW: _ => kw('NEW'),
+  kwNON_SERIALIZABLE: _ => ('NON-SERIALIZABLE'),
+  kwNOT: _ => kw('NOT'),
+  kwNO_APPLY: _ => kw('NO-APPLY'),
+  kwNO_ERROR: _ => kw('NO-ERROR'),
+  kwNO_UNDO: _ => kw('NO-UNDO'),
+  kwNULL: _ => kw('NULL'),
+
+  // O
+  kwOF: _ => kw('OF'),
+  kwOK: _ => kw('OK'),
+  kwOK_CANCEL: _ => kw('OK-CANCEL'),
+  kwOLD: _ => kw('OLD'),
+  kwON: _ => kw('ON'),
+  kwOR: _ => kw('OR'),
+  kwOUTPUT: _ => kw('OUTPUT'),
+  kwOVERRIDE: _ => kw('OVERRIDE'),
+
+  // P
+  kwPARAMETER: _ => kw('PARAMETER'),
+  kwPERSISTENT: _ => kw('PERSISTENT'),
+  kwPRESELECT: _ => kw('PRESELECT'),
+  kwPRIMARY: _ => kw('PRIMARY'),
+  kwPRIVATE: _ => kw('PRIVATE'),
+  kwPROCEDURE: _ => kw('PROCEDURE'),
+  kwPROPATH: _ => kw('PROPATH'),
+  kwPROPERTY: _ => kw('PROPERTY'),
+  kwPROTECTED: _ => kw('PROTECTED'),
+  kwPUBLIC: _ => kw('PUBLIC'),
+
+  // Q
+  kwQUESTION: _ => kw('QUESTION'),
+
+  // R
+  kwRAW: _ => kw('RAW'),
+  kwRCODE_INFORMATION: _ => kw('RCODE-INFORMATION'),
+  kwRECID: _ => kw('RECID'),
+  kwREFERENCE_ONLY: _ => kw('REFERENCE-ONLY'),
+  kwREPLACE: _ => kw('REPLACE'),
+  kwRETRY_CANCEL: _ => kw('RETRY-CANCEL'),
+  kwRETURN: _ => kw('RETURN'),
+  kwRETURNS: _ => kw('RETURNS'),
+  kwREVERT: _ => kw('REVERT'),
+  kwROUTINE_LEVEL: _ => kw('ROUTINE-LEVEL'),
+  kwROWID: _ => kw('ROWID'),
+  kwRUN: _ => kw('RUN'),
+
+  // S
+  kwSELF: _ => kw('SELF'),
+  kwSERIALIZABLE: _ => kw('SERIALIZABLE'),
+  kwSERIALIZE_NAME: _ => kw('SERIALIZE-NAME'),
+  kwSET: _ => kw('SET'),
+  kwSHARED: _ => kw('SHARED'),
+  kwSKIP: _ => kw('SKIP'),
+  kwSTATIC: _ => kw('STATIC'),
+  kwSTREAM: _ => kw('STREAM'),
+
+  // T
+  kwTABLE: _ => kw('TABLE'),
+  kwTABLE_HANDLE: _ => kw('TABLE-HANDLE'),
+  kwTARGET_PROCEDURE: _ => kw('TARGET-PROCEDURE'),
+  kwTEMP_TABLE: _ => kw('TEMP-TABLE'),
+  kwTHEN: _ => kw('THEN'),
+  kwTHIS_OBJECT: _ => kw('THIS-OBJECT'),
+  kwTHIS_PROCEDURE: _ => kw('THIS-PROCEDURE'),
+  kwTHROW: _ => kw('THROW'),
+  kwTITLE: _ => kw('TITLE'),
+  kwTRUE: _ => kw('TRUE'),
+
+  // U
+  kwUNDO: _ => kw('UNDO'),
+  kwUNIQUE: _ => kw('UNIQUE'),
+  kwUPDATE: _ => kw('UPDATE'),
+  kwUSE_INDEX: _ => kw('USE-INDEX'),
+  kwUSE_WIDGET_POOL: _ => kw('USE-WIDGET-POOL'),
+  kwUSING: _ => kw('USING'),
+
+  // V
+  kwVALIDATE: _ => kw('VALIDATE'),
+  kwVALUE: _ => kw('VALUE'),
+  kwVARIABLE: _ => kw('VARIABLE'),
+  kwVIEW_AS: _ => kw('VIEW-AS'),
+  kwVOID: _ => kw('VOID'),
+
+  // W
+  kwWARNING: _ => kw('WARNING'),
+  kwWHEN: _ => kw('WHEN'),
+  kwWIDGET_HANDLE: _ => kw('WIDGET-HANDLE'),
+  kwWINDOW: _ => kw('WINDOW'),
+  kwWORD_INDEX: _ => kw('WORD-INDEX'),
+
+  // X
+  kwXML_NODE_NAME: _ => kw('XML-NODE-NAME'),
+
+  // Y
+
+  // Z
+  kwYES_NO: _ => kw('YES-NO'),
+  kwYES_NO_CANCEL: _ => kw('YES-NO-CANCEL')
 }
 
 function kw(keyword, abbreviation = '') {
   // Should we care about mIxEdCaSe just caused me issues and slowed it down
   // TODO: Abbreviations :()
-	return choice(keyword.toUpperCase(), keyword.toLowerCase());
+  return choice(keyword.toUpperCase(), keyword.toLowerCase());
 }

@@ -4019,6 +4019,10 @@
     "named": false
   },
   {
+    "type": "ANYWHERE",
+    "named": false
+  },
+  {
     "type": "APPEND",
     "named": false
   },
@@ -4044,6 +4048,10 @@
   },
   {
     "type": "BEFORE-TABLE",
+    "named": false
+  },
+  {
+    "type": "BEGINS",
     "named": false
   },
   {
@@ -4299,6 +4307,10 @@
     "named": false
   },
   {
+    "type": "MATCHES",
+    "named": false
+  },
+  {
     "type": "MEMPTR",
     "named": false
   },
@@ -4347,11 +4359,19 @@
     "named": false
   },
   {
+    "type": "OF",
+    "named": false
+  },
+  {
     "type": "OK",
     "named": false
   },
   {
     "type": "OK-CANCEL",
+    "named": false
+  },
+  {
+    "type": "OLD",
     "named": false
   },
   {
@@ -4372,6 +4392,10 @@
   },
   {
     "type": "PARAMETER",
+    "named": false
+  },
+  {
+    "type": "PERSISTENT",
     "named": false
   },
   {
@@ -4443,11 +4467,23 @@
     "named": false
   },
   {
+    "type": "REVERT",
+    "named": false
+  },
+  {
     "type": "ROUTINE-LEVEL",
     "named": false
   },
   {
     "type": "ROWID",
+    "named": false
+  },
+  {
+    "type": "RUN",
+    "named": false
+  },
+  {
+    "type": "SELF",
     "named": false
   },
   {
@@ -4487,11 +4523,19 @@
     "named": false
   },
   {
+    "type": "TARGET-PROCEDURE",
+    "named": false
+  },
+  {
     "type": "TEMP-TABLE",
     "named": false
   },
   {
     "type": "THEN",
+    "named": false
+  },
+  {
+    "type": "THIS-OBJECT",
     "named": false
   },
   {
@@ -4536,6 +4580,10 @@
   },
   {
     "type": "VALIDATE",
+    "named": false
+  },
+  {
+    "type": "VALUE",
     "named": false
   },
   {
@@ -4591,6 +4639,14 @@
     "named": false
   },
   {
+    "type": "and",
+    "named": false
+  },
+  {
+    "type": "anywhere",
+    "named": false
+  },
+  {
     "type": "append",
     "named": false
   },
@@ -4616,6 +4672,10 @@
   },
   {
     "type": "before-table",
+    "named": false
+  },
+  {
+    "type": "begins",
     "named": false
   },
   {
@@ -4887,6 +4947,10 @@
     "named": false
   },
   {
+    "type": "matches",
+    "named": false
+  },
+  {
     "type": "memptr",
     "named": false
   },
@@ -4939,6 +5003,10 @@
     "named": true
   },
   {
+    "type": "of",
+    "named": false
+  },
+  {
     "type": "ok",
     "named": false
   },
@@ -4947,7 +5015,15 @@
     "named": false
   },
   {
+    "type": "old",
+    "named": false
+  },
+  {
     "type": "on",
+    "named": false
+  },
+  {
+    "type": "or",
     "named": false
   },
   {
@@ -4960,6 +5036,10 @@
   },
   {
     "type": "parameter",
+    "named": false
+  },
+  {
+    "type": "persistent",
     "named": false
   },
   {
@@ -5035,11 +5115,23 @@
     "named": false
   },
   {
+    "type": "revert",
+    "named": false
+  },
+  {
     "type": "routine-level",
     "named": false
   },
   {
     "type": "rowid",
+    "named": false
+  },
+  {
+    "type": "run",
+    "named": false
+  },
+  {
+    "type": "self",
     "named": false
   },
   {
@@ -5079,11 +5171,19 @@
     "named": false
   },
   {
+    "type": "target-procedure",
+    "named": false
+  },
+  {
     "type": "temp-table",
     "named": false
   },
   {
     "type": "then",
+    "named": false
+  },
+  {
+    "type": "this-object",
     "named": false
   },
   {
@@ -5128,6 +5228,10 @@
   },
   {
     "type": "validate",
+    "named": false
+  },
+  {
+    "type": "value",
     "named": false
   },
   {
