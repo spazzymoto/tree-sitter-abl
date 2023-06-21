@@ -15,6 +15,25 @@
     }
   },
   {
+    "type": "annotation_attribute",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "character_literal",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "annotation_statement",
     "named": true,
     "fields": {
@@ -35,15 +54,7 @@
             "named": false
           },
           {
-            "type": "=",
-            "named": false
-          },
-          {
-            "type": "character_literal",
-            "named": true
-          },
-          {
-            "type": "identifier",
+            "type": "annotation_attribute",
             "named": true
           }
         ]

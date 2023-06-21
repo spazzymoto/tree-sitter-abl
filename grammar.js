@@ -381,16 +381,26 @@ module.exports = grammar({
     // OpenEdge Language Statements
     //
 
-    annotation_statement: $ => seq(
+    annotation_attribute: $ => seq($.identifier, '=', $.character_literal),
+
+    annotation_statement: $ => prec(PREC.CALL+1, seq(
       '@',
       field('name', $._name),
-      optional(field('scope', $.kwFILE)),
-      optional(field('arguments', seq('(', commaSep1(seq($.identifier, '=', $.character_literal)), ')'))),
+      field('scope', optional($.kwFILE)),
+      field('arguments', optional(seq(
+        '(',
+        commaSep1($.annotation_attribute),
+        ')'
+      ))),
+      '.'
+    )),
+
+    assign_statement: $ => seq(
+      $.kwASSIGN,
+      repeat($.assignment_expression),
+      optional($.kwNO_ERROR),
       '.'
     ),
-
-    assign_statement: $ => seq($.kwASSIGN, repeat($.assignment_expression), optional($.kwNO_ERROR), '.'),
-
 
     block_level_statement: $ => seq($.kwBLOCK_LEVEL, $.kwON, $.kwERROR, $.kwUNDO, ',', $.kwTHROW, '.'),
 
@@ -437,7 +447,6 @@ module.exports = grammar({
       ),
       $.kwFOR,
       commaSep1($.identifier),
-
       '.'
     ),
 
