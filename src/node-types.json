@@ -1496,6 +1496,36 @@
     }
   },
   {
+    "type": "do_statement",
+    "named": true,
+    "fields": {
+      "label": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "code_block",
+          "named": true
+        },
+        {
+          "type": "kwDO",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "empty_statement",
     "named": true,
     "fields": {}
@@ -1990,6 +2020,11 @@
   },
   {
     "type": "kwDESCENDING",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "kwDO",
     "named": true,
     "fields": {}
   },
@@ -3353,6 +3388,10 @@
         },
         {
           "type": "define_stream_statement",
+          "named": true
+        },
+        {
+          "type": "do_statement",
           "named": true
         },
         {

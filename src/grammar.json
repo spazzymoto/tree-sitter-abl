@@ -1423,6 +1423,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "do_statement"
+        },
+        {
+          "type": "SYMBOL",
           "name": "empty_statement"
         },
         {
@@ -1527,6 +1531,19 @@
         {
           "type": "SYMBOL",
           "name": "kwEND"
+        }
+      ]
+    },
+    "_do_block": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "kwDO"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "code_block"
         }
       ]
     },
@@ -2458,6 +2475,35 @@
         {
           "type": "SYMBOL",
           "name": "identifier"
+        }
+      ]
+    },
+    "do_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "label",
+              "content": {
+                "type": "SYMBOL",
+                "name": "identifier"
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_do_block"
+        },
+        {
+          "type": "STRING",
+          "value": "."
         }
       ]
     },

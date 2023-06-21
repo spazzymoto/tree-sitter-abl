@@ -275,6 +275,7 @@ module.exports = grammar({
       $.define_dataset_statement,
       $.define_procedure_parameter_statement,
       $.define_stream_statement,
+      $.do_statement,
 
       $.empty_statement,
       $.empty_temp_table_statement,
@@ -311,6 +312,7 @@ module.exports = grammar({
     //
 
     code_block: $ => seq(':', repeat($.statement), $.kwEND),
+    _do_block: $ => seq($.kwDO, $.code_block),
 
     _parameter_list: $ => seq(
       '(',
@@ -453,6 +455,12 @@ module.exports = grammar({
       $._define_statement,
       $.kwSTREAM,
       $.identifier
+    ),
+
+    do_statement: $ => seq(
+      optional(field('label', $.identifier, ':')),
+      $._do_block,
+      '.'
     ),
 
     empty_temp_table_statement: $ => seq(
