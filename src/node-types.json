@@ -1753,19 +1753,7 @@
       "required": true,
       "types": [
         {
-          "type": "code_block",
-          "named": true
-        },
-        {
           "type": "expression",
-          "named": true
-        },
-        {
-          "type": "expression_statement",
-          "named": true
-        },
-        {
-          "type": "kwDO",
           "named": true
         },
         {
@@ -2002,11 +1990,6 @@
   },
   {
     "type": "kwDESCENDING",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "kwDO",
     "named": true,
     "fields": {}
   },

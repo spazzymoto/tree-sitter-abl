@@ -2529,7 +2529,7 @@
     },
     "if_then_else_statement": {
       "type": "PREC_RIGHT",
-      "value": 1,
+      "value": 0,
       "content": {
         "type": "SEQ",
         "members": [
@@ -2546,34 +2546,8 @@
             "name": "kwTHEN"
           },
           {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SEQ",
-                "members": [
-                  {
-                    "type": "SYMBOL",
-                    "name": "kwDO"
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "code_block"
-                  },
-                  {
-                    "type": "STRING",
-                    "value": "."
-                  }
-                ]
-              },
-              {
-                "type": "SYMBOL",
-                "name": "statement"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "expression_statement"
-              }
-            ]
+            "type": "SYMBOL",
+            "name": "statement"
           },
           {
             "type": "CHOICE",
@@ -2586,34 +2560,8 @@
                     "name": "kwELSE"
                   },
                   {
-                    "type": "CHOICE",
-                    "members": [
-                      {
-                        "type": "SEQ",
-                        "members": [
-                          {
-                            "type": "SYMBOL",
-                            "name": "kwDO"
-                          },
-                          {
-                            "type": "SYMBOL",
-                            "name": "code_block"
-                          },
-                          {
-                            "type": "STRING",
-                            "value": "."
-                          }
-                        ]
-                      },
-                      {
-                        "type": "SYMBOL",
-                        "name": "statement"
-                      },
-                      {
-                        "type": "SYMBOL",
-                        "name": "expression_statement"
-                      }
-                    ]
+                    "type": "SYMBOL",
+                    "name": "statement"
                   }
                 ]
               },

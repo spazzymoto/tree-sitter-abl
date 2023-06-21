@@ -53,7 +53,7 @@ module.exports = grammar({
       )
     ),
 
-    line_comment: $ => seq('//', /[^\n]*/),
+    line_comment: _ => seq('//', /[^\n]*/),
 
     //
     // Literals
@@ -87,7 +87,7 @@ module.exports = grammar({
 
     unknown_literal: _ => '?',
 
-    identifier: $ => /[a-zA-Z_]\w*/,
+    identifier: _ => /[a-zA-Z_]\w*/,
 
     _name: $ => choice(
       $.identifier,
@@ -304,7 +304,7 @@ module.exports = grammar({
       seq($.assignment_expression, '.')
     ),
 
-    empty_statement: $ => '.',
+    empty_statement: _ => '.',
 
     //
     // Statement Components
@@ -473,33 +473,26 @@ module.exports = grammar({
       '.'
     ),
 
-    if_then_else_statement: $ => prec.right(PREC.ASSIGNMENT, seq(
+    if_then_else_statement: $ => prec.right(seq(
       $.kwIF,
       $.expression,
       $.kwTHEN,
-      choice(
-        seq($.kwDO, $.code_block, '.'),
-        $.statement,
-        $.expression_statement
-      ),
+      $.statement,
       optional(
         seq(
           $.kwELSE,
-          choice(
-            seq($.kwDO, $.code_block, '.'),
-            $.statement,
-            $.expression_statement
-          )
+          $.statement,
         )
       )
     )),
 
-    message_statement: $ => /* prec.left(PREC.PARENS, */ seq(
+    message_statement: $ => seq(
       $.kwMESSAGE,
       repeat(choice($.expression, $.kwSKIP)),
       repeat(
         choice(
-          seq($.kwVIEW_AS,
+          seq(
+            $.kwVIEW_AS,
             $.kwALERT_BOX,
             optional(choice($.kwMESSAGE, $.kwQUESTION, $.kwINFORMATION, $.kwERROR, $.kwWARNING)),
             optional(seq($.kwBUTTONS, choice($.kwYES_NO, $.kwYES_NO_CANCEL, $.kwOK, $.kwOK_CANCEL, $.kwRETRY_CANCEL))),
@@ -520,7 +513,7 @@ module.exports = grammar({
         )
       ),
       '.'
-    /*) */),
+    ),
 
     procedure_statement: $ => seq(
       $.kwPROCEDURE,
@@ -594,7 +587,13 @@ module.exports = grammar({
       '.'
     ),
 
-    using_statement: $ => seq($.kwUSING, $._name, optional(seq('.', '*')), optional(seq($.kwFROM, choice($.kwASSEMBLY, $.kwPROPATH))), '.'),
+    using_statement: $ => seq(
+      $.kwUSING,
+      $._name,
+      optional(seq('.', '*')),
+      optional(seq($.kwFROM, choice($.kwASSEMBLY, $.kwPROPATH))),
+      '.'
+    ),
 
     variable_statement: $ => seq(
       $._define_statement,
