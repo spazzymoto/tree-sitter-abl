@@ -13,7 +13,6 @@ MESSAGE "Test":U.
 	  (expression
 	    (primary_expression
 	      (character_literal
-	        (string_literal)
 	        (string_modifier)))))))
 
 ======================
@@ -31,13 +30,12 @@ MESSAGE "Test":U SKIP cTest.
 	  (expression
 	    (primary_expression
 	      (character_literal
-	        (string_literal)
 	        (string_modifier))))
 	  (kwSKIP)
 	  (expression
 	    (primary_expression
     	  (identifier))))))
-		
+
 =========================
 message statement complex
 =========================
@@ -57,7 +55,6 @@ MESSAGE cTest SKIP "oh dear":U VIEW-AS ALERT-BOX WARNING BUTTONS YES-NO-CANCEL T
 	  (expression
 	    (primary_expression
 	      (character_literal
-	        (string_literal)
 	        (string_modifier))))
 	  (kwVIEW_AS)
 	  (kwALERT_BOX)
@@ -66,5 +63,4 @@ MESSAGE cTest SKIP "oh dear":U VIEW-AS ALERT-BOX WARNING BUTTONS YES-NO-CANCEL T
 	  (kwYES_NO_CANCEL)
 	  (kwTITLE)
 	  (character_literal
-      (string_literal)
       (string_modifier)))))

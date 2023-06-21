@@ -24,12 +24,10 @@ ASSIGN ENTRY(1, cFile, "/":U) = "":U.
               (expression
                 (primary_expression
                   (character_literal
-                    (string_literal)
                     (string_modifier)))))))
         (expression
           (primary_expression
             (character_literal
-              (string_literal)
               (string_modifier))))))))
 
 =================
@@ -51,7 +49,6 @@ ASSIGN
         (expression
           (primary_expression
             (character_literal
-              (string_literal)
               (string_modifier)))))
       (assignment_expression
         (identifier)
@@ -100,7 +97,6 @@ ASSIGN cTest = "value":U WHEN TRUE.
         (expression
           (primary_expression
             (character_literal
-              (string_literal)
               (string_modifier))))
         (kwWHEN)
         (expression

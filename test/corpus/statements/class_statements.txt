@@ -2,9 +2,9 @@
 class statement
 ===============
 
-CLASS package.implementation IMPLEMENTS a.b.c, d.e.f 
+CLASS package.implementation IMPLEMENTS a.b.c, d.e.f
                              INHERITS superclass
-							 FINAL 
+							 FINAL
 							 USE-WIDGET-POOL:
 
 END CLASS.
@@ -65,9 +65,9 @@ define property statement
 =========================
 
 CLASS test:
-  DEFINE PUBLIC PROPERTY Test AS CHARACTER INITIAL "":U SERIALIZE-NAME "test":U NO-UNDO 
+  DEFINE PUBLIC PROPERTY Test AS CHARACTER INITIAL "":U SERIALIZE-NAME "test":U NO-UNDO
   GET():
-  
+
   END GET.
   SET(INPUT ipcValue AS CHARACTER):
 
@@ -91,11 +91,9 @@ END CLASS.
           (kwCHARACTER))
         (kwINITIAL)
         (character_literal
-          (string_literal)
           (string_modifier))
         (kwSERIALIZE_NAME)
         (character_literal
-          (string_literal)
           (string_modifier))
         (kwNO_UNDO)
         (kwGET)
@@ -149,7 +147,7 @@ END CLASS.
         (kwMETHOD))
       (kwEND)
       (kwCLASS))))
-  
+
 ===================
 interface statement
 ===================
@@ -222,7 +220,7 @@ END INTERFACE.
         (identifier))
       (kwEND)
       (kwINTERFACE))))
-  
+
 ============================
 interface property prototype
 ============================

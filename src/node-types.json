@@ -355,12 +355,16 @@
     "named": true,
     "fields": {
       "literal": {
-        "multiple": false,
+        "multiple": true,
         "required": true,
         "types": [
           {
-            "type": "string_literal",
-            "named": true
+            "type": "\"",
+            "named": false
+          },
+          {
+            "type": "'",
+            "named": false
           }
         ]
       },
@@ -1213,11 +1217,11 @@
             "named": true
           },
           {
-            "type": "null_literal",
+            "type": "true",
             "named": true
           },
           {
-            "type": "true",
+            "type": "unknown_literal",
             "named": true
           }
         ]
@@ -2407,6 +2411,11 @@
     "fields": {}
   },
   {
+    "type": "kwSELF",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "kwSERIALIZABLE",
     "named": true,
     "fields": {}
@@ -2452,12 +2461,22 @@
     "fields": {}
   },
   {
+    "type": "kwTARGET_PROCEDURE",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "kwTEMP_TABLE",
     "named": true,
     "fields": {}
   },
   {
     "type": "kwTHEN",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "kwTHIS_OBJECT",
     "named": true,
     "fields": {}
   },
@@ -2987,6 +3006,18 @@
           "named": true
         },
         {
+          "type": "kwSELF",
+          "named": true
+        },
+        {
+          "type": "kwTARGET_PROCEDURE",
+          "named": true
+        },
+        {
+          "type": "kwTHIS_OBJECT",
+          "named": true
+        },
+        {
           "type": "kwTHIS_PROCEDURE",
           "named": true
         },
@@ -2995,15 +3026,15 @@
           "named": true
         },
         {
-          "type": "null_literal",
-          "named": true
-        },
-        {
           "type": "property_access",
           "named": true
         },
         {
           "type": "true",
+          "named": true
+        },
+        {
+          "type": "unknown_literal",
           "named": true
         }
       ]
@@ -3397,16 +3428,6 @@
     }
   },
   {
-    "type": "string_literal",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "string_modifier",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "temp_table_statement",
     "named": true,
     "fields": {
@@ -3743,11 +3764,11 @@
             "named": true
           },
           {
-            "type": "null_literal",
+            "type": "true",
             "named": true
           },
           {
-            "type": "true",
+            "type": "unknown_literal",
             "named": true
           }
         ]
@@ -4000,10 +4021,6 @@
   },
   {
     "type": ":",
-    "named": false
-  },
-  {
-    "type": ":U",
     "named": false
   },
   {
@@ -5027,10 +5044,6 @@
     "named": false
   },
   {
-    "type": "null_literal",
-    "named": true
-  },
-  {
     "type": "of",
     "named": false
   },
@@ -5191,6 +5204,10 @@
     "named": false
   },
   {
+    "type": "string_modifier",
+    "named": true
+  },
+  {
     "type": "table",
     "named": false
   },
@@ -5237,6 +5254,10 @@
   {
     "type": "unique",
     "named": false
+  },
+  {
+    "type": "unknown_literal",
+    "named": true
   },
   {
     "type": "update",

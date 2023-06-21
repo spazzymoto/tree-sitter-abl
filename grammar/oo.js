@@ -1,4 +1,4 @@
-const {any, sep1, commaSep, commaSep1} = require('./helper');
+const { commaSep1 } = require('./helper');
 
 module.exports = {
   _type_list: $ => commaSep1($._name),
@@ -45,13 +45,13 @@ module.exports = {
   // Class, Interface, Enum Members
 
   define_event_prototype: $ => eventWith($),
-  
+
   define_event_statement: $ => eventWith($),
 
   method_prototype: $ => methodWith($,
     optional($.kwPUBLIC)
   ),
-  
+
   method_statement: $ => methodWith($,
     repeat(
       choice(
@@ -86,12 +86,12 @@ module.exports = {
     ),
     repeat(
       seq(
-        optional(choice($.kwPRIVATE, $.kwPROTECTED, $.kwPUBLIC)), 
-        choice($.kwGET, $.kwSET), 
+        optional(choice($.kwPRIVATE, $.kwPROTECTED, $.kwPUBLIC)),
+        choice($.kwGET, $.kwSET),
         optional(
           seq(
-            $._parameter_list, 
-            $.code_block, 
+            $._parameter_list,
+            $.code_block,
             optional(choice($.kwGET, $.kwSET))
           )
         ),
@@ -99,7 +99,7 @@ module.exports = {
       )
     )
   )
-  
+
 }
 
 function eventWith($) {
@@ -125,7 +125,7 @@ function methodWith($, modifiers, body = '.') {
     ),
     $.identifier,
     '(',
-      // TODO: parameter list
+    // TODO: parameter list
     ')',
     body
   )

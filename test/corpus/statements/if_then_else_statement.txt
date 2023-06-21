@@ -2,7 +2,7 @@
 if ... then ... else statement
 ==============================
 
-IF 1 < 2 
+IF 1 < 2
 THEN
   cValue = "true":U.
 ELSE
@@ -29,7 +29,6 @@ ELSE
           (expression
             (primary_expression
               (character_literal
-                (string_literal)
                 (string_modifier))))))
       (kwELSE)
       (expression_statement
@@ -38,5 +37,4 @@ ELSE
           (expression
             (primary_expression
               (character_literal
-                (string_literal)
                 (string_modifier)))))))))

@@ -40,7 +40,7 @@ RETURN ERROR.
     (return_statement
 	  (kwRETURN)
 	  (kwERROR))))
-	
+
 ============================
 return error value statement
 ============================
@@ -57,5 +57,4 @@ RETURN ERROR "whoops":U.
 	  (expression
 	    (primary_expression
 		  (character_literal
-        (string_literal)
         (string_modifier)))))))
