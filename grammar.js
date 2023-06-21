@@ -1,31 +1,27 @@
-const {any, sep1, commaSep, commaSep1} = require('./grammar/helper');
+const { sep1, commaSep, commaSep1 } = require('./grammar/helper');
 
 const DIGITS = token(sep1(/[0-9]+/, /_+/));
 
 const PREC = {
-  COMMENT: 0,      // //  /*  */
-  ASSIGN: 1,       // =  += -=  *=  /= 
-  DECL: 2,
-  ELEMENT_VAL: 2,
-  TERNARY: 3,      // ?:
-  OR: 4,           // ||
-  AND: 5,          // &&
-  BIT_OR: 6,       // |
-  BIT_XOR: 7,      // ^
-  BIT_AND: 8,      // &
-  EQUALITY: 9,     // ==  !=
-  GENERIC: 10,
-  REL: 10,         // <  <=  >  >=  instanceof
-  SHIFT: 11,       // <<  >>  >>>
-  ADD: 12,         // +  -
-  MULT: 13,        // *  /  %
-  CAST: 14,        // (Type)
-  OBJ_INST: 14,    // new
-  UNARY: 15,       // ++a  --a  a++  a--  +  -  !  ~
-  ARRAY: 16,       // [Index]
-  OBJ_ACCESS: 16,  // .
-  PARENS: 16,      // (Expression)
-  CLASS_LITERAL: 17,  // .
+  DEFAULT: 0,
+  ASSIGNMENT: 1,   // =  += -=  *=  /=
+  LOGICAL_OR: 2,    // ||
+  LOGICAL_AND: 3,   // &&
+  BIT_OR: 4,        // |
+  BIT_XOR: 5,       // ^
+  BIT_AND: 6,       // &
+  EQUALITY: 7,      // ==  !=
+  RELATIONAL: 8,    // <  <=  >  >=  instanceof
+  SHIFT: 9,        // <<  >>  >>>
+  ADD: 10,          // +  -
+  MULTIPLY: 11,     // *  /  %
+  CAST: 12,         // (Type)
+  UNARY: 13,        // ++a  --a  a++  a--  +  -  !  ~
+  CALL: 14,         // ()
+  NEW: 15,          // NEW
+  FIELD: 16,        // .
+  MEMBER: 17,       // :
+  SUBSCRIPT: 18,    // [index]
 };
 
 const _keywords = require('./grammar/keywords');
@@ -39,7 +35,7 @@ module.exports = grammar({
     $.block_comment,
     $.preprocessor,
   ],
-    
+
   extras: $ => [
     $.line_comment,
     $.block_comment,
@@ -71,7 +67,7 @@ module.exports = grammar({
     decimal_integer_literal: $ => token(DIGITS),
 
     true: $ => $.kwTRUE,
-    
+
     false: $ => $.kwFALSE,
 
     character_literal: $ => seq(
@@ -80,14 +76,14 @@ module.exports = grammar({
     ),
 
     string_literal: $ => choice(
-      seq("'",repeat(choice(/[^~'\n]/, /~(.|\n)/)), "'"),
-      seq('"',repeat(choice(/[^~"\n]/, /~(.|\n)/)), '"'),
+      seq("'", repeat(choice(/[^~'\n]/, /~(.|\n)/)), "'"),
+      seq('"', repeat(choice(/[^~"\n]/, /~(.|\n)/)), '"'),
     ),
 
     string_modifier: $ => choice(
       ':U'
     ),
-    
+
     null_literal: $ => '?',
 
     // Types
@@ -117,7 +113,7 @@ module.exports = grammar({
     ),
 
     // Expressions
-   
+
     expression: $ => choice(
       $.binary_expression,
       $.primary_expression,
@@ -139,27 +135,30 @@ module.exports = grammar({
 
     binary_expression: $ => choice(
       ...[
-        
-        [$.kwGT, PREC.REL],
-        [$.kwLT, PREC.REL],
-        [$.kwGE, PREC.REL],
-        [$.kwLE, PREC.REL],
-        ['>', PREC.REL],
-        ['<', PREC.REL],
-        ['>=', PREC.REL],
-        ['<=', PREC.REL],
-        
+
+        [$.kwBEGINS, PREC.RELATIONAL],
+        [$.kwMATCHES, PREC.RELATIONAL],
+        [$.kwGT, PREC.RELATIONAL],
+        [$.kwLT, PREC.RELATIONAL],
+        [$.kwGE, PREC.RELATIONAL],
+        [$.kwLE, PREC.RELATIONAL],
+        ['>', PREC.RELATIONAL],
+        ['<', PREC.RELATIONAL],
+        ['>=', PREC.RELATIONAL],
+        ['<=', PREC.RELATIONAL],
+
         [$.kwEQ, PREC.EQUALITY],
         [$.kwNE, PREC.EQUALITY],
         ['=', PREC.EQUALITY],
         ['<>', PREC.EQUALITY],
-        
-        ['AND', PREC.AND],
-        ['OR', PREC.OR],
+
+        [$.kwAND, PREC.LOGICAL_AND],
+        [$.kwOR, PREC.LOGICAL_OR],
         ['+', PREC.ADD],
         ['-', PREC.ADD],
-        ['*', PREC.MULT],
-        ['/', PREC.MULT],
+        ['*', PREC.MULTIPLY],
+        ['/', PREC.MULTIPLY],
+
       ].map(([operator, precedence]) =>
         prec.left(precedence, seq(
           field('left', $.expression),
@@ -169,7 +168,7 @@ module.exports = grammar({
       )
     ),
 
-    assignment_expression: $ => prec.right(PREC.ASSIGN, seq(
+    assignment_expression: $ => prec.right(PREC.ASSIGNMENT, seq(
       field('left', choice(
         $.identifier,
         $.pseudo_function,
@@ -197,10 +196,10 @@ module.exports = grammar({
     ),
 
     pseudo_function: $ => choice(
-      $.entry_function 
+      $.entry_function
     ),
 
-    property_access: $ => prec.dynamic(PREC.OBJ_ACCESS, seq(
+    property_access: $ => prec.dynamic(PREC.MEMBER, seq(
       field('object', $.primary_expression),
       ':',
       field('field', $.identifier)
@@ -225,22 +224,22 @@ module.exports = grammar({
     // Functions
 
     entry_function: $ => seq($.kwENTRY, $.argument_list),
-    
+
     replace_function: $ => seq($.kwREPLACE, $.argument_list),
-    
+
     // Statements
 
     statement: $ => choice(
       $.annotation_statement,
-     
+
       $.assign_statement,
-      
+
       $.block_level_statement,
 
 
       $.class_statement,
       $.create_statement,
-      
+
       $.define_buffer_statement,
       $.define_dataset_statement,
       $.define_procedure_parameter_statement,
@@ -254,16 +253,16 @@ module.exports = grammar({
 
       $.if_then_else_statement,
       $.interface_statement,
-      
+
       $.message_statement,
 
       $.procedure_statement,
-      
+
       $.return_statement,
       $.routine_level_statement,
 
       $.temp_table_statement,
-      
+
       $.using_statement,
 
       $.variable_statement
@@ -285,7 +284,7 @@ module.exports = grammar({
       $.scoped_identifier
     ),
 
-    scoped_identifier: $ => prec(PREC.OBJ_ACCESS, seq(
+    scoped_identifier: $ => prec(PREC.FIELD, seq(
       field('scope', $._name),
       '.',
       field('name', $.identifier)
@@ -334,8 +333,8 @@ module.exports = grammar({
     ),
 
     _define_statement: $ => seq(
-       $.kwDEFINE,
-       repeat(
+      $.kwDEFINE,
+      repeat(
         choice(
           seq(optional(seq($.kwNEW, optional($.kwGLOBAL))), $.kwSHARED),
           choice($.kwPUBLIC, $.kwPROTECTED, $.kwPRIVATE),
@@ -347,7 +346,7 @@ module.exports = grammar({
     ),
 
     _datatype: $ => field('type', seq(choice($.primitive_type, seq(optional($.kwCLASS), $._name)), optional(seq($.kwEXTENT, $.decimal_integer_literal)))),
-    _as_datatype: $ => prec.right(PREC.ASSIGN, seq($.kwAS, $._datatype)),
+    _as_datatype: $ => prec.right(PREC.ASSIGNMENT, seq($.kwAS, $._datatype)),
     _format: $ => seq($.kwFORMAT, field('format', $.character_literal)),
     _initial: $ => seq($.kwINITIAL, field('initial', $._literal)),
     _label: $ => seq($.kwLABEL, field('label', $.character_literal)),
@@ -369,7 +368,7 @@ module.exports = grammar({
 
     assign_statement: $ => seq($.kwASSIGN, repeat($.assignment_expression), optional($.kwNO_ERROR), '.'),
 
-  
+
     block_level_statement: $ => seq($.kwBLOCK_LEVEL, $.kwON, $.kwERROR, $.kwUNDO, ',', $.kwTHROW, '.'),
 
     create_statement: $ => seq(
@@ -453,7 +452,7 @@ module.exports = grammar({
       '.'
     ),
 
-    if_then_else_statement: $ => prec.right(PREC.ASSIGN, seq(
+    if_then_else_statement: $ => prec.right(PREC.ASSIGNMENT, seq(
       $.kwIF,
       $.expression,
       $.kwTHEN,
@@ -479,11 +478,11 @@ module.exports = grammar({
       repeat(choice($.expression, $.kwSKIP)),
       repeat(
         choice(
-          seq($.kwVIEW_AS, 
-              $.kwALERT_BOX, 
-              optional(choice($.kwMESSAGE, $.kwQUESTION, $.kwINFORMATION, $.kwERROR, $.kwWARNING)),
-              optional(seq($.kwBUTTONS, choice($.kwYES_NO, $.kwYES_NO_CANCEL, $.kwOK, $.kwOK_CANCEL, $.kwRETRY_CANCEL))),
-              optional(seq($.kwTITLE, $.character_literal))
+          seq($.kwVIEW_AS,
+            $.kwALERT_BOX,
+            optional(choice($.kwMESSAGE, $.kwQUESTION, $.kwINFORMATION, $.kwERROR, $.kwWARNING)),
+            optional(seq($.kwBUTTONS, choice($.kwYES_NO, $.kwYES_NO_CANCEL, $.kwOK, $.kwOK_CANCEL, $.kwRETRY_CANCEL))),
+            optional(seq($.kwTITLE, $.character_literal))
           ),
           seq(
             choice($.kwSET, $.kwUPDATE),
@@ -521,7 +520,7 @@ module.exports = grammar({
       ),
       '.'
     ),
-    
+
     routine_level_statement: $ => seq($.kwROUTINE_LEVEL, $.kwON, $.kwERROR, $.kwUNDO, ',', $.kwTHROW, '.'),
 
     temp_table_statement: $ => seq(
@@ -544,8 +543,8 @@ module.exports = grammar({
       ),
       repeat(
         seq(
-          $.kwFIELD, 
-          $.identifier, 
+          $.kwFIELD,
+          $.identifier,
           choice($._as_datatype, seq($.kwLIKE, $.identifier, optional($.kwVALIDATE))),
           repeat(
             choice(
@@ -557,18 +556,18 @@ module.exports = grammar({
       ),
       repeat(
         seq(
-          $.kwINDEX, 
-          $.identifier, 
+          $.kwINDEX,
+          $.identifier,
           repeat(
             choice(
               choice($.kwAS, $.kwIS),
               $.kwUNIQUE,
               $.kwPRIMARY,
-              $.kwWORD_INDEX 
-            ) 
+              $.kwWORD_INDEX
+            )
           ),
           $.identifier,
-          optional(choice($.kwASCENDING, $.kwDESCENDING)) 
+          optional(choice($.kwASCENDING, $.kwDESCENDING))
         )
       ),
       '.'

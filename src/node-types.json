@@ -251,12 +251,12 @@
             "named": false
           },
           {
-            "type": "AND",
-            "named": false
+            "type": "kwAND",
+            "named": true
           },
           {
-            "type": "OR",
-            "named": false
+            "type": "kwBEGINS",
+            "named": true
           },
           {
             "type": "kwEQ",
@@ -279,7 +279,15 @@
             "named": true
           },
           {
+            "type": "kwMATCHES",
+            "named": true
+          },
+          {
             "type": "kwNE",
+            "named": true
+          },
+          {
+            "type": "kwOR",
             "named": true
           }
         ]
@@ -1854,6 +1862,11 @@
     "fields": {}
   },
   {
+    "type": "kwAND",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "kwAPPEND",
     "named": true,
     "fields": {}
@@ -1885,6 +1898,11 @@
   },
   {
     "type": "kwBEFORE_TABLE",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "kwBEGINS",
     "named": true,
     "fields": {}
   },
@@ -2199,6 +2217,11 @@
     "fields": {}
   },
   {
+    "type": "kwMATCHES",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "kwMEMPTR",
     "named": true,
     "fields": {}
@@ -2265,6 +2288,11 @@
   },
   {
     "type": "kwON",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "kwOR",
     "named": true,
     "fields": {}
   },
