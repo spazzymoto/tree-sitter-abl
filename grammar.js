@@ -40,7 +40,7 @@ module.exports = grammar({
     $.line_comment,
     $.block_comment,
     $.preprocessor,
-    /\s/,
+    /\s|\\\r?\n/,
   ],
 
 
