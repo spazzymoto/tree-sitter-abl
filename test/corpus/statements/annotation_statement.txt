@@ -63,12 +63,13 @@ annotation with scope and attributes
           (identifier))
         (identifier))
       (kwFILE)
-      (annotation_attribute
-        (identifier)
-        (character_literal))
-      (annotation_attribute
-        (identifier)
-        (character_literal)))))
+      (annotation_attribute_list
+        (annotation_attribute
+          (identifier)
+          (character_literal))
+        (annotation_attribute
+          (identifier)
+          (character_literal))))))
 
 ====================================
 annotation and attributes
@@ -86,9 +87,10 @@ annotation and attributes
           (identifier)
           (identifier))
         (identifier))
-      (annotation_attribute
-        (identifier)
-        (character_literal))
-      (annotation_attribute
-        (identifier)
-        (character_literal)))))
+      (annotation_attribute_list
+        (annotation_attribute
+          (identifier)
+          (character_literal))
+        (annotation_attribute
+          (identifier)
+          (character_literal))))))

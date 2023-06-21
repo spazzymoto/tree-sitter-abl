@@ -39,9 +39,12 @@ define temp-table statement
 ===========================
 
 DEFINE TEMP-TABLE ttTempTable NO-UNDO SERIALIZE-NAME "temp-table":U
-  FIELD cFieldOne AS CHARACTER            SERIALIZE-NAME "field-one":U
-  FIELD oFieldTwo AS Progress.Lang.Object SERIALIZE-NAME "field-two":U
-  INDEX cFieldOne AS PRIMARY DESCENDING.
+  FIELD cFieldOne   AS CHARACTER            SERIALIZE-NAME "field-one":U
+  FIELD oFieldTwo   AS Progress.Lang.Object SERIALIZE-NAME "field-two":U
+  FIELD iFieldThree AS INTEGER
+  FIELD oFieldFour  AS Progress.Lang.Object
+  INDEX indexOne AS PRIMARY DESCENDING cFieldOne
+  INDEX indexTwo IS UNIQUE iFieldThree.
 
 ---
 
@@ -54,31 +57,56 @@ DEFINE TEMP-TABLE ttTempTable NO-UNDO SERIALIZE-NAME "temp-table":U
       (kwNO_UNDO)
       (kwSERIALIZE_NAME)
       (character_literal
-        (string_modifier))
-      (kwFIELD)
-      (identifier)
-      (kwAS)
-      (primitive_type
-        (kwCHARACTER))
-      (kwSERIALIZE_NAME)
-      (character_literal
-        (string_modifier))
-      (kwFIELD)
-      (identifier)
-      (kwAS)
-      (scoped_identifier
-        (scoped_identifier
-          (identifier)
-          (identifier))
-        (identifier))
-      (kwSERIALIZE_NAME)
-      (character_literal
-        (string_modifier))
-      (kwINDEX)
-      (identifier)
-      (kwAS)
-      (kwPRIMARY)
-      (identifier))))
+	(string_modifier))
+      (temp_table_field
+	(kwFIELD)
+	(identifier)
+	(kwAS)
+	(primitive_type
+	  (kwCHARACTER))
+	(kwSERIALIZE_NAME)
+	(character_literal
+	  (string_modifier)))
+      (temp_table_field
+	(kwFIELD)
+	(identifier)
+	(kwAS)
+	(scoped_identifier
+	  (scoped_identifier
+	    (identifier)
+	    (identifier))
+	  (identifier))
+	(kwSERIALIZE_NAME)
+	(character_literal
+	  (string_modifier)))
+      (temp_table_field
+	(kwFIELD)
+	(identifier)
+	(kwAS)
+	(primitive_type
+	  (kwINTEGER)))
+      (temp_table_field
+	(kwFIELD)
+	(identifier)
+	(kwAS)
+	(scoped_identifier
+	  (scoped_identifier
+	    (identifier)
+	    (identifier))
+	  (identifier)))
+      (temp_table_index
+	(kwINDEX)
+	(identifier)
+	(kwAS)
+	(kwPRIMARY)
+	(kwDESCENDING)
+	(identifier))
+      (temp_table_index
+	(kwINDEX)
+	(identifier)
+	(kwIS)
+	(kwUNIQUE)
+	(identifier)))))
 
 ========================
 define dataset statement

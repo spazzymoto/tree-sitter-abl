@@ -382,16 +382,13 @@ module.exports = grammar({
     //
 
     annotation_attribute: $ => seq($.identifier, '=', $.character_literal),
+    annotation_attribute_list: $ => seq('(', commaSep1($.annotation_attribute), ')'),
 
     annotation_statement: $ => prec(PREC.CALL+1, seq(
       '@',
       field('name', $._name),
       field('scope', optional($.kwFILE)),
-      field('arguments', optional(seq(
-        '(',
-        commaSep1($.annotation_attribute),
-        ')'
-      ))),
+      field('attributes', optional($.annotation_attribute_list)),
       '.'
     )),
 
@@ -554,6 +551,39 @@ module.exports = grammar({
 
     routine_level_statement: $ => seq($.kwROUTINE_LEVEL, $.kwON, $.kwERROR, $.kwUNDO, ',', $.kwTHROW, '.'),
 
+    temp_table_field: $ => seq(
+      $.kwFIELD,
+      $.identifier,
+      choice(
+        $._as_datatype,
+        seq($.kwLIKE, $.identifier, optional($.kwVALIDATE))
+      ),
+      repeat(
+        choice(
+          // TODO: missing properties
+          $._serialize_name
+        )
+      )
+    ),
+
+    temp_table_index: $ => seq(
+      $.kwINDEX,
+      $.identifier,
+      repeat(
+        choice(
+          choice($.kwAS, $.kwIS),
+          $.kwUNIQUE,
+          $.kwPRIMARY,
+          $.kwWORD_INDEX,
+          $.kwDESCENDING,
+        )
+      ),
+      repeat(seq(
+        $.identifier,
+        optional(choice($.kwASCENDING, $.kwDESCENDING))
+      ))
+    ),
+
     temp_table_statement: $ => seq(
       $._define_statement,
       $.kwTEMP_TABLE,
@@ -566,41 +596,13 @@ module.exports = grammar({
           $._xml_node_name,
           $._serialize_name,
           $.kwREFERENCE_ONLY,
-          seq($.kwLIKE, $.identifier, repeat($._validate_use_index)),
-          seq($.kwLIKE_SEQUENTIAL, $.identifier, repeat($._validate_use_index)),
+          seq(choice($.kwLIKE, $.kwLIKE_SEQUENTIAL), $.identifier, repeat($._validate_use_index)),
           $.kwRCODE_INFORMATION,
           seq($.kwBEFORE_TABLE, $.identifier)
         )
       ),
-      repeat(
-        seq(
-          $.kwFIELD,
-          $.identifier,
-          choice($._as_datatype, seq($.kwLIKE, $.identifier, optional($.kwVALIDATE))),
-          repeat(
-            choice(
-              // TODO: missing properties
-              $._serialize_name
-            )
-          )
-        )
-      ),
-      repeat(
-        seq(
-          $.kwINDEX,
-          $.identifier,
-          repeat(
-            choice(
-              choice($.kwAS, $.kwIS),
-              $.kwUNIQUE,
-              $.kwPRIMARY,
-              $.kwWORD_INDEX
-            )
-          ),
-          $.identifier,
-          optional(choice($.kwASCENDING, $.kwDESCENDING))
-        )
-      ),
+      field('fields', repeat($.temp_table_field)),
+      field('indecies', repeat($.temp_table_index)),
       '.'
     ),
 

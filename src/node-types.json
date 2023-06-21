@@ -34,27 +34,30 @@
     }
   },
   {
+    "type": "annotation_attribute_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "annotation_attribute",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "annotation_statement",
     "named": true,
     "fields": {
-      "arguments": {
-        "multiple": true,
+      "attributes": {
+        "multiple": false,
         "required": false,
         "types": [
           {
-            "type": "(",
-            "named": false
-          },
-          {
-            "type": ")",
-            "named": false
-          },
-          {
-            "type": ",",
-            "named": false
-          },
-          {
-            "type": "annotation_attribute",
+            "type": "annotation_attribute_list",
             "named": true
           }
         ]
@@ -3461,29 +3464,9 @@
     }
   },
   {
-    "type": "temp_table_statement",
+    "type": "temp_table_field",
     "named": true,
     "fields": {
-      "namespace_prefix": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "character_literal",
-            "named": true
-          }
-        ]
-      },
-      "namespace_uri": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "character_literal",
-            "named": true
-          }
-        ]
-      },
       "serialize_name": {
         "multiple": true,
         "required": false,
@@ -3523,6 +3506,139 @@
             "named": true
           }
         ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "kwAS",
+          "named": true
+        },
+        {
+          "type": "kwFIELD",
+          "named": true
+        },
+        {
+          "type": "kwLIKE",
+          "named": true
+        },
+        {
+          "type": "kwSERIALIZE_NAME",
+          "named": true
+        },
+        {
+          "type": "kwVALIDATE",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "temp_table_index",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "kwAS",
+          "named": true
+        },
+        {
+          "type": "kwASCENDING",
+          "named": true
+        },
+        {
+          "type": "kwDESCENDING",
+          "named": true
+        },
+        {
+          "type": "kwINDEX",
+          "named": true
+        },
+        {
+          "type": "kwIS",
+          "named": true
+        },
+        {
+          "type": "kwPRIMARY",
+          "named": true
+        },
+        {
+          "type": "kwUNIQUE",
+          "named": true
+        },
+        {
+          "type": "kwWORD_INDEX",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "temp_table_statement",
+    "named": true,
+    "fields": {
+      "fields": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "temp_table_field",
+            "named": true
+          }
+        ]
+      },
+      "indecies": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "temp_table_index",
+            "named": true
+          }
+        ]
+      },
+      "namespace_prefix": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "character_literal",
+            "named": true
+          }
+        ]
+      },
+      "namespace_uri": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "character_literal",
+            "named": true
+          }
+        ]
+      },
+      "serialize_name": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "character_literal",
+            "named": true
+          }
+        ]
       },
       "xml_node_name": {
         "multiple": true,
@@ -3552,10 +3668,6 @@
           "named": true
         },
         {
-          "type": "kwASCENDING",
-          "named": true
-        },
-        {
           "type": "kwBEFORE_TABLE",
           "named": true
         },
@@ -3564,23 +3676,7 @@
           "named": true
         },
         {
-          "type": "kwDESCENDING",
-          "named": true
-        },
-        {
-          "type": "kwFIELD",
-          "named": true
-        },
-        {
           "type": "kwGLOBAL",
-          "named": true
-        },
-        {
-          "type": "kwINDEX",
-          "named": true
-        },
-        {
-          "type": "kwIS",
           "named": true
         },
         {
@@ -3660,19 +3756,11 @@
           "named": true
         },
         {
-          "type": "kwUNIQUE",
-          "named": true
-        },
-        {
           "type": "kwUSE_INDEX",
           "named": true
         },
         {
           "type": "kwVALIDATE",
-          "named": true
-        },
-        {
-          "type": "kwWORD_INDEX",
           "named": true
         },
         {
