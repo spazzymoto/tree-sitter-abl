@@ -99,6 +99,18 @@
         {
           "type": "expression",
           "named": true
+        },
+        {
+          "type": "kwINPUT",
+          "named": true
+        },
+        {
+          "type": "kwINPUT_OUTPUT",
+          "named": true
+        },
+        {
+          "type": "kwOUTPUT",
+          "named": true
         }
       ]
     }

@@ -235,7 +235,14 @@ module.exports = grammar({
       $.argument_list
     ),
 
-    argument_list: $ => seq('(', commaSep($.expression), ')'),
+    argument_list: $ => seq(
+      '(',
+      commaSep(seq(
+        optional(choice($.kwINPUT, $.kwOUTPUT, $.kwINPUT_OUTPUT)),
+        $.expression
+      )),
+      ')'
+    ),
 
     //
     // System Handles
@@ -261,12 +268,15 @@ module.exports = grammar({
     //
 
     statement: $ => choice(
-      $.annotation_statement,
+      $.empty_statement,
+      $.expression_statement,
 
+      // OpenEdge Language Statements
+
+      $.annotation_statement,
       $.assign_statement,
 
       $.block_level_statement,
-
 
       $.class_statement,
       $.create_statement,
@@ -277,9 +287,7 @@ module.exports = grammar({
       $.define_stream_statement,
       $.do_statement,
 
-      $.empty_statement,
       $.empty_temp_table_statement,
-      $.expression_statement,
 
       $.function_forward_statement,
 

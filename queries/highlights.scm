@@ -15,7 +15,7 @@
 
 ; Literals
 
-(string_literal) @string
+(character_literal) @string
 
 [
   (decimal_integer_literal)

@@ -1303,8 +1303,38 @@
               "type": "SEQ",
               "members": [
                 {
-                  "type": "SYMBOL",
-                  "name": "expression"
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "CHOICE",
+                      "members": [
+                        {
+                          "type": "CHOICE",
+                          "members": [
+                            {
+                              "type": "SYMBOL",
+                              "name": "kwINPUT"
+                            },
+                            {
+                              "type": "SYMBOL",
+                              "name": "kwOUTPUT"
+                            },
+                            {
+                              "type": "SYMBOL",
+                              "name": "kwINPUT_OUTPUT"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "BLANK"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "expression"
+                    }
+                  ]
                 },
                 {
                   "type": "REPEAT",
@@ -1316,8 +1346,38 @@
                         "value": ","
                       },
                       {
-                        "type": "SYMBOL",
-                        "name": "expression"
+                        "type": "SEQ",
+                        "members": [
+                          {
+                            "type": "CHOICE",
+                            "members": [
+                              {
+                                "type": "CHOICE",
+                                "members": [
+                                  {
+                                    "type": "SYMBOL",
+                                    "name": "kwINPUT"
+                                  },
+                                  {
+                                    "type": "SYMBOL",
+                                    "name": "kwOUTPUT"
+                                  },
+                                  {
+                                    "type": "SYMBOL",
+                                    "name": "kwINPUT_OUTPUT"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "BLANK"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "SYMBOL",
+                            "name": "expression"
+                          }
+                        ]
                       }
                     ]
                   }
@@ -1387,6 +1447,14 @@
       "members": [
         {
           "type": "SYMBOL",
+          "name": "empty_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "expression_statement"
+        },
+        {
+          "type": "SYMBOL",
           "name": "annotation_statement"
         },
         {
@@ -1427,15 +1495,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "empty_statement"
-        },
-        {
-          "type": "SYMBOL",
           "name": "empty_temp_table_statement"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "expression_statement"
         },
         {
           "type": "SYMBOL",
