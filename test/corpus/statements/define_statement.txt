@@ -7,13 +7,12 @@ DEFINE BUFFER bufTable FOR db_table.
 ---
 
 (program
-  (statement
-    (define_buffer_statement
-	  (kwDEFINE)
-      (kwBUFFER)
-	  (identifier)
-	  (kwFOR)
-	  (identifier))))
+  (define_buffer_statement
+    (kwDEFINE)
+    (kwBUFFER)
+    (identifier)
+    (kwFOR)
+    (identifier)))
 
 =========================
 define variable statement
@@ -24,15 +23,14 @@ DEFINE VARIABLE cTest 	AS CHARACTER 	NO-UNDO.
 ---
 
 (program
-  (statement
-    (variable_statement
-	  (kwDEFINE)
-	  (kwVARIABLE)
-	  (identifier)
-	  (kwAS)
-	  (primitive_type
-	    (kwCHARACTER))
-	  (kwNO_UNDO))))
+  (variable_statement
+    (kwDEFINE)
+    (kwVARIABLE)
+    (identifier)
+    (kwAS)
+    (primitive_type
+      (kwCHARACTER))
+    (kwNO_UNDO)))
 
 ===========================
 define temp-table statement
@@ -49,64 +47,63 @@ DEFINE TEMP-TABLE ttTempTable NO-UNDO SERIALIZE-NAME "temp-table":U
 ---
 
 (program
-  (statement
-    (temp_table_statement
-      (kwDEFINE)
-      (kwTEMP_TABLE)
+  (temp_table_statement
+    (kwDEFINE)
+    (kwTEMP_TABLE)
+    (identifier)
+    (kwNO_UNDO)
+    (kwSERIALIZE_NAME)
+    (character_literal
+      (string_modifier))
+    (temp_table_field
+      (kwFIELD)
       (identifier)
-      (kwNO_UNDO)
+      (kwAS)
+      (primitive_type
+	(kwCHARACTER))
       (kwSERIALIZE_NAME)
       (character_literal
-	(string_modifier))
-      (temp_table_field
-	(kwFIELD)
-	(identifier)
-	(kwAS)
-	(primitive_type
-	  (kwCHARACTER))
-	(kwSERIALIZE_NAME)
-	(character_literal
-	  (string_modifier)))
-      (temp_table_field
-	(kwFIELD)
-	(identifier)
-	(kwAS)
+	(string_modifier)))
+    (temp_table_field
+      (kwFIELD)
+      (identifier)
+      (kwAS)
+      (scoped_identifier
 	(scoped_identifier
-	  (scoped_identifier
-	    (identifier)
-	    (identifier))
+	  (identifier)
 	  (identifier))
-	(kwSERIALIZE_NAME)
-	(character_literal
-	  (string_modifier)))
-      (temp_table_field
-	(kwFIELD)
-	(identifier)
-	(kwAS)
-	(primitive_type
-	  (kwINTEGER)))
-      (temp_table_field
-	(kwFIELD)
-	(identifier)
-	(kwAS)
-	(scoped_identifier
-	  (scoped_identifier
-	    (identifier)
-	    (identifier))
-	  (identifier)))
-      (temp_table_index
-	(kwINDEX)
-	(identifier)
-	(kwAS)
-	(kwPRIMARY)
-	(kwDESCENDING)
 	(identifier))
-      (temp_table_index
-	(kwINDEX)
-	(identifier)
-	(kwIS)
-	(kwUNIQUE)
-	(identifier)))))
+      (kwSERIALIZE_NAME)
+      (character_literal
+	(string_modifier)))
+    (temp_table_field
+      (kwFIELD)
+      (identifier)
+      (kwAS)
+      (primitive_type
+	(kwINTEGER)))
+    (temp_table_field
+      (kwFIELD)
+      (identifier)
+      (kwAS)
+      (scoped_identifier
+	(scoped_identifier
+	  (identifier)
+	  (identifier))
+	(identifier)))
+    (temp_table_index
+      (kwINDEX)
+      (identifier)
+      (kwAS)
+      (kwPRIMARY)
+      (kwDESCENDING)
+      (identifier))
+    (temp_table_index
+      (kwINDEX)
+      (identifier)
+      (kwIS)
+      (kwUNIQUE)
+      (identifier))))
 
 ========================
 define dataset statement
@@ -119,14 +116,13 @@ DEFINE DATASET dsTest SERIALIZE-NAME "test":U
 ---
 
 (program
-  (statement
-    (define_dataset_statement
-      (kwDEFINE)
-      (kwDATASET)
-      (identifier)
-      (kwSERIALIZE_NAME)
-      (character_literal
-        (string_modifier))
-      (kwFOR)
-      (identifier)
-      (identifier))))
+  (define_dataset_statement
+    (kwDEFINE)
+    (kwDATASET)
+    (identifier)
+    (kwSERIALIZE_NAME)
+    (character_literal
+      (string_modifier))
+    (kwFOR)
+    (identifier)
+    (identifier)))

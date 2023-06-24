@@ -1,5 +1,9 @@
 const { sep1, commaSep, commaSep1 } = require('./grammar/helper');
 
+if (true) {
+  let a = 1;
+}
+
 const DIGITS = token(sep1(/[0-9]+/, /_+/));
 
 const PREC = {
@@ -44,6 +48,11 @@ module.exports = grammar({
   ],
 
   word: $ => $.identifier,
+
+  supertypes: $ => [
+    $.expression,
+    $.statement
+  ],
 
   rules: {
     program: $ => repeat(

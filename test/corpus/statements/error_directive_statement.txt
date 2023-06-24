@@ -7,13 +7,12 @@ BLOCK-LEVEL ON ERROR UNDO, THROW.
 ---
 
 (program
-  (statement
-	  (block_level_statement
-	    (kwBLOCK_LEVEL)
-		(kwON)
-		(kwERROR)
-		(kwUNDO)
-		(kwTHROW))))
+  (block_level_statement
+    (kwBLOCK_LEVEL)
+    (kwON)
+    (kwERROR)
+    (kwUNDO)
+    (kwTHROW)))
 
 =======================
 routine level statement
@@ -24,10 +23,9 @@ ROUTINE-LEVEL ON ERROR UNDO, THROW.
 ---
 
 (program
-    (statement
-	  (routine_level_statement
-	    (kwROUTINE_LEVEL)
-		(kwON)
-		(kwERROR)
-		(kwUNDO)
-		(kwTHROW))))
+  (routine_level_statement
+    (kwROUTINE_LEVEL)
+    (kwON)
+    (kwERROR)
+    (kwUNDO)
+    (kwTHROW)))

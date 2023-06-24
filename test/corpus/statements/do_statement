@@ -9,15 +9,12 @@ END.
 ---
 
 (program
-  (statement
-    (do_statement
-      (kwDO)
-      (code_block
-        (statement
-          (expression_statement
-            (assignment_expression
-              (identifier)
-              (expression
-                (primary_expression
-                  (identifier))))))
-        (kwEND)))))
+  (do_statement
+	(kwDO)
+	(code_block
+	  (expression_statement
+		(assignment_expression
+		  (identifier)
+		  (primary_expression
+			(identifier))))
+	(kwEND))))

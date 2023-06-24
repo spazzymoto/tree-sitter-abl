@@ -7,13 +7,11 @@ MESSAGE "Test":U.
 ---
 
 (program
-  (statement
-    (message_statement
-	  (kwMESSAGE)
-	  (expression
-	    (primary_expression
-	      (character_literal
-	        (string_modifier)))))))
+  (message_statement
+    (kwMESSAGE)
+    (primary_expression
+      (character_literal
+	(string_modifier)))))
 
 ======================
 message statement skip
@@ -24,17 +22,14 @@ MESSAGE "Test":U SKIP cTest.
 ---
 
 (program
-  (statement
-    (message_statement
-	  (kwMESSAGE)
-	  (expression
-	    (primary_expression
-	      (character_literal
-	        (string_modifier))))
-	  (kwSKIP)
-	  (expression
-	    (primary_expression
-    	  (identifier))))))
+  (message_statement
+    (kwMESSAGE)
+      (primary_expression
+	(character_literal
+	  (string_modifier)))
+      (kwSKIP)
+      (primary_expression
+	(identifier))))
 
 =========================
 message statement complex
@@ -45,22 +40,19 @@ MESSAGE cTest SKIP "oh dear":U VIEW-AS ALERT-BOX WARNING BUTTONS YES-NO-CANCEL T
 ---
 
 (program
-  (statement
-    (message_statement
-	  (kwMESSAGE)
-	  (expression
-	    (primary_expression
-		  (identifier)))
-	  (kwSKIP)
-	  (expression
-	    (primary_expression
-	      (character_literal
-	        (string_modifier))))
-	  (kwVIEW_AS)
-	  (kwALERT_BOX)
-	  (kwWARNING)
-	  (kwBUTTONS)
-	  (kwYES_NO_CANCEL)
-	  (kwTITLE)
-	  (character_literal
-      (string_modifier)))))
+  (message_statement
+    (kwMESSAGE)
+    (primary_expression
+      (identifier))
+    (kwSKIP)
+    (primary_expression
+      (character_literal
+      (string_modifier)))
+    (kwVIEW_AS)
+    (kwALERT_BOX)
+    (kwWARNING)
+    (kwBUTTONS)
+    (kwYES_NO_CANCEL)
+    (kwTITLE)
+    (character_literal
+      (string_modifier))))

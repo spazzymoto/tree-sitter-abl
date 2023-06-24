@@ -6326,6 +6326,9 @@
     }
   ],
   "inline": [],
-  "supertypes": []
+  "supertypes": [
+    "expression",
+    "statement"
+  ]
 }
 

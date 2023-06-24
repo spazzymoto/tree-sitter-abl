@@ -7,9 +7,8 @@ plain annotation
 ---
 
 (program
-  (statement
-    (annotation_statement
-      (identifier))))
+  (annotation_statement
+    (identifier)))
 
 ========================
 annotation with dot name
@@ -20,13 +19,12 @@ annotation with dot name
 ---
 
 (program
-  (statement
-    (annotation_statement
+  (annotation_statement
+    (scoped_identifier
       (scoped_identifier
-        (scoped_identifier
-          (identifier)
-          (identifier))
-        (identifier)))))
+        (identifier)
+        (identifier))
+      (identifier))))
 
 =====================
 annotation with scope
@@ -37,14 +35,13 @@ annotation with scope
 ---
 
 (program
-  (statement
-    (annotation_statement
+  (annotation_statement
+    (scoped_identifier
       (scoped_identifier
-        (scoped_identifier
-          (identifier)
-          (identifier))
+        (identifier)
         (identifier))
-      (kwFILE))))
+      (identifier))
+    (kwFILE)))
 
 ====================================
 annotation with scope and attributes
@@ -55,21 +52,20 @@ annotation with scope and attributes
 ---
 
 (program
-  (statement
-    (annotation_statement
+  (annotation_statement
+    (scoped_identifier
       (scoped_identifier
-        (scoped_identifier
-          (identifier)
-          (identifier))
+        (identifier)
         (identifier))
-      (kwFILE)
-      (annotation_attribute_list
-        (annotation_attribute
-          (identifier)
-          (character_literal))
-        (annotation_attribute
-          (identifier)
-          (character_literal))))))
+      (identifier))
+    (kwFILE)
+    (annotation_attribute_list
+      (annotation_attribute
+        (identifier)
+        (character_literal))
+      (annotation_attribute
+        (identifier)
+        (character_literal)))))
 
 ====================================
 annotation and attributes
@@ -80,17 +76,16 @@ annotation and attributes
 ---
 
 (program
-  (statement
-    (annotation_statement
+  (annotation_statement
+    (scoped_identifier
       (scoped_identifier
-        (scoped_identifier
-          (identifier)
-          (identifier))
+        (identifier)
         (identifier))
-      (annotation_attribute_list
-        (annotation_attribute
-          (identifier)
-          (character_literal))
-        (annotation_attribute
-          (identifier)
-          (character_literal))))))
+      (identifier))
+    (annotation_attribute_list
+      (annotation_attribute
+        (identifier)
+        (character_literal))
+      (annotation_attribute
+        (identifier)
+        (character_literal)))))
