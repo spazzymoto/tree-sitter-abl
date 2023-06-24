@@ -1,14 +1,10 @@
 const { sep1, commaSep, commaSep1 } = require('./grammar/helper');
 
-if (true) {
-  let a = 1;
-}
-
 const DIGITS = token(sep1(/[0-9]+/, /_+/));
 
 const PREC = {
   DEFAULT: 0,
-  ASSIGNMENT: 1,   // =  += -=  *=  /=
+  ASSIGNMENT: 1,    // =  += -=  *=  /=
   LOGICAL_OR: 2,    // ||
   LOGICAL_AND: 3,   // &&
   BIT_OR: 4,        // |
@@ -16,7 +12,7 @@ const PREC = {
   BIT_AND: 6,       // &
   EQUALITY: 7,      // ==  !=
   RELATIONAL: 8,    // <  <=  >  >=  instanceof
-  SHIFT: 9,        // <<  >>  >>>
+  SHIFT: 9,         // <<  >>  >>>
   ADD: 10,          // +  -
   MULTIPLY: 11,     // *  /  %
   CAST: 12,         // (Type)
@@ -143,9 +139,27 @@ module.exports = grammar({
     //
 
     expression: $ => choice(
+      $._literal,
+      $._system_handle,
+      $.identifier,
+
       $.binary_expression,
-      $.primary_expression,
-      $.unary_expression
+      $.unary_expression,
+      // $.assignment_expression,
+      $.call_expression,
+      $.if_then_else_expression,
+      $.new_expression,
+      $.member_expression,
+      $.parenthesized_expression,
+      $.subscript_expression,
+
+      $.builtin_function,
+    ),
+
+    parenthesized_expression: $ => seq(
+      '(',
+      $.expression,
+      ')'
     ),
 
     unary_expression: $ => choice(
@@ -200,7 +214,7 @@ module.exports = grammar({
       field('left', choice(
         $.identifier,
         $.pseudo_function,
-        $.property_access
+        $.member_expression
       )),
       field('operator', choice('=', '+=', '-=', '*=', '/=')),
       field('right', $.expression),
@@ -209,40 +223,38 @@ module.exports = grammar({
       optional(seq($.kwWHEN, field('when', $.expression)))
     )),
 
-    primary_expression: $ => choice(
-      $._literal,
-      $._system_handle,
-      $.identifier,
-      $.builtin_function,
-      $.property_access,
-      $.method_invocation,
-    ),
-
-    builtin_function: $ => choice(
-      $.replace_function
-    ),
-
-    pseudo_function: $ => choice(
-      $.entry_function
-    ),
-
-    property_access: $ => prec.dynamic(PREC.MEMBER, seq(
-      field('object', $.primary_expression),
-      ':',
-      field('field', $.identifier)
+    call_expression: $ => prec(PREC.CALL, seq(
+      field('function', $.expression),
+      field('arguments', $.argument_list),
     )),
 
-    method_invocation: $ => seq(
-      choice(
-        $.identifier,
-        seq(
-          $.primary_expression,
-          ':',
-          $.identifier,
-        )
-      ),
-      $.argument_list
-    ),
+    if_then_else_expression: $ => prec.right(seq(
+      $.kwIF,
+      $.expression,
+      $.kwTHEN,
+      $.expression,
+      $.kwELSE,
+      $.expression,
+    )),
+
+    member_expression: $ => prec(PREC.MEMBER, seq(
+      field('object', $.expression),
+      ':',
+      field('property', $.identifier)
+    )),
+
+    new_expression: $ => prec.right(PREC.NEW, seq(
+      $.kwNEW,
+      field('constructor', $.expression),
+      field('arguments', $.argument_list)
+    )),
+
+    subscript_expression: $ => prec.right(PREC.SUBSCRIPT, seq(
+      field('object', $.expression),
+      '[',
+      field('index', $.expression),
+      ']'
+    )),
 
     argument_list: $ => seq(
       '(',
@@ -267,6 +279,14 @@ module.exports = grammar({
     //
     // Functions
     //
+
+    builtin_function: $ => choice(
+      $.replace_function
+    ),
+
+    pseudo_function: $ => choice(
+      $.entry_function
+    ),
 
     entry_function: $ => seq($.kwENTRY, $.argument_list),
 
@@ -401,7 +421,7 @@ module.exports = grammar({
     annotation_attribute: $ => seq($.identifier, '=', $.character_literal),
     annotation_attribute_list: $ => seq('(', commaSep1($.annotation_attribute), ')'),
 
-    annotation_statement: $ => prec(PREC.CALL+1, seq(
+    annotation_statement: $ => prec(PREC.CALL + 1, seq(
       '@',
       field('name', $._name),
       field('scope', optional($.kwFILE)),

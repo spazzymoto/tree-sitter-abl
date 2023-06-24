@@ -14,21 +14,17 @@ ELSE
   (if_then_else_statement
     (kwIF)
     (binary_expression
-      (primary_expression
-        (decimal_integer_literal))
-      (primary_expression
-        (decimal_integer_literal)))
+      (decimal_integer_literal)
+      (decimal_integer_literal))
     (kwTHEN)
     (expression_statement
       (assignment_expression
         (identifier)
-        (primary_expression
-          (character_literal
-            (string_modifier)))))
+        (character_literal
+          (string_modifier))))
     (kwELSE)
     (expression_statement
       (assignment_expression
         (identifier)
-        (primary_expression
-          (character_literal
-            (string_modifier)))))))
+        (character_literal
+          (string_modifier))))))

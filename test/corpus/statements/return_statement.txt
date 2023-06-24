@@ -21,8 +21,7 @@ RETURN cTest.
 (program
   (return_statement
     (kwRETURN)
-    (primary_expression
-      (identifier))))
+    (identifier)))
 
 ======================
 return error statement
@@ -49,6 +48,5 @@ RETURN ERROR "whoops":U.
   (return_statement
     (kwRETURN)
     (kwERROR)
-    (primary_expression
-      (character_literal
-	(string_modifier)))))
+    (character_literal
+      (string_modifier))))

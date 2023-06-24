@@ -14,16 +14,12 @@ ASSIGN ENTRY(1, cFile, "/":U) = "":U.
         (entry_function
           (kwENTRY)
           (argument_list
-            (primary_expression
-              (decimal_integer_literal))
-            (primary_expression
-              (identifier))
-            (primary_expression
-              (character_literal
-                (string_modifier))))))
-      (primary_expression
-        (character_literal
-          (string_modifier))))))
+            (decimal_integer_literal)
+            (identifier)
+            (character_literal
+              (string_modifier)))))
+      (character_literal
+        (string_modifier)))))
 
 =================
 assign multi line
@@ -40,13 +36,11 @@ ASSIGN
     (kwASSIGN)
     (assignment_expression
       (identifier)
-      (primary_expression
-        (character_literal
-          (string_modifier))))
+      (character_literal
+        (string_modifier)))
     (assignment_expression
       (identifier)
-      (primary_expression
-        (decimal_integer_literal)))
+      (decimal_integer_literal))
     (kwNO_ERROR)))
 
 ========================
@@ -63,10 +57,8 @@ ASSIGN lTest = a = b.
     (assignment_expression
       (identifier)
       (binary_expression
-        (primary_expression
-          (identifier))
-        (primary_expression
-          (identifier))))))
+        (identifier)
+        (identifier)))))
 
 =====================
 assign when statement
@@ -81,10 +73,8 @@ ASSIGN cTest = "value":U WHEN TRUE.
     (kwASSIGN)
     (assignment_expression
       (identifier)
-      (primary_expression
-        (character_literal
-          (string_modifier)))
+      (character_literal
+        (string_modifier))
       (kwWHEN)
-      (primary_expression
-        (true
-          (kwTRUE))))))
+      (true
+        (kwTRUE)))))

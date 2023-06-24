@@ -134,9 +134,8 @@ END CLASS.
       (code_block
         (return_statement
           (kwRETURN)
-          (primary_expression
-            (true
-              (kwTRUE))))
+          (true
+            (kwTRUE)))
         (kwEND))
       (kwMETHOD))
     (kwEND)

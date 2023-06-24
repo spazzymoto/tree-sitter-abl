@@ -15,6 +15,5 @@ END.
 	  (expression_statement
 		(assignment_expression
 		  (identifier)
-		  (primary_expression
-			(identifier))))
-	(kwEND))))
+		  (identifier)))
+	  (kwEND))))
