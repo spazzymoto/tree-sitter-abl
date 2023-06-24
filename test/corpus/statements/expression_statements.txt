@@ -144,3 +144,99 @@ cTest = oObject:oSubObject:getCharacterValue().
             (identifier))
           (identifier))
         (argument_list)))))
+
+===========================
+non-scoped new expression
+===========================
+
+NEW Object().
+
+---
+
+(program
+  (expression_statement
+    (new_expression
+      (kwNEW)
+      (identifier)
+      (argument_list))))
+
+=======================
+scoped new expression
+=======================
+
+NEW Progress.Lang.Object().
+
+---
+
+(program
+  (expression_statement
+    (new_expression
+      (kwNEW)
+      (scoped_identifier
+        (scoped_identifier
+          (identifier)
+          (identifier))
+        (identifier))
+      (argument_list))))
+
+===========================
+non-scoped new assignment expression
+===========================
+
+oObject = NEW Object().
+
+---
+
+(program
+  (expression_statement
+    (assignment_expression
+      (identifier)
+      (new_expression
+        (kwNEW)
+        (identifier)
+        (argument_list)))))
+
+=======================
+scoped new assignment expression
+=======================
+
+oObject = NEW Progress.Lang.Object().
+
+---
+
+(program
+  (expression_statement
+    (assignment_expression
+      (identifier)
+      (new_expression
+        (kwNEW)
+        (scoped_identifier
+          (scoped_identifier
+            (identifier)
+            (identifier))
+          (identifier))
+        (argument_list)))))
+
+================================
+new method invocation expression
+================================
+
+(NEW Progress.Lang.Object()):GetClass().
+
+---
+
+(program
+  (expression_statement
+    (call_expression
+      (member_expression
+        (parenthesized_expression
+          (new_expression
+            (kwNEW)
+            (scoped_identifier
+              (scoped_identifier
+                (identifier)
+                (identifier))
+              (identifier))
+            (argument_list)))
+        (identifier))
+      (argument_list))))
