@@ -98,11 +98,12 @@ END CLASS.
         (kwEND))
       (kwGET)
       (kwSET)
-      (kwINPUT)
-      (identifier)
-      (kwAS)
-      (primitive_type
-        (kwCHARACTER))
+      (parameter_declaration
+        (kwINPUT)
+        (identifier)
+        (kwAS)
+        (primitive_type
+          (kwCHARACTER)))
       (code_block
         (kwEND))
       (kwSET))

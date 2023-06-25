@@ -351,42 +351,42 @@ module.exports = grammar({
     code_block: $ => seq(':', repeat($.statement), $.kwEND),
     _do_block: $ => seq($.kwDO, $.code_block),
 
-    _parameter_list: $ => seq(
-      '(',
-      repeat(
+    parameter_declaration: $ => choice(
+      seq(
+        optional(choice($.kwINPUT, $.kwOUTPUT, $.kwINPUT_OUTPUT)),
         choice(
+          seq($.identifier, $._as_datatype),
+          seq($.kwLIKE, $.scoped_identifier),
           seq(
-            optional(choice($.kwINPUT, $.kwOUTPUT, $.kwINPUT_OUTPUT)),
             choice(
-              seq($.identifier, $._as_datatype),
-              seq($.kwLIKE, $.scoped_identifier),
-              seq(
-                choice(
-                  $.kwTABLE,
-                  $.kwTABLE_HANDLE,
-                  $.kwDATASET,
-                  $.kwDATASET_HANDLE
-                ),
-                $.identifier,
-                repeat(
-                  choice(
-                    $.kwAPPEND,
-                    $.kwBIND,
-                    $.kwBY_VALUE,
-                  )
-                )
+              $.kwTABLE,
+              $.kwTABLE_HANDLE,
+              $.kwDATASET,
+              $.kwDATASET_HANDLE
+            ),
+            $.identifier,
+            repeat(
+              choice(
+                $.kwAPPEND,
+                $.kwBIND,
+                $.kwBY_VALUE,
               )
             )
-          ),
-          seq(
-            $.kwBUFFER,
-            $.identifier,
-            $.kwFOR,
-            $.identifier,
-            optional($.kwPRESELECT)
           )
         )
       ),
+      seq(
+        $.kwBUFFER,
+        $.identifier,
+        $.kwFOR,
+        $.identifier,
+        optional($.kwPRESELECT)
+      )
+    ),
+
+    _parameter_list: $ => seq(
+      '(',
+      commaSep($.parameter_declaration),
       ')'
     ),
 
@@ -645,6 +645,7 @@ module.exports = grammar({
 
     using_statement: $ => seq(
       $.kwUSING,
+      repeat(seq($.preprocessor, '.')),
       $._name,
       optional(seq('.', '*')),
       optional(seq($.kwFROM, choice($.kwASSEMBLY, $.kwPROPATH))),

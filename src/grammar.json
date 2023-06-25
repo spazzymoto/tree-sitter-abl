@@ -1716,6 +1716,155 @@
         }
       ]
     },
+    "parameter_declaration": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "kwINPUT"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "kwOUTPUT"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "kwINPUT_OUTPUT"
+                    }
+                  ]
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "identifier"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "_as_datatype"
+                    }
+                  ]
+                },
+                {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "kwLIKE"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "scoped_identifier"
+                    }
+                  ]
+                },
+                {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "CHOICE",
+                      "members": [
+                        {
+                          "type": "SYMBOL",
+                          "name": "kwTABLE"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "kwTABLE_HANDLE"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "kwDATASET"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "kwDATASET_HANDLE"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "identifier"
+                    },
+                    {
+                      "type": "REPEAT",
+                      "content": {
+                        "type": "CHOICE",
+                        "members": [
+                          {
+                            "type": "SYMBOL",
+                            "name": "kwAPPEND"
+                          },
+                          {
+                            "type": "SYMBOL",
+                            "name": "kwBIND"
+                          },
+                          {
+                            "type": "SYMBOL",
+                            "name": "kwBY_VALUE"
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "kwBUFFER"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "kwFOR"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "kwPRESELECT"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
     "_parameter_list": {
       "type": "SEQ",
       "members": [
@@ -1724,156 +1873,37 @@
           "value": "("
         },
         {
-          "type": "REPEAT",
-          "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SEQ",
-                "members": [
-                  {
-                    "type": "CHOICE",
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "parameter_declaration"
+                },
+                {
+                  "type": "REPEAT",
+                  "content": {
+                    "type": "SEQ",
                     "members": [
                       {
-                        "type": "CHOICE",
-                        "members": [
-                          {
-                            "type": "SYMBOL",
-                            "name": "kwINPUT"
-                          },
-                          {
-                            "type": "SYMBOL",
-                            "name": "kwOUTPUT"
-                          },
-                          {
-                            "type": "SYMBOL",
-                            "name": "kwINPUT_OUTPUT"
-                          }
-                        ]
+                        "type": "STRING",
+                        "value": ","
                       },
-                      {
-                        "type": "BLANK"
-                      }
-                    ]
-                  },
-                  {
-                    "type": "CHOICE",
-                    "members": [
-                      {
-                        "type": "SEQ",
-                        "members": [
-                          {
-                            "type": "SYMBOL",
-                            "name": "identifier"
-                          },
-                          {
-                            "type": "SYMBOL",
-                            "name": "_as_datatype"
-                          }
-                        ]
-                      },
-                      {
-                        "type": "SEQ",
-                        "members": [
-                          {
-                            "type": "SYMBOL",
-                            "name": "kwLIKE"
-                          },
-                          {
-                            "type": "SYMBOL",
-                            "name": "scoped_identifier"
-                          }
-                        ]
-                      },
-                      {
-                        "type": "SEQ",
-                        "members": [
-                          {
-                            "type": "CHOICE",
-                            "members": [
-                              {
-                                "type": "SYMBOL",
-                                "name": "kwTABLE"
-                              },
-                              {
-                                "type": "SYMBOL",
-                                "name": "kwTABLE_HANDLE"
-                              },
-                              {
-                                "type": "SYMBOL",
-                                "name": "kwDATASET"
-                              },
-                              {
-                                "type": "SYMBOL",
-                                "name": "kwDATASET_HANDLE"
-                              }
-                            ]
-                          },
-                          {
-                            "type": "SYMBOL",
-                            "name": "identifier"
-                          },
-                          {
-                            "type": "REPEAT",
-                            "content": {
-                              "type": "CHOICE",
-                              "members": [
-                                {
-                                  "type": "SYMBOL",
-                                  "name": "kwAPPEND"
-                                },
-                                {
-                                  "type": "SYMBOL",
-                                  "name": "kwBIND"
-                                },
-                                {
-                                  "type": "SYMBOL",
-                                  "name": "kwBY_VALUE"
-                                }
-                              ]
-                            }
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "type": "SEQ",
-                "members": [
-                  {
-                    "type": "SYMBOL",
-                    "name": "kwBUFFER"
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "identifier"
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "kwFOR"
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "identifier"
-                  },
-                  {
-                    "type": "CHOICE",
-                    "members": [
                       {
                         "type": "SYMBOL",
-                        "name": "kwPRESELECT"
-                      },
-                      {
-                        "type": "BLANK"
+                        "name": "parameter_declaration"
                       }
                     ]
                   }
-                ]
-              }
-            ]
-          }
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         },
         {
           "type": "STRING",
@@ -3417,6 +3447,22 @@
         {
           "type": "SYMBOL",
           "name": "kwUSING"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "preprocessor"
+              },
+              {
+                "type": "STRING",
+                "value": "."
+              }
+            ]
+          }
         },
         {
           "type": "SYMBOL",

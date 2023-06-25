@@ -1518,15 +1518,7 @@
           "named": true
         },
         {
-          "type": "identifier",
-          "named": true
-        },
-        {
           "type": "kwABSTRACT",
-          "named": true
-        },
-        {
-          "type": "kwAPPEND",
           "named": true
         },
         {
@@ -1534,31 +1526,7 @@
           "named": true
         },
         {
-          "type": "kwBIND",
-          "named": true
-        },
-        {
-          "type": "kwBUFFER",
-          "named": true
-        },
-        {
-          "type": "kwBY_VALUE",
-          "named": true
-        },
-        {
-          "type": "kwDATASET",
-          "named": true
-        },
-        {
-          "type": "kwDATASET_HANDLE",
-          "named": true
-        },
-        {
           "type": "kwDEFINE",
-          "named": true
-        },
-        {
-          "type": "kwFOR",
           "named": true
         },
         {
@@ -1574,18 +1542,6 @@
           "named": true
         },
         {
-          "type": "kwINPUT",
-          "named": true
-        },
-        {
-          "type": "kwINPUT_OUTPUT",
-          "named": true
-        },
-        {
-          "type": "kwLIKE",
-          "named": true
-        },
-        {
           "type": "kwNEW",
           "named": true
         },
@@ -1598,15 +1554,7 @@
           "named": true
         },
         {
-          "type": "kwOUTPUT",
-          "named": true
-        },
-        {
           "type": "kwOVERRIDE",
-          "named": true
-        },
-        {
-          "type": "kwPRESELECT",
           "named": true
         },
         {
@@ -1646,15 +1594,7 @@
           "named": true
         },
         {
-          "type": "kwTABLE",
-          "named": true
-        },
-        {
-          "type": "kwTABLE_HANDLE",
-          "named": true
-        },
-        {
-          "type": "scoped_identifier",
+          "type": "parameter_declaration",
           "named": true
         }
       ]
@@ -1886,38 +1826,6 @@
           "named": true
         },
         {
-          "type": "kwAPPEND",
-          "named": true
-        },
-        {
-          "type": "kwAS",
-          "named": true
-        },
-        {
-          "type": "kwBIND",
-          "named": true
-        },
-        {
-          "type": "kwBUFFER",
-          "named": true
-        },
-        {
-          "type": "kwBY_VALUE",
-          "named": true
-        },
-        {
-          "type": "kwDATASET",
-          "named": true
-        },
-        {
-          "type": "kwDATASET_HANDLE",
-          "named": true
-        },
-        {
-          "type": "kwFOR",
-          "named": true
-        },
-        {
           "type": "kwFORWARD",
           "named": true
         },
@@ -1926,39 +1834,11 @@
           "named": true
         },
         {
-          "type": "kwINPUT",
-          "named": true
-        },
-        {
-          "type": "kwINPUT_OUTPUT",
-          "named": true
-        },
-        {
-          "type": "kwLIKE",
-          "named": true
-        },
-        {
-          "type": "kwOUTPUT",
-          "named": true
-        },
-        {
-          "type": "kwPRESELECT",
-          "named": true
-        },
-        {
           "type": "kwRETURNS",
           "named": true
         },
         {
-          "type": "kwTABLE",
-          "named": true
-        },
-        {
-          "type": "kwTABLE_HANDLE",
-          "named": true
-        },
-        {
-          "type": "scoped_identifier",
+          "type": "parameter_declaration",
           "named": true
         }
       ]
@@ -3206,6 +3086,116 @@
     }
   },
   {
+    "type": "parameter_declaration",
+    "named": true,
+    "fields": {
+      "type": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "decimal_integer_literal",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "kwCLASS",
+            "named": true
+          },
+          {
+            "type": "kwEXTENT",
+            "named": true
+          },
+          {
+            "type": "primitive_type",
+            "named": true
+          },
+          {
+            "type": "scoped_identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "kwAPPEND",
+          "named": true
+        },
+        {
+          "type": "kwAS",
+          "named": true
+        },
+        {
+          "type": "kwBIND",
+          "named": true
+        },
+        {
+          "type": "kwBUFFER",
+          "named": true
+        },
+        {
+          "type": "kwBY_VALUE",
+          "named": true
+        },
+        {
+          "type": "kwDATASET",
+          "named": true
+        },
+        {
+          "type": "kwDATASET_HANDLE",
+          "named": true
+        },
+        {
+          "type": "kwFOR",
+          "named": true
+        },
+        {
+          "type": "kwINPUT",
+          "named": true
+        },
+        {
+          "type": "kwINPUT_OUTPUT",
+          "named": true
+        },
+        {
+          "type": "kwLIKE",
+          "named": true
+        },
+        {
+          "type": "kwOUTPUT",
+          "named": true
+        },
+        {
+          "type": "kwPRESELECT",
+          "named": true
+        },
+        {
+          "type": "kwTABLE",
+          "named": true
+        },
+        {
+          "type": "kwTABLE_HANDLE",
+          "named": true
+        },
+        {
+          "type": "scoped_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "parenthesized_expression",
     "named": true,
     "fields": {},
@@ -3951,6 +3941,10 @@
         },
         {
           "type": "kwUSING",
+          "named": true
+        },
+        {
+          "type": "preprocessor",
           "named": true
         },
         {
