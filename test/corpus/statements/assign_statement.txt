@@ -10,14 +10,13 @@ ASSIGN ENTRY(1, cFile, "/":U) = "":U.
   (assign_statement
     (kwASSIGN)
     (assignment_expression
-      (pseudo_function
-        (entry_function
-          (kwENTRY)
-          (argument_list
-            (decimal_integer_literal)
-            (identifier)
-            (character_literal
-              (character_modifier)))))
+      (builtin_function
+        (kwENTRY)
+        (argument_list
+          (decimal_integer_literal)
+          (identifier)
+          (character_literal
+            (character_modifier))))
       (character_literal
         (character_modifier)))))
 

@@ -63,6 +63,7 @@ module.exports = {
   kwFALSE: _ => kw('FALSE'),
   kwFIELD: _ => kw('FIELD'),
   kwFILE: _ => kw('FILE'),
+  kwFILL: _ => kw('FILL'),
   kwFINAL: _ => kw('FINAL'),
   kwFOR: _ => kw('FOR'),
   kwFORMAT: _ => kw('FORMAT'),
@@ -101,6 +102,7 @@ module.exports = {
   // L
   kwLABEL: _ => kw('LABEL'),
   kwLE: _ => kw('LE'),
+  kwLENGTH: _ => kw('LENGTH'),
   kwLIKE: _ => kw('LIKE'),
   kwLIKE_SEQUENTIAL: _ => kw('LIKE-SEQUENTIAL'),
   kwLOGICAL: _ => kw('LOGICAL'),
@@ -174,6 +176,7 @@ module.exports = {
   kwSKIP: _ => kw('SKIP'),
   kwSTATIC: _ => kw('STATIC'),
   kwSTREAM: _ => kw('STREAM'),
+  kwSUBSTRING: _ => kw('SUBSTRING'),
 
   // T
   kwTABLE: _ => kw('TABLE'),

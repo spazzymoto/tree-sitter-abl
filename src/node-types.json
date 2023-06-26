@@ -68,10 +68,6 @@
         "named": true
       },
       {
-        "type": "pseudo_function",
-        "named": true
-      },
-      {
         "type": "subscript_expression",
         "named": true
       },
@@ -335,15 +331,15 @@
         "required": true,
         "types": [
           {
+            "type": "builtin_function",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
           },
           {
             "type": "member_expression",
-            "named": true
-          },
-          {
-            "type": "pseudo_function",
             "named": true
           }
         ]
@@ -562,11 +558,31 @@
           "named": true
         },
         {
+          "type": "kwENTRY",
+          "named": true
+        },
+        {
+          "type": "kwFILL",
+          "named": true
+        },
+        {
+          "type": "kwINDEX",
+          "named": true
+        },
+        {
+          "type": "kwLENGTH",
+          "named": true
+        },
+        {
           "type": "kwNUM_ENTRIES",
           "named": true
         },
         {
           "type": "kwREPLACE",
+          "named": true
+        },
+        {
+          "type": "kwSUBSTRING",
           "named": true
         },
         {
@@ -1766,25 +1782,6 @@
     }
   },
   {
-    "type": "entry_function",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "argument_list",
-          "named": true
-        },
-        {
-          "type": "kwENTRY",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "expression_statement",
     "named": true,
     "fields": {},
@@ -2236,6 +2233,11 @@
     "fields": {}
   },
   {
+    "type": "kwFILL",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "kwFINAL",
     "named": true,
     "fields": {}
@@ -2362,6 +2364,11 @@
   },
   {
     "type": "kwLE",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "kwLENGTH",
     "named": true,
     "fields": {}
   },
@@ -2622,6 +2629,11 @@
   },
   {
     "type": "kwSTREAM",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "kwSUBSTRING",
     "named": true,
     "fields": {}
   },
@@ -3464,21 +3476,6 @@
         },
         {
           "type": "statement",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "pseudo_function",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "entry_function",
           "named": true
         }
       ]
@@ -4503,6 +4500,10 @@
     "named": false
   },
   {
+    "type": "FILL",
+    "named": false
+  },
+  {
     "type": "FINAL",
     "named": false
   },
@@ -4604,6 +4605,10 @@
   },
   {
     "type": "LE",
+    "named": false
+  },
+  {
+    "type": "LENGTH",
     "named": false
   },
   {
@@ -4836,6 +4841,10 @@
   },
   {
     "type": "STREAM",
+    "named": false
+  },
+  {
+    "type": "SUBSTRING",
     "named": false
   },
   {
@@ -5167,6 +5176,10 @@
     "named": false
   },
   {
+    "type": "fill",
+    "named": false
+  },
+  {
     "type": "final",
     "named": false
   },
@@ -5276,6 +5289,10 @@
   },
   {
     "type": "le",
+    "named": false
+  },
+  {
+    "type": "length",
     "named": false
   },
   {
@@ -5512,6 +5529,10 @@
   },
   {
     "type": "stream",
+    "named": false
+  },
+  {
+    "type": "substring",
     "named": false
   },
   {

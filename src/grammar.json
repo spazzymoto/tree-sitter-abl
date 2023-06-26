@@ -377,10 +377,6 @@
         },
         {
           "type": "SYMBOL",
-          "name": "pseudo_function"
-        },
-        {
-          "type": "SYMBOL",
           "name": "preprocessor"
         }
       ]
@@ -1165,7 +1161,7 @@
                 },
                 {
                   "type": "SYMBOL",
-                  "name": "pseudo_function"
+                  "name": "builtin_function"
                 },
                 {
                   "type": "SYMBOL",
@@ -1523,6 +1519,22 @@
           "members": [
             {
               "type": "SYMBOL",
+              "name": "kwENTRY"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "kwFILL"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "kwINDEX"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "kwLENGTH"
+            },
+            {
+              "type": "SYMBOL",
               "name": "kwNUM_ENTRIES"
             },
             {
@@ -1531,31 +1543,13 @@
             },
             {
               "type": "SYMBOL",
+              "name": "kwSUBSTRING"
+            },
+            {
+              "type": "SYMBOL",
               "name": "kwVALID_OBJECT"
             }
           ]
-        },
-        {
-          "type": "SYMBOL",
-          "name": "argument_list"
-        }
-      ]
-    },
-    "pseudo_function": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "entry_function"
-        }
-      ]
-    },
-    "entry_function": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "kwENTRY"
         },
         {
           "type": "SYMBOL",
@@ -5048,6 +5042,19 @@
         }
       ]
     },
+    "kwFILL": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "FILL"
+        },
+        {
+          "type": "STRING",
+          "value": "fill"
+        }
+      ]
+    },
     "kwFINAL": {
       "type": "CHOICE",
       "members": [
@@ -5383,6 +5390,19 @@
         {
           "type": "STRING",
           "value": "le"
+        }
+      ]
+    },
+    "kwLENGTH": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "LENGTH"
+        },
+        {
+          "type": "STRING",
+          "value": "length"
         }
       ]
     },
@@ -6141,6 +6161,19 @@
         {
           "type": "STRING",
           "value": "stream"
+        }
+      ]
+    },
+    "kwSUBSTRING": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "SUBSTRING"
+        },
+        {
+          "type": "STRING",
+          "value": "substring"
         }
       ]
     },

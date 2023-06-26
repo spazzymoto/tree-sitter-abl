@@ -157,7 +157,6 @@ module.exports = grammar({
       $.subscript_expression,
 
       $.builtin_function,
-      $.pseudo_function,
 
       $.preprocessor
     ),
@@ -219,7 +218,7 @@ module.exports = grammar({
     assignment_expression: $ => prec.right(PREC.ASSIGNMENT, seq(
       field('left', choice(
         $.identifier,
-        $.pseudo_function,
+        $.builtin_function,
         $.member_expression
       )),
       field('operator', choice('=', '+=', '-=', '*=', '/=')),
@@ -288,18 +287,17 @@ module.exports = grammar({
 
     builtin_function: $ => seq(
       choice(
+        $.kwENTRY,
+        $.kwFILL,
+        $.kwINDEX,
+        $.kwLENGTH,
         $.kwNUM_ENTRIES,
         $.kwREPLACE,
-        $.kwVALID_OBJECT
+        $.kwSUBSTRING,
+        $.kwVALID_OBJECT,
       ),
       $.argument_list
     ),
-
-    pseudo_function: $ => choice(
-      $.entry_function
-    ),
-
-    entry_function: $ => seq($.kwENTRY, $.argument_list),
 
     //
     // Statements
@@ -365,7 +363,7 @@ module.exports = grammar({
           seq($.identifier, '=', $.expression, $.kwTO, $.expression),
           seq($.kwWHILE, $.expression),
           $.kwTRANSACTION
-        ) 
+        )
       ),
       $.code_block
     ),
