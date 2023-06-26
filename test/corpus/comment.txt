@@ -13,7 +13,7 @@ line comment
 block comment
 =============
 
-/* this is 
+/* this is
    a block comment */
 
 ---
@@ -28,6 +28,23 @@ nested block comment
 /* this is a
    /* nested /* block */
    comment */*/
+
+---
+
+(program
+  (block_comment))
+
+====================
+doc block comment
+====================
+
+/**
+ * this is a doc comment
+ *
+ * @param
+ *
+ * @return
+ */
 
 ---
 

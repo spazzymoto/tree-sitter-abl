@@ -1,0 +1,19 @@
+============
+do statement
+============
+
+DO:
+  a = b.
+END.
+
+---
+
+(program
+  (do_statement
+	(kwDO)
+	(code_block
+	  (expression_statement
+		(assignment_expression
+		  (identifier)
+		  (identifier)))
+	  (kwEND))))

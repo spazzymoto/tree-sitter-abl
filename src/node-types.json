@@ -1,5 +1,185 @@
 [
   {
+    "type": "expression",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "binary_expression",
+        "named": true
+      },
+      {
+        "type": "builtin_function",
+        "named": true
+      },
+      {
+        "type": "call_expression",
+        "named": true
+      },
+      {
+        "type": "character_literal",
+        "named": true
+      },
+      {
+        "type": "decimal_integer_literal",
+        "named": true
+      },
+      {
+        "type": "false",
+        "named": true
+      },
+      {
+        "type": "identifier",
+        "named": true
+      },
+      {
+        "type": "if_then_else_expression",
+        "named": true
+      },
+      {
+        "type": "kwSELF",
+        "named": true
+      },
+      {
+        "type": "kwTARGET_PROCEDURE",
+        "named": true
+      },
+      {
+        "type": "kwTHIS_OBJECT",
+        "named": true
+      },
+      {
+        "type": "kwTHIS_PROCEDURE",
+        "named": true
+      },
+      {
+        "type": "member_expression",
+        "named": true
+      },
+      {
+        "type": "new_expression",
+        "named": true
+      },
+      {
+        "type": "parenthesized_expression",
+        "named": true
+      },
+      {
+        "type": "subscript_expression",
+        "named": true
+      },
+      {
+        "type": "true",
+        "named": true
+      },
+      {
+        "type": "unary_expression",
+        "named": true
+      },
+      {
+        "type": "unknown_literal",
+        "named": true
+      }
+    ]
+  },
+  {
+    "type": "statement",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "annotation_statement",
+        "named": true
+      },
+      {
+        "type": "assign_statement",
+        "named": true
+      },
+      {
+        "type": "block_level_statement",
+        "named": true
+      },
+      {
+        "type": "class_statement",
+        "named": true
+      },
+      {
+        "type": "create_statement",
+        "named": true
+      },
+      {
+        "type": "define_buffer_statement",
+        "named": true
+      },
+      {
+        "type": "define_dataset_statement",
+        "named": true
+      },
+      {
+        "type": "define_procedure_parameter_statement",
+        "named": true
+      },
+      {
+        "type": "define_stream_statement",
+        "named": true
+      },
+      {
+        "type": "do_statement",
+        "named": true
+      },
+      {
+        "type": "empty_statement",
+        "named": true
+      },
+      {
+        "type": "empty_temp_table_statement",
+        "named": true
+      },
+      {
+        "type": "expression_statement",
+        "named": true
+      },
+      {
+        "type": "function_forward_statement",
+        "named": true
+      },
+      {
+        "type": "if_then_else_statement",
+        "named": true
+      },
+      {
+        "type": "interface_statement",
+        "named": true
+      },
+      {
+        "type": "message_statement",
+        "named": true
+      },
+      {
+        "type": "procedure_statement",
+        "named": true
+      },
+      {
+        "type": "return_statement",
+        "named": true
+      },
+      {
+        "type": "routine_level_statement",
+        "named": true
+      },
+      {
+        "type": "temp_table_statement",
+        "named": true
+      },
+      {
+        "type": "using_statement",
+        "named": true
+      },
+      {
+        "type": "variable_statement",
+        "named": true
+      }
+    ]
+  },
+  {
     "type": "analyze_suspend",
     "named": true,
     "fields": {},
@@ -15,35 +195,49 @@
     }
   },
   {
+    "type": "annotation_attribute",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "character_literal",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "annotation_attribute_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "annotation_attribute",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "annotation_statement",
     "named": true,
     "fields": {
-      "arguments": {
-        "multiple": true,
+      "attributes": {
+        "multiple": false,
         "required": false,
         "types": [
           {
-            "type": "(",
-            "named": false
-          },
-          {
-            "type": ")",
-            "named": false
-          },
-          {
-            "type": ",",
-            "named": false
-          },
-          {
-            "type": "=",
-            "named": false
-          },
-          {
-            "type": "character_literal",
-            "named": true
-          },
-          {
-            "type": "identifier",
+            "type": "annotation_attribute_list",
             "named": true
           }
         ]
@@ -85,6 +279,18 @@
         {
           "type": "expression",
           "named": true
+        },
+        {
+          "type": "kwINPUT",
+          "named": true
+        },
+        {
+          "type": "kwINPUT_OUTPUT",
+          "named": true
+        },
+        {
+          "type": "kwOUTPUT",
+          "named": true
         }
       ]
     }
@@ -125,7 +331,7 @@
             "named": true
           },
           {
-            "type": "property_access",
+            "type": "member_expression",
             "named": true
           },
           {
@@ -251,12 +457,12 @@
             "named": false
           },
           {
-            "type": "AND",
-            "named": false
+            "type": "kwAND",
+            "named": true
           },
           {
-            "type": "OR",
-            "named": false
+            "type": "kwBEGINS",
+            "named": true
           },
           {
             "type": "kwEQ",
@@ -279,7 +485,15 @@
             "named": true
           },
           {
+            "type": "kwMATCHES",
+            "named": true
+          },
+          {
             "type": "kwNE",
+            "named": true
+          },
+          {
+            "type": "kwOR",
             "named": true
           }
         ]
@@ -343,16 +557,46 @@
     }
   },
   {
-    "type": "character_literal",
+    "type": "call_expression",
     "named": true,
     "fields": {
-      "literal": {
+      "arguments": {
         "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "string_literal",
+            "type": "argument_list",
             "named": true
+          }
+        ]
+      },
+      "function": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "character_literal",
+    "named": true,
+    "fields": {
+      "literal": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "\"",
+            "named": false
+          },
+          {
+            "type": "'",
+            "named": false
           }
         ]
       },
@@ -1205,11 +1449,11 @@
             "named": true
           },
           {
-            "type": "null_literal",
+            "type": "true",
             "named": true
           },
           {
-            "type": "true",
+            "type": "unknown_literal",
             "named": true
           }
         ]
@@ -1274,15 +1518,7 @@
           "named": true
         },
         {
-          "type": "identifier",
-          "named": true
-        },
-        {
           "type": "kwABSTRACT",
-          "named": true
-        },
-        {
-          "type": "kwAPPEND",
           "named": true
         },
         {
@@ -1290,31 +1526,7 @@
           "named": true
         },
         {
-          "type": "kwBIND",
-          "named": true
-        },
-        {
-          "type": "kwBUFFER",
-          "named": true
-        },
-        {
-          "type": "kwBY_VALUE",
-          "named": true
-        },
-        {
-          "type": "kwDATASET",
-          "named": true
-        },
-        {
-          "type": "kwDATASET_HANDLE",
-          "named": true
-        },
-        {
           "type": "kwDEFINE",
-          "named": true
-        },
-        {
-          "type": "kwFOR",
           "named": true
         },
         {
@@ -1330,18 +1542,6 @@
           "named": true
         },
         {
-          "type": "kwINPUT",
-          "named": true
-        },
-        {
-          "type": "kwINPUT_OUTPUT",
-          "named": true
-        },
-        {
-          "type": "kwLIKE",
-          "named": true
-        },
-        {
           "type": "kwNEW",
           "named": true
         },
@@ -1354,15 +1554,7 @@
           "named": true
         },
         {
-          "type": "kwOUTPUT",
-          "named": true
-        },
-        {
           "type": "kwOVERRIDE",
-          "named": true
-        },
-        {
-          "type": "kwPRESELECT",
           "named": true
         },
         {
@@ -1402,15 +1594,7 @@
           "named": true
         },
         {
-          "type": "kwTABLE",
-          "named": true
-        },
-        {
-          "type": "kwTABLE_HANDLE",
-          "named": true
-        },
-        {
-          "type": "scoped_identifier",
+          "type": "parameter_declaration",
           "named": true
         }
       ]
@@ -1484,6 +1668,36 @@
     }
   },
   {
+    "type": "do_statement",
+    "named": true,
+    "fields": {
+      "label": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "code_block",
+          "named": true
+        },
+        {
+          "type": "kwDO",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "empty_statement",
     "named": true,
     "fields": {}
@@ -1529,29 +1743,6 @@
         },
         {
           "type": "kwENTRY",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "expression",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "binary_expression",
-          "named": true
-        },
-        {
-          "type": "primary_expression",
-          "named": true
-        },
-        {
-          "type": "unary_expression",
           "named": true
         }
       ]
@@ -1635,38 +1826,6 @@
           "named": true
         },
         {
-          "type": "kwAPPEND",
-          "named": true
-        },
-        {
-          "type": "kwAS",
-          "named": true
-        },
-        {
-          "type": "kwBIND",
-          "named": true
-        },
-        {
-          "type": "kwBUFFER",
-          "named": true
-        },
-        {
-          "type": "kwBY_VALUE",
-          "named": true
-        },
-        {
-          "type": "kwDATASET",
-          "named": true
-        },
-        {
-          "type": "kwDATASET_HANDLE",
-          "named": true
-        },
-        {
-          "type": "kwFOR",
-          "named": true
-        },
-        {
           "type": "kwFORWARD",
           "named": true
         },
@@ -1675,39 +1834,11 @@
           "named": true
         },
         {
-          "type": "kwINPUT",
-          "named": true
-        },
-        {
-          "type": "kwINPUT_OUTPUT",
-          "named": true
-        },
-        {
-          "type": "kwLIKE",
-          "named": true
-        },
-        {
-          "type": "kwOUTPUT",
-          "named": true
-        },
-        {
-          "type": "kwPRESELECT",
-          "named": true
-        },
-        {
           "type": "kwRETURNS",
           "named": true
         },
         {
-          "type": "kwTABLE",
-          "named": true
-        },
-        {
-          "type": "kwTABLE_HANDLE",
-          "named": true
-        },
-        {
-          "type": "scoped_identifier",
+          "type": "parameter_declaration",
           "named": true
         }
       ]
@@ -1733,6 +1864,33 @@
     }
   },
   {
+    "type": "if_then_else_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "kwELSE",
+          "named": true
+        },
+        {
+          "type": "kwIF",
+          "named": true
+        },
+        {
+          "type": "kwTHEN",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "if_then_else_statement",
     "named": true,
     "fields": {},
@@ -1741,19 +1899,7 @@
       "required": true,
       "types": [
         {
-          "type": "code_block",
-          "named": true
-        },
-        {
           "type": "expression",
-          "named": true
-        },
-        {
-          "type": "expression_statement",
-          "named": true
-        },
-        {
-          "type": "kwDO",
           "named": true
         },
         {
@@ -1854,6 +2000,11 @@
     "fields": {}
   },
   {
+    "type": "kwAND",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "kwAPPEND",
     "named": true,
     "fields": {}
@@ -1885,6 +2036,11 @@
   },
   {
     "type": "kwBEFORE_TABLE",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "kwBEGINS",
     "named": true,
     "fields": {}
   },
@@ -2199,6 +2355,11 @@
     "fields": {}
   },
   {
+    "type": "kwMATCHES",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "kwMEMPTR",
     "named": true,
     "fields": {}
@@ -2265,6 +2426,11 @@
   },
   {
     "type": "kwON",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "kwOR",
     "named": true,
     "fields": {}
   },
@@ -2379,6 +2545,11 @@
     "fields": {}
   },
   {
+    "type": "kwSELF",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "kwSERIALIZABLE",
     "named": true,
     "fields": {}
@@ -2424,12 +2595,22 @@
     "fields": {}
   },
   {
+    "type": "kwTARGET_PROCEDURE",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "kwTEMP_TABLE",
     "named": true,
     "fields": {}
   },
   {
     "type": "kwTHEN",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "kwTHIS_OBJECT",
     "named": true,
     "fields": {}
   },
@@ -2549,6 +2730,32 @@
     "fields": {}
   },
   {
+    "type": "member_expression",
+    "named": true,
+    "fields": {
+      "object": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "expression",
+            "named": true
+          }
+        ]
+      },
+      "property": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "message_statement",
     "named": true,
     "fields": {
@@ -2588,15 +2795,7 @@
       "required": true,
       "types": [
         {
-          "type": "character_literal",
-          "named": true
-        },
-        {
           "type": "expression",
-          "named": true
-        },
-        {
-          "type": "identifier",
           "named": true
         },
         {
@@ -2689,29 +2888,6 @@
         },
         {
           "type": "kwYES_NO_CANCEL",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "method_invocation",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "argument_list",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "primary_expression",
           "named": true
         }
       ]
@@ -2870,6 +3046,171 @@
     }
   },
   {
+    "type": "new_expression",
+    "named": true,
+    "fields": {
+      "arguments": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "argument_list",
+            "named": true
+          }
+        ]
+      },
+      "constructor": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "scoped_identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "kwNEW",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "parameter_declaration",
+    "named": true,
+    "fields": {
+      "type": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "decimal_integer_literal",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "kwCLASS",
+            "named": true
+          },
+          {
+            "type": "kwEXTENT",
+            "named": true
+          },
+          {
+            "type": "primitive_type",
+            "named": true
+          },
+          {
+            "type": "scoped_identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "kwAPPEND",
+          "named": true
+        },
+        {
+          "type": "kwAS",
+          "named": true
+        },
+        {
+          "type": "kwBIND",
+          "named": true
+        },
+        {
+          "type": "kwBUFFER",
+          "named": true
+        },
+        {
+          "type": "kwBY_VALUE",
+          "named": true
+        },
+        {
+          "type": "kwDATASET",
+          "named": true
+        },
+        {
+          "type": "kwDATASET_HANDLE",
+          "named": true
+        },
+        {
+          "type": "kwFOR",
+          "named": true
+        },
+        {
+          "type": "kwINPUT",
+          "named": true
+        },
+        {
+          "type": "kwINPUT_OUTPUT",
+          "named": true
+        },
+        {
+          "type": "kwLIKE",
+          "named": true
+        },
+        {
+          "type": "kwOUTPUT",
+          "named": true
+        },
+        {
+          "type": "kwPRESELECT",
+          "named": true
+        },
+        {
+          "type": "kwTABLE",
+          "named": true
+        },
+        {
+          "type": "kwTABLE_HANDLE",
+          "named": true
+        },
+        {
+          "type": "scoped_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "parenthesized_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "ppANALYZE_RESUME",
     "named": true,
     "fields": {}
@@ -2925,57 +3266,6 @@
         },
         {
           "type": "scoped_define",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "primary_expression",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "builtin_function",
-          "named": true
-        },
-        {
-          "type": "character_literal",
-          "named": true
-        },
-        {
-          "type": "decimal_integer_literal",
-          "named": true
-        },
-        {
-          "type": "false",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "kwTHIS_PROCEDURE",
-          "named": true
-        },
-        {
-          "type": "method_invocation",
-          "named": true
-        },
-        {
-          "type": "null_literal",
-          "named": true
-        },
-        {
-          "type": "property_access",
-          "named": true
-        },
-        {
-          "type": "true",
           "named": true
         }
       ]
@@ -3104,32 +3394,6 @@
           "named": true
         }
       ]
-    }
-  },
-  {
-    "type": "property_access",
-    "named": true,
-    "fields": {
-      "field": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      },
-      "object": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "primary_expression",
-            "named": true
-          }
-        ]
-      }
     }
   },
   {
@@ -3270,138 +3534,35 @@
     }
   },
   {
-    "type": "statement",
+    "type": "subscript_expression",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "annotation_statement",
-          "named": true
-        },
-        {
-          "type": "assign_statement",
-          "named": true
-        },
-        {
-          "type": "block_level_statement",
-          "named": true
-        },
-        {
-          "type": "class_statement",
-          "named": true
-        },
-        {
-          "type": "create_statement",
-          "named": true
-        },
-        {
-          "type": "define_buffer_statement",
-          "named": true
-        },
-        {
-          "type": "define_dataset_statement",
-          "named": true
-        },
-        {
-          "type": "define_procedure_parameter_statement",
-          "named": true
-        },
-        {
-          "type": "define_stream_statement",
-          "named": true
-        },
-        {
-          "type": "empty_statement",
-          "named": true
-        },
-        {
-          "type": "empty_temp_table_statement",
-          "named": true
-        },
-        {
-          "type": "expression_statement",
-          "named": true
-        },
-        {
-          "type": "function_forward_statement",
-          "named": true
-        },
-        {
-          "type": "if_then_else_statement",
-          "named": true
-        },
-        {
-          "type": "interface_statement",
-          "named": true
-        },
-        {
-          "type": "message_statement",
-          "named": true
-        },
-        {
-          "type": "procedure_statement",
-          "named": true
-        },
-        {
-          "type": "return_statement",
-          "named": true
-        },
-        {
-          "type": "routine_level_statement",
-          "named": true
-        },
-        {
-          "type": "temp_table_statement",
-          "named": true
-        },
-        {
-          "type": "using_statement",
-          "named": true
-        },
-        {
-          "type": "variable_statement",
-          "named": true
-        }
-      ]
+    "fields": {
+      "index": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "expression",
+            "named": true
+          }
+        ]
+      },
+      "object": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "expression",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
-    "type": "string_literal",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "string_modifier",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "temp_table_statement",
+    "type": "temp_table_field",
     "named": true,
     "fields": {
-      "namespace_prefix": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "character_literal",
-            "named": true
-          }
-        ]
-      },
-      "namespace_uri": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "character_literal",
-            "named": true
-          }
-        ]
-      },
       "serialize_name": {
         "multiple": true,
         "required": false,
@@ -3441,6 +3602,139 @@
             "named": true
           }
         ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "kwAS",
+          "named": true
+        },
+        {
+          "type": "kwFIELD",
+          "named": true
+        },
+        {
+          "type": "kwLIKE",
+          "named": true
+        },
+        {
+          "type": "kwSERIALIZE_NAME",
+          "named": true
+        },
+        {
+          "type": "kwVALIDATE",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "temp_table_index",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "kwAS",
+          "named": true
+        },
+        {
+          "type": "kwASCENDING",
+          "named": true
+        },
+        {
+          "type": "kwDESCENDING",
+          "named": true
+        },
+        {
+          "type": "kwINDEX",
+          "named": true
+        },
+        {
+          "type": "kwIS",
+          "named": true
+        },
+        {
+          "type": "kwPRIMARY",
+          "named": true
+        },
+        {
+          "type": "kwUNIQUE",
+          "named": true
+        },
+        {
+          "type": "kwWORD_INDEX",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "temp_table_statement",
+    "named": true,
+    "fields": {
+      "fields": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "temp_table_field",
+            "named": true
+          }
+        ]
+      },
+      "indecies": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "temp_table_index",
+            "named": true
+          }
+        ]
+      },
+      "namespace_prefix": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "character_literal",
+            "named": true
+          }
+        ]
+      },
+      "namespace_uri": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "character_literal",
+            "named": true
+          }
+        ]
+      },
+      "serialize_name": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "character_literal",
+            "named": true
+          }
+        ]
       },
       "xml_node_name": {
         "multiple": true,
@@ -3470,10 +3764,6 @@
           "named": true
         },
         {
-          "type": "kwASCENDING",
-          "named": true
-        },
-        {
           "type": "kwBEFORE_TABLE",
           "named": true
         },
@@ -3482,23 +3772,7 @@
           "named": true
         },
         {
-          "type": "kwDESCENDING",
-          "named": true
-        },
-        {
-          "type": "kwFIELD",
-          "named": true
-        },
-        {
           "type": "kwGLOBAL",
-          "named": true
-        },
-        {
-          "type": "kwINDEX",
-          "named": true
-        },
-        {
-          "type": "kwIS",
           "named": true
         },
         {
@@ -3578,19 +3852,11 @@
           "named": true
         },
         {
-          "type": "kwUNIQUE",
-          "named": true
-        },
-        {
           "type": "kwUSE_INDEX",
           "named": true
         },
         {
           "type": "kwVALIDATE",
-          "named": true
-        },
-        {
-          "type": "kwWORD_INDEX",
           "named": true
         },
         {
@@ -3678,6 +3944,10 @@
           "named": true
         },
         {
+          "type": "preprocessor",
+          "named": true
+        },
+        {
           "type": "scoped_identifier",
           "named": true
         }
@@ -3715,11 +3985,11 @@
             "named": true
           },
           {
-            "type": "null_literal",
+            "type": "true",
             "named": true
           },
           {
-            "type": "true",
+            "type": "unknown_literal",
             "named": true
           }
         ]
@@ -3975,10 +4245,6 @@
     "named": false
   },
   {
-    "type": ":U",
-    "named": false
-  },
-  {
     "type": "<",
     "named": false
   },
@@ -4019,6 +4285,10 @@
     "named": false
   },
   {
+    "type": "ANYWHERE",
+    "named": false
+  },
+  {
     "type": "APPEND",
     "named": false
   },
@@ -4044,6 +4314,10 @@
   },
   {
     "type": "BEFORE-TABLE",
+    "named": false
+  },
+  {
+    "type": "BEGINS",
     "named": false
   },
   {
@@ -4299,6 +4573,10 @@
     "named": false
   },
   {
+    "type": "MATCHES",
+    "named": false
+  },
+  {
     "type": "MEMPTR",
     "named": false
   },
@@ -4347,11 +4625,19 @@
     "named": false
   },
   {
+    "type": "OF",
+    "named": false
+  },
+  {
     "type": "OK",
     "named": false
   },
   {
     "type": "OK-CANCEL",
+    "named": false
+  },
+  {
+    "type": "OLD",
     "named": false
   },
   {
@@ -4372,6 +4658,10 @@
   },
   {
     "type": "PARAMETER",
+    "named": false
+  },
+  {
+    "type": "PERSISTENT",
     "named": false
   },
   {
@@ -4443,11 +4733,23 @@
     "named": false
   },
   {
+    "type": "REVERT",
+    "named": false
+  },
+  {
     "type": "ROUTINE-LEVEL",
     "named": false
   },
   {
     "type": "ROWID",
+    "named": false
+  },
+  {
+    "type": "RUN",
+    "named": false
+  },
+  {
+    "type": "SELF",
     "named": false
   },
   {
@@ -4487,11 +4789,19 @@
     "named": false
   },
   {
+    "type": "TARGET-PROCEDURE",
+    "named": false
+  },
+  {
     "type": "TEMP-TABLE",
     "named": false
   },
   {
     "type": "THEN",
+    "named": false
+  },
+  {
+    "type": "THIS-OBJECT",
     "named": false
   },
   {
@@ -4539,6 +4849,10 @@
     "named": false
   },
   {
+    "type": "VALUE",
+    "named": false
+  },
+  {
     "type": "VARIABLE",
     "named": false
   },
@@ -4583,11 +4897,27 @@
     "named": false
   },
   {
+    "type": "[",
+    "named": false
+  },
+  {
+    "type": "]",
+    "named": false
+  },
+  {
     "type": "abstract",
     "named": false
   },
   {
     "type": "alert-box",
+    "named": false
+  },
+  {
+    "type": "and",
+    "named": false
+  },
+  {
+    "type": "anywhere",
     "named": false
   },
   {
@@ -4616,6 +4946,10 @@
   },
   {
     "type": "before-table",
+    "named": false
+  },
+  {
+    "type": "begins",
     "named": false
   },
   {
@@ -4887,6 +5221,10 @@
     "named": false
   },
   {
+    "type": "matches",
+    "named": false
+  },
+  {
     "type": "memptr",
     "named": false
   },
@@ -4935,8 +5273,8 @@
     "named": false
   },
   {
-    "type": "null_literal",
-    "named": true
+    "type": "of",
+    "named": false
   },
   {
     "type": "ok",
@@ -4947,7 +5285,15 @@
     "named": false
   },
   {
+    "type": "old",
+    "named": false
+  },
+  {
     "type": "on",
+    "named": false
+  },
+  {
+    "type": "or",
     "named": false
   },
   {
@@ -4960,6 +5306,10 @@
   },
   {
     "type": "parameter",
+    "named": false
+  },
+  {
+    "type": "persistent",
     "named": false
   },
   {
@@ -5035,11 +5385,23 @@
     "named": false
   },
   {
+    "type": "revert",
+    "named": false
+  },
+  {
     "type": "routine-level",
     "named": false
   },
   {
     "type": "rowid",
+    "named": false
+  },
+  {
+    "type": "run",
+    "named": false
+  },
+  {
+    "type": "self",
     "named": false
   },
   {
@@ -5071,6 +5433,10 @@
     "named": false
   },
   {
+    "type": "string_modifier",
+    "named": true
+  },
+  {
     "type": "table",
     "named": false
   },
@@ -5079,11 +5445,19 @@
     "named": false
   },
   {
+    "type": "target-procedure",
+    "named": false
+  },
+  {
     "type": "temp-table",
     "named": false
   },
   {
     "type": "then",
+    "named": false
+  },
+  {
+    "type": "this-object",
     "named": false
   },
   {
@@ -5111,6 +5485,10 @@
     "named": false
   },
   {
+    "type": "unknown_literal",
+    "named": true
+  },
+  {
     "type": "update",
     "named": false
   },
@@ -5128,6 +5506,10 @@
   },
   {
     "type": "validate",
+    "named": false
+  },
+  {
+    "type": "value",
     "named": false
   },
   {

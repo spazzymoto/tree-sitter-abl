@@ -7,12 +7,11 @@ CREATE ttTest NO-ERROR.
 ---
 
 (program
-  (statement
-    (create_statement
-	  (kwCREATE)
-	  (identifier)
-	  (kwNO_ERROR))))
-	
+  (create_statement
+    (kwCREATE)
+    (identifier)
+    (kwNO_ERROR)))
+
 ========================
 create statement with db
 ========================
@@ -22,9 +21,8 @@ CREATE database.table.
 ---
 
 (program
-  (statement
-    (create_statement
-	  (kwCREATE)
-	  (scoped_identifier
-	    (identifier)
-	    (identifier)))))
+  (create_statement
+    (kwCREATE)
+    (scoped_identifier
+      (identifier)
+      (identifier))))

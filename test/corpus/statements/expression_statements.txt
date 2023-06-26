@@ -7,13 +7,10 @@ a = 1.
 ---
 
 (program
-  (statement
-    (expression_statement
-      (assignment_expression
-        (identifier)
-        (expression
-          (primary_expression
-            (decimal_integer_literal)))))))
+  (expression_statement
+    (assignment_expression
+      (identifier)
+      (decimal_integer_literal))))
 
 ===============================
 complex assignment expression statement
@@ -24,23 +21,14 @@ a = 1 + 2 - 3.
 ---
 
 (program
-  (statement
-    (expression_statement
-      (assignment_expression
-        (identifier)
-        (expression
-          (binary_expression
-            (expression
-              (binary_expression
-                (expression
-                  (primary_expression
-                    (decimal_integer_literal)))
-                (expression
-                  (primary_expression
-                    (decimal_integer_literal)))))
-            (expression
-              (primary_expression
-                (decimal_integer_literal)))))))))
+  (expression_statement
+    (assignment_expression
+      (identifier)
+      (binary_expression
+        (binary_expression
+          (decimal_integer_literal)
+          (decimal_integer_literal))
+        (decimal_integer_literal)))))
 
 =================
 binary expression
@@ -51,16 +39,10 @@ binary expression
 ---
 
 (program
-  (statement
-    (expression_statement
-	  (expression
-	    (binary_expression
-	      (expression
-		    (primary_expression
-		      (decimal_integer_literal)))
-		  (expression
-		    (primary_expression
-		      (decimal_integer_literal))))))))
+  (expression_statement
+    (binary_expression
+      (decimal_integer_literal)
+      (decimal_integer_literal))))
 
 ================
 unary expression
@@ -71,13 +53,9 @@ unary expression
 ---
 
 (program
-  (statement
-    (expression_statement
-      (expression
-        (unary_expression
-          (expression
-            (primary_expression
-              (decimal_integer_literal))))))))      
+  (expression_statement
+    (unary_expression
+      (decimal_integer_literal))))
 
 ====================
 not unary expression
@@ -87,17 +65,13 @@ lLogical = NOT TRUE.
 
 ---
 (program
-  (statement
-    (expression_statement
-      (assignment_expression
-        (identifier)
-        (expression
-          (unary_expression
-            (kwNOT)
-            (expression
-              (primary_expression
-                (true
-                  (kwTRUE))))))))))
+  (expression_statement
+    (assignment_expression
+      (identifier)
+      (unary_expression
+        (kwNOT)
+        (true
+          (kwTRUE))))))
 
 =======================
 assign unary expression
@@ -108,15 +82,11 @@ a = +10.
 ---
 
 (program
-  (statement
-    (expression_statement
-      (assignment_expression
-        (identifier)
-        (expression
-          (unary_expression
-            (expression
-              (primary_expression
-                (decimal_integer_literal)))))))))      
+  (expression_statement
+    (assignment_expression
+      (identifier)
+      (unary_expression
+        (decimal_integer_literal)))))
 
 ==========================
 assign property expression
@@ -127,21 +97,15 @@ oObject:oSubObject:Property = "Value":U.
 ---
 
 (program
-  (statement
-    (expression_statement
-      (assignment_expression
-        (property_access
-          (primary_expression
-            (property_access
-              (primary_expression
-                (identifier))
-              (identifier)))
+  (expression_statement
+    (assignment_expression
+      (member_expression
+        (member_expression
+          (identifier)
           (identifier))
-        (expression
-          (primary_expression
-            (character_literal
-              (string_literal)
-              (string_modifier))))))))
+        (identifier))
+      (character_literal
+        (string_modifier)))))
 
 ============================
 method invocation expression
@@ -152,17 +116,14 @@ cTest = oObject:getCharacterValue().
 ---
 
 (program
-  (statement
-    (expression_statement
-      (assignment_expression
-        (identifier)
-        (expression
-          (primary_expression
-            (method_invocation
-              (primary_expression
-                (identifier))
-              (identifier)
-              (argument_list))))))))
+  (expression_statement
+    (assignment_expression
+      (identifier)
+      (call_expression
+        (member_expression
+          (identifier)
+          (identifier))
+        (argument_list)))))
 
 ============================
 method invocation expression
@@ -173,17 +134,109 @@ cTest = oObject:oSubObject:getCharacterValue().
 ---
 
 (program
-  (statement
-    (expression_statement
-      (assignment_expression
+  (expression_statement
+    (assignment_expression
+      (identifier)
+      (call_expression
+        (member_expression
+          (member_expression
+            (identifier)
+            (identifier))
+          (identifier))
+        (argument_list)))))
+
+===========================
+non-scoped new expression
+===========================
+
+NEW Object().
+
+---
+
+(program
+  (expression_statement
+    (new_expression
+      (kwNEW)
+      (identifier)
+      (argument_list))))
+
+=======================
+scoped new expression
+=======================
+
+NEW Progress.Lang.Object().
+
+---
+
+(program
+  (expression_statement
+    (new_expression
+      (kwNEW)
+      (scoped_identifier
+        (scoped_identifier
+          (identifier)
+          (identifier))
+        (identifier))
+      (argument_list))))
+
+===========================
+non-scoped new assignment expression
+===========================
+
+oObject = NEW Object().
+
+---
+
+(program
+  (expression_statement
+    (assignment_expression
+      (identifier)
+      (new_expression
+        (kwNEW)
         (identifier)
-        (expression
-          (primary_expression
-            (method_invocation
-              (primary_expression
-                (property_access
-                  (primary_expression
-                    (identifier))
-                  (identifier)))
-              (identifier)
-              (argument_list))))))))
+        (argument_list)))))
+
+=======================
+scoped new assignment expression
+=======================
+
+oObject = NEW Progress.Lang.Object().
+
+---
+
+(program
+  (expression_statement
+    (assignment_expression
+      (identifier)
+      (new_expression
+        (kwNEW)
+        (scoped_identifier
+          (scoped_identifier
+            (identifier)
+            (identifier))
+          (identifier))
+        (argument_list)))))
+
+================================
+new method invocation expression
+================================
+
+(NEW Progress.Lang.Object()):GetClass().
+
+---
+
+(program
+  (expression_statement
+    (call_expression
+      (member_expression
+        (parenthesized_expression
+          (new_expression
+            (kwNEW)
+            (scoped_identifier
+              (scoped_identifier
+                (identifier)
+                (identifier))
+              (identifier))
+            (argument_list)))
+        (identifier))
+      (argument_list))))

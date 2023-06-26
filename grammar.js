@@ -1,31 +1,27 @@
-const {any, sep1, commaSep, commaSep1} = require('./grammar/helper');
+const { sep1, commaSep, commaSep1 } = require('./grammar/helper');
 
 const DIGITS = token(sep1(/[0-9]+/, /_+/));
 
 const PREC = {
-  COMMENT: 0,      // //  /*  */
-  ASSIGN: 1,       // =  += -=  *=  /= 
-  DECL: 2,
-  ELEMENT_VAL: 2,
-  TERNARY: 3,      // ?:
-  OR: 4,           // ||
-  AND: 5,          // &&
-  BIT_OR: 6,       // |
-  BIT_XOR: 7,      // ^
-  BIT_AND: 8,      // &
-  EQUALITY: 9,     // ==  !=
-  GENERIC: 10,
-  REL: 10,         // <  <=  >  >=  instanceof
-  SHIFT: 11,       // <<  >>  >>>
-  ADD: 12,         // +  -
-  MULT: 13,        // *  /  %
-  CAST: 14,        // (Type)
-  OBJ_INST: 14,    // new
-  UNARY: 15,       // ++a  --a  a++  a--  +  -  !  ~
-  ARRAY: 16,       // [Index]
-  OBJ_ACCESS: 16,  // .
-  PARENS: 16,      // (Expression)
-  CLASS_LITERAL: 17,  // .
+  DEFAULT: 0,
+  ASSIGNMENT: 1,    // =  += -=  *=  /=
+  LOGICAL_OR: 2,    // ||
+  LOGICAL_AND: 3,   // &&
+  BIT_OR: 4,        // |
+  BIT_XOR: 5,       // ^
+  BIT_AND: 6,       // &
+  EQUALITY: 7,      // ==  !=
+  RELATIONAL: 8,    // <  <=  >  >=  instanceof
+  SHIFT: 9,         // <<  >>  >>>
+  ADD: 10,          // +  -
+  MULTIPLY: 11,     // *  /  %
+  CAST: 12,         // (Type)
+  UNARY: 13,        // ++a  --a  a++  a--  +  -  !  ~
+  CALL: 14,         // ()
+  NEW: 15,          // NEW
+  FIELD: 16,        // .
+  MEMBER: 17,       // :
+  SUBSCRIPT: 18,    // [index]
 };
 
 const _keywords = require('./grammar/keywords');
@@ -39,14 +35,20 @@ module.exports = grammar({
     $.block_comment,
     $.preprocessor,
   ],
-    
+
   extras: $ => [
     $.line_comment,
     $.block_comment,
     $.preprocessor,
-    /\s/,
+    /\s|\\\r?\n/,
   ],
 
+  word: $ => $.identifier,
+
+  supertypes: $ => [
+    $.expression,
+    $.statement
+  ],
 
   rules: {
     program: $ => repeat(
@@ -56,41 +58,57 @@ module.exports = grammar({
       )
     ),
 
-    line_comment: $ => seq('//', /[^\n]*/),
+    line_comment: _ => seq('//', /[^\n]*/),
 
+    //
     // Literals
+    //
 
     _literal: $ => choice(
       $.decimal_integer_literal,
       $.true,
       $.false,
       $.character_literal,
-      $.null_literal
+      $.unknown_literal
     ),
 
-    decimal_integer_literal: $ => token(DIGITS),
+    decimal_integer_literal: _ => DIGITS,
 
     true: $ => $.kwTRUE,
-    
+
     false: $ => $.kwFALSE,
 
     character_literal: $ => seq(
-      field('literal', $.string_literal),
-      field('modifier', optional($.string_modifier))
+      field('literal', $._string_literal),
+      optional(field('modifier', $.string_modifier))
     ),
 
-    string_literal: $ => choice(
-      seq("'",repeat(choice(/[^~'\n]/, /~(.|\n)/)), "'"),
-      seq('"',repeat(choice(/[^~"\n]/, /~(.|\n)/)), '"'),
+    _string_literal: _ => choice(
+      seq("'", repeat(choice(/[^~'\n]/, /~(.|\n)/)), "'"),
+      seq('"', repeat(choice(/[^~"\n]/, /~(.|\n)/)), '"'),
     ),
 
-    string_modifier: $ => choice(
-      ':U'
-    ),
-    
-    null_literal: $ => '?',
+    string_modifier: _ => ':U',
 
+    unknown_literal: _ => '?',
+
+    identifier: _ => /[a-zA-Z_]\w*/,
+
+    _name: $ => choice(
+      $.identifier,
+      $.scoped_identifier
+    ),
+
+    scoped_identifier: $ => prec(PREC.FIELD, seq(
+      field('scope', $._name),
+      '.',
+      field('name', $.identifier)
+    )),
+
+    //
     // Types
+    //
+
     _type: $ => choice(
       $.primitive_type
     ),
@@ -116,12 +134,32 @@ module.exports = grammar({
       $.kwWIDGET_HANDLE
     ),
 
+    //
     // Expressions
-   
+    //
+
     expression: $ => choice(
+      $._literal,
+      $._system_handle,
+      $.identifier,
+
       $.binary_expression,
-      $.primary_expression,
-      $.unary_expression
+      $.unary_expression,
+      // $.assignment_expression,
+      $.call_expression,
+      $.if_then_else_expression,
+      $.new_expression,
+      $.member_expression,
+      $.parenthesized_expression,
+      $.subscript_expression,
+
+      $.builtin_function,
+    ),
+
+    parenthesized_expression: $ => seq(
+      '(',
+      $.expression,
+      ')'
     ),
 
     unary_expression: $ => choice(
@@ -139,27 +177,30 @@ module.exports = grammar({
 
     binary_expression: $ => choice(
       ...[
-        
-        [$.kwGT, PREC.REL],
-        [$.kwLT, PREC.REL],
-        [$.kwGE, PREC.REL],
-        [$.kwLE, PREC.REL],
-        ['>', PREC.REL],
-        ['<', PREC.REL],
-        ['>=', PREC.REL],
-        ['<=', PREC.REL],
-        
+
+        [$.kwBEGINS, PREC.RELATIONAL],
+        [$.kwMATCHES, PREC.RELATIONAL],
+        [$.kwGT, PREC.RELATIONAL],
+        [$.kwLT, PREC.RELATIONAL],
+        [$.kwGE, PREC.RELATIONAL],
+        [$.kwLE, PREC.RELATIONAL],
+        ['>', PREC.RELATIONAL],
+        ['<', PREC.RELATIONAL],
+        ['>=', PREC.RELATIONAL],
+        ['<=', PREC.RELATIONAL],
+
         [$.kwEQ, PREC.EQUALITY],
         [$.kwNE, PREC.EQUALITY],
         ['=', PREC.EQUALITY],
         ['<>', PREC.EQUALITY],
-        
-        ['AND', PREC.AND],
-        ['OR', PREC.OR],
+
+        [$.kwAND, PREC.LOGICAL_AND],
+        [$.kwOR, PREC.LOGICAL_OR],
         ['+', PREC.ADD],
         ['-', PREC.ADD],
-        ['*', PREC.MULT],
-        ['/', PREC.MULT],
+        ['*', PREC.MULTIPLY],
+        ['/', PREC.MULTIPLY],
+
       ].map(([operator, precedence]) =>
         prec.left(precedence, seq(
           field('left', $.expression),
@@ -169,11 +210,11 @@ module.exports = grammar({
       )
     ),
 
-    assignment_expression: $ => prec.right(PREC.ASSIGN, seq(
+    assignment_expression: $ => prec.right(PREC.ASSIGNMENT, seq(
       field('left', choice(
         $.identifier,
         $.pseudo_function,
-        $.property_access
+        $.member_expression
       )),
       field('operator', choice('=', '+=', '-=', '*=', '/=')),
       field('right', $.expression),
@@ -182,160 +223,176 @@ module.exports = grammar({
       optional(seq($.kwWHEN, field('when', $.expression)))
     )),
 
-    primary_expression: $ => choice(
-      $._literal,
-      //TODO: move this to system handles?
-      $.kwTHIS_PROCEDURE,
-      $.identifier,
-      $.builtin_function,
-      $.property_access,
-      $.method_invocation,
+    call_expression: $ => prec(PREC.CALL, seq(
+      field('function', $.expression),
+      field('arguments', $.argument_list),
+    )),
+
+    if_then_else_expression: $ => prec.right(seq(
+      $.kwIF,
+      $.expression,
+      $.kwTHEN,
+      $.expression,
+      $.kwELSE,
+      $.expression,
+    )),
+
+    member_expression: $ => prec(PREC.MEMBER, seq(
+      field('object', $.expression),
+      ':',
+      field('property', $.identifier)
+    )),
+
+    new_expression: $ => prec.right(PREC.NEW, seq(
+      $.kwNEW,
+      field('constructor', $._name),
+      field('arguments', $.argument_list)
+    )),
+
+    subscript_expression: $ => prec.right(PREC.SUBSCRIPT, seq(
+      field('object', $.expression),
+      '[',
+      field('index', $.expression),
+      ']'
+    )),
+
+    argument_list: $ => seq(
+      '(',
+      commaSep(seq(
+        optional(choice($.kwINPUT, $.kwOUTPUT, $.kwINPUT_OUTPUT)),
+        $.expression
+      )),
+      ')'
     ),
+
+    //
+    // System Handles
+    //
+
+    _system_handle: $ => choice(
+      $.kwSELF,
+      $.kwTARGET_PROCEDURE,
+      $.kwTHIS_OBJECT,
+      $.kwTHIS_PROCEDURE,
+    ),
+
+    //
+    // Functions
+    //
 
     builtin_function: $ => choice(
       $.replace_function
     ),
 
     pseudo_function: $ => choice(
-      $.entry_function 
+      $.entry_function
     ),
-
-    property_access: $ => prec.dynamic(PREC.OBJ_ACCESS, seq(
-      field('object', $.primary_expression),
-      ':',
-      field('field', $.identifier)
-    )),
-
-    method_invocation: $ => seq(
-      choice(
-        $.identifier,
-        seq(
-          $.primary_expression,
-          ':',
-          $.identifier,
-        )
-      ),
-      $.argument_list
-    ),
-
-    argument_list: $ => seq('(', commaSep($.expression), ')'),
-
-    // System Handles
-
-    // Functions
 
     entry_function: $ => seq($.kwENTRY, $.argument_list),
-    
+
     replace_function: $ => seq($.kwREPLACE, $.argument_list),
-    
+
+    //
     // Statements
+    //
 
     statement: $ => choice(
-      $.annotation_statement,
-     
-      $.assign_statement,
-      
-      $.block_level_statement,
+      $.empty_statement,
+      $.expression_statement,
 
+      // OpenEdge Language Statements
+
+      $.annotation_statement,
+      $.assign_statement,
+
+      $.block_level_statement,
 
       $.class_statement,
       $.create_statement,
-      
+
       $.define_buffer_statement,
       $.define_dataset_statement,
       $.define_procedure_parameter_statement,
       $.define_stream_statement,
+      $.do_statement,
 
-      $.empty_statement,
       $.empty_temp_table_statement,
-      $.expression_statement,
 
       $.function_forward_statement,
 
       $.if_then_else_statement,
       $.interface_statement,
-      
+
       $.message_statement,
 
       $.procedure_statement,
-      
+
       $.return_statement,
       $.routine_level_statement,
 
       $.temp_table_statement,
-      
+
       $.using_statement,
 
       $.variable_statement
     ),
-
-    code_block: $ => seq(':', repeat($.statement), $.kwEND),
 
     expression_statement: $ => choice(
       seq($.expression, '.'),
       seq($.assignment_expression, '.')
     ),
 
-    empty_statement: $ => '.',
+    empty_statement: _ => '.',
 
-    identifier: $ => /[a-zA-Z_]\w*/,
+    //
+    // Statement Components
+    //
 
-    _name: $ => choice(
-      $.identifier,
-      $.scoped_identifier
-    ),
+    code_block: $ => seq(':', repeat($.statement), $.kwEND),
+    _do_block: $ => seq($.kwDO, $.code_block),
 
-    scoped_identifier: $ => prec(PREC.OBJ_ACCESS, seq(
-      field('scope', $._name),
-      '.',
-      field('name', $.identifier)
-    )),
-
-
-    // Statement Helpers?
-
-    _parameter_list: $ => seq(
-      '(',
-      repeat(
+    parameter_declaration: $ => choice(
+      seq(
+        optional(choice($.kwINPUT, $.kwOUTPUT, $.kwINPUT_OUTPUT)),
         choice(
+          seq($.identifier, $._as_datatype),
+          seq($.kwLIKE, $.scoped_identifier),
           seq(
-            optional(choice($.kwINPUT, $.kwOUTPUT, $.kwINPUT_OUTPUT)),
             choice(
-              seq($.identifier, $._as_datatype),
-              seq($.kwLIKE, $.scoped_identifier),
-              seq(
-                choice(
-                  $.kwTABLE,
-                  $.kwTABLE_HANDLE,
-                  $.kwDATASET,
-                  $.kwDATASET_HANDLE
-                ),
-                $.identifier,
-                repeat(
-                  choice(
-                    $.kwAPPEND,
-                    $.kwBIND,
-                    $.kwBY_VALUE,
-                  )
-                )
+              $.kwTABLE,
+              $.kwTABLE_HANDLE,
+              $.kwDATASET,
+              $.kwDATASET_HANDLE
+            ),
+            $.identifier,
+            repeat(
+              choice(
+                $.kwAPPEND,
+                $.kwBIND,
+                $.kwBY_VALUE,
               )
             )
-          ),
-          seq(
-            $.kwBUFFER,
-            $.identifier,
-            $.kwFOR,
-            $.identifier,
-            optional($.kwPRESELECT)
           )
         )
       ),
+      seq(
+        $.kwBUFFER,
+        $.identifier,
+        $.kwFOR,
+        $.identifier,
+        optional($.kwPRESELECT)
+      )
+    ),
+
+    _parameter_list: $ => seq(
+      '(',
+      commaSep($.parameter_declaration),
       ')'
     ),
 
     _define_statement: $ => seq(
-       $.kwDEFINE,
-       repeat(
+      $.kwDEFINE,
+      repeat(
         choice(
           seq(optional(seq($.kwNEW, optional($.kwGLOBAL))), $.kwSHARED),
           choice($.kwPUBLIC, $.kwPROTECTED, $.kwPRIVATE),
@@ -347,7 +404,7 @@ module.exports = grammar({
     ),
 
     _datatype: $ => field('type', seq(choice($.primitive_type, seq(optional($.kwCLASS), $._name)), optional(seq($.kwEXTENT, $.decimal_integer_literal)))),
-    _as_datatype: $ => prec.right(PREC.ASSIGN, seq($.kwAS, $._datatype)),
+    _as_datatype: $ => prec.right(PREC.ASSIGNMENT, seq($.kwAS, $._datatype)),
     _format: $ => seq($.kwFORMAT, field('format', $.character_literal)),
     _initial: $ => seq($.kwINITIAL, field('initial', $._literal)),
     _label: $ => seq($.kwLABEL, field('label', $.character_literal)),
@@ -357,19 +414,28 @@ module.exports = grammar({
     _serialize_name: $ => seq($.kwSERIALIZE_NAME, field('serialize_name', $.character_literal)),
     _validate_use_index: $ => choice($.kwVALIDATE, seq($.kwUSE_INDEX, $.identifier, optional(seq($.kwAS, $.kwPRIMARY)))),
 
+    //
     // OpenEdge Language Statements
+    //
 
-    annotation_statement: $ => seq(
+    annotation_attribute: $ => seq($.identifier, '=', $.character_literal),
+    annotation_attribute_list: $ => seq('(', commaSep1($.annotation_attribute), ')'),
+
+    annotation_statement: $ => prec(PREC.CALL + 1, seq(
       '@',
       field('name', $._name),
-      optional(field('scope', $.kwFILE)),
-      optional(field('arguments', seq('(', commaSep1(seq($.identifier, '=', $.character_literal)), ')'))),
+      field('scope', optional($.kwFILE)),
+      field('attributes', optional($.annotation_attribute_list)),
+      '.'
+    )),
+
+    assign_statement: $ => seq(
+      $.kwASSIGN,
+      repeat($.assignment_expression),
+      optional($.kwNO_ERROR),
       '.'
     ),
 
-    assign_statement: $ => seq($.kwASSIGN, repeat($.assignment_expression), optional($.kwNO_ERROR), '.'),
-
-  
     block_level_statement: $ => seq($.kwBLOCK_LEVEL, $.kwON, $.kwERROR, $.kwUNDO, ',', $.kwTHROW, '.'),
 
     create_statement: $ => seq(
@@ -415,7 +481,6 @@ module.exports = grammar({
       ),
       $.kwFOR,
       commaSep1($.identifier),
-
       '.'
     ),
 
@@ -433,6 +498,12 @@ module.exports = grammar({
       $._define_statement,
       $.kwSTREAM,
       $.identifier
+    ),
+
+    do_statement: $ => seq(
+      optional(field('label', $.identifier, ':')),
+      $._do_block,
+      '.'
     ),
 
     empty_temp_table_statement: $ => seq(
@@ -453,37 +524,30 @@ module.exports = grammar({
       '.'
     ),
 
-    if_then_else_statement: $ => prec.right(PREC.ASSIGN, seq(
+    if_then_else_statement: $ => prec.right(seq(
       $.kwIF,
       $.expression,
       $.kwTHEN,
-      choice(
-        seq($.kwDO, $.code_block, '.'),
-        $.statement,
-        $.expression_statement
-      ),
+      $.statement,
       optional(
         seq(
           $.kwELSE,
-          choice(
-            seq($.kwDO, $.code_block, '.'),
-            $.statement,
-            $.expression_statement
-          )
+          $.statement,
         )
       )
     )),
 
-    message_statement: $ => /* prec.left(PREC.PARENS, */ seq(
+    message_statement: $ => seq(
       $.kwMESSAGE,
       repeat(choice($.expression, $.kwSKIP)),
       repeat(
         choice(
-          seq($.kwVIEW_AS, 
-              $.kwALERT_BOX, 
-              optional(choice($.kwMESSAGE, $.kwQUESTION, $.kwINFORMATION, $.kwERROR, $.kwWARNING)),
-              optional(seq($.kwBUTTONS, choice($.kwYES_NO, $.kwYES_NO_CANCEL, $.kwOK, $.kwOK_CANCEL, $.kwRETRY_CANCEL))),
-              optional(seq($.kwTITLE, $.character_literal))
+          seq(
+            $.kwVIEW_AS,
+            $.kwALERT_BOX,
+            optional(choice($.kwMESSAGE, $.kwQUESTION, $.kwINFORMATION, $.kwERROR, $.kwWARNING)),
+            optional(seq($.kwBUTTONS, choice($.kwYES_NO, $.kwYES_NO_CANCEL, $.kwOK, $.kwOK_CANCEL, $.kwRETRY_CANCEL))),
+            optional(seq($.kwTITLE, $.character_literal))
           ),
           seq(
             choice($.kwSET, $.kwUPDATE),
@@ -500,7 +564,7 @@ module.exports = grammar({
         )
       ),
       '.'
-    /*) */),
+    ),
 
     procedure_statement: $ => seq(
       $.kwPROCEDURE,
@@ -521,8 +585,41 @@ module.exports = grammar({
       ),
       '.'
     ),
-    
+
     routine_level_statement: $ => seq($.kwROUTINE_LEVEL, $.kwON, $.kwERROR, $.kwUNDO, ',', $.kwTHROW, '.'),
+
+    temp_table_field: $ => seq(
+      $.kwFIELD,
+      $.identifier,
+      choice(
+        $._as_datatype,
+        seq($.kwLIKE, $.identifier, optional($.kwVALIDATE))
+      ),
+      repeat(
+        choice(
+          // TODO: missing properties
+          $._serialize_name
+        )
+      )
+    ),
+
+    temp_table_index: $ => seq(
+      $.kwINDEX,
+      $.identifier,
+      repeat(
+        choice(
+          choice($.kwAS, $.kwIS),
+          $.kwUNIQUE,
+          $.kwPRIMARY,
+          $.kwWORD_INDEX,
+          $.kwDESCENDING,
+        )
+      ),
+      repeat(seq(
+        $.identifier,
+        optional(choice($.kwASCENDING, $.kwDESCENDING))
+      ))
+    ),
 
     temp_table_statement: $ => seq(
       $._define_statement,
@@ -536,45 +633,24 @@ module.exports = grammar({
           $._xml_node_name,
           $._serialize_name,
           $.kwREFERENCE_ONLY,
-          seq($.kwLIKE, $.identifier, repeat($._validate_use_index)),
-          seq($.kwLIKE_SEQUENTIAL, $.identifier, repeat($._validate_use_index)),
+          seq(choice($.kwLIKE, $.kwLIKE_SEQUENTIAL), $.identifier, repeat($._validate_use_index)),
           $.kwRCODE_INFORMATION,
           seq($.kwBEFORE_TABLE, $.identifier)
         )
       ),
-      repeat(
-        seq(
-          $.kwFIELD, 
-          $.identifier, 
-          choice($._as_datatype, seq($.kwLIKE, $.identifier, optional($.kwVALIDATE))),
-          repeat(
-            choice(
-              // TODO: missing properties
-              $._serialize_name
-            )
-          )
-        )
-      ),
-      repeat(
-        seq(
-          $.kwINDEX, 
-          $.identifier, 
-          repeat(
-            choice(
-              choice($.kwAS, $.kwIS),
-              $.kwUNIQUE,
-              $.kwPRIMARY,
-              $.kwWORD_INDEX 
-            ) 
-          ),
-          $.identifier,
-          optional(choice($.kwASCENDING, $.kwDESCENDING)) 
-        )
-      ),
+      field('fields', repeat($.temp_table_field)),
+      field('indecies', repeat($.temp_table_index)),
       '.'
     ),
 
-    using_statement: $ => seq($.kwUSING, $._name, optional(seq('.', '*')), optional(seq($.kwFROM, choice($.kwASSEMBLY, $.kwPROPATH))), '.'),
+    using_statement: $ => seq(
+      $.kwUSING,
+      repeat(seq($.preprocessor, '.')),
+      $._name,
+      optional(seq('.', '*')),
+      optional(seq($.kwFROM, choice($.kwASSEMBLY, $.kwPROPATH))),
+      '.'
+    ),
 
     variable_statement: $ => seq(
       $._define_statement,
@@ -592,6 +668,10 @@ module.exports = grammar({
       ),
       '.'
     ),
+
+    //
+    // Extras
+    //
 
     ..._pp,
     ..._oo,
