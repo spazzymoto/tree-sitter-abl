@@ -124,6 +124,7 @@ module.exports = {
   kwNO_ERROR: _ => kw('NO-ERROR'),
   kwNO_UNDO: _ => kw('NO-UNDO'),
   kwNULL: _ => kw('NULL'),
+  kwNUM_ENTRIES: _ => kw('NUM-ENTRIES'),
 
   // O
   kwOF: _ => kw('OF'),
@@ -184,6 +185,8 @@ module.exports = {
   kwTHIS_PROCEDURE: _ => kw('THIS-PROCEDURE'),
   kwTHROW: _ => kw('THROW'),
   kwTITLE: _ => kw('TITLE'),
+  kwTO: _ => kw('TO'),
+  kwTRANSACTION: _ => kw('TRANSACTION'),
   kwTRUE: _ => kw('TRUE'),
 
   // U
@@ -196,6 +199,7 @@ module.exports = {
 
   // V
   kwVALIDATE: _ => kw('VALIDATE'),
+  kwVALID_OBJECT: _ => kw('VALID-OBJECT'),
   kwVALUE: _ => kw('VALUE'),
   kwVARIABLE: _ => kw('VARIABLE'),
   kwVIEW_AS: _ => kw('VIEW-AS'),
@@ -204,6 +208,7 @@ module.exports = {
   // W
   kwWARNING: _ => kw('WARNING'),
   kwWHEN: _ => kw('WHEN'),
+  kwWHILE: _ => kw('WHILE'),
   kwWIDGET_HANDLE: _ => kw('WIDGET-HANDLE'),
   kwWINDOW: _ => kw('WINDOW'),
   kwWORD_INDEX: _ => kw('WORD-INDEX'),

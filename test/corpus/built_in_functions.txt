@@ -1,0 +1,66 @@
+================
+replace function
+================
+
+ASSIGN cResult = REPLACE("Hello Bar":U, "Bar":U, "World":U).
+
+---
+
+(program
+  (assign_statement
+    (kwASSIGN)
+    (assignment_expression
+      (identifier)
+      (builtin_function
+        (kwREPLACE)
+          (argument_list
+            (character_literal
+              (character_modifier))
+            (character_literal
+              (character_modifier))
+            (character_literal
+              (character_modifier)))))))
+			
+=====================
+valid-object function
+=====================
+
+IF VALID-OBJECT(oObjectRef)
+THEN
+  MESSAGE "Valid":U.
+
+---
+
+(program
+  (if_then_else_statement
+    (kwIF)
+    (builtin_function
+      (kwVALID_OBJECT)
+        (argument_list
+          (identifier)))
+    (kwTHEN)
+      (message_statement
+        (kwMESSAGE)
+          (character_literal
+            (character_modifier)))))
+
+====================
+num-entries function
+====================
+
+ASSIGN iCount = NUM-ENTRIES("One,Two,Three":U, ",":U).
+
+---
+
+(program
+  (assign_statement
+    (kwASSIGN)
+    (assignment_expression
+      (identifier)
+      (builtin_function
+        (kwNUM_ENTRIES)
+          (argument_list
+            (character_literal
+              (character_modifier))
+            (character_literal
+              (character_modifier)))))))

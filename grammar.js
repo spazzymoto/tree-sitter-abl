@@ -45,6 +45,10 @@ module.exports = grammar({
 
   word: $ => $.identifier,
 
+  conflicts: $ => [
+    [$.program, $.expression]
+  ],
+
   supertypes: $ => [
     $.expression,
     $.statement
@@ -54,6 +58,7 @@ module.exports = grammar({
     program: $ => repeat(
       choice(
         $.preprocessor_directive,
+        $.preprocessor,
         $.statement,
       )
     ),
@@ -152,6 +157,9 @@ module.exports = grammar({
       $.subscript_expression,
 
       $.builtin_function,
+      $.pseudo_function,
+
+      $.preprocessor
     ),
 
     parenthesized_expression: $ => seq(
@@ -278,8 +286,13 @@ module.exports = grammar({
     // Functions
     //
 
-    builtin_function: $ => choice(
-      $.replace_function
+    builtin_function: $ => seq(
+      choice(
+        $.kwNUM_ENTRIES,
+        $.kwREPLACE,
+        $.kwVALID_OBJECT
+      ),
+      $.argument_list
     ),
 
     pseudo_function: $ => choice(
@@ -287,8 +300,6 @@ module.exports = grammar({
     ),
 
     entry_function: $ => seq($.kwENTRY, $.argument_list),
-
-    replace_function: $ => seq($.kwREPLACE, $.argument_list),
 
     //
     // Statements
@@ -347,7 +358,17 @@ module.exports = grammar({
     //
 
     code_block: $ => seq(':', repeat($.statement), $.kwEND),
-    _do_block: $ => seq($.kwDO, $.code_block),
+    _do_block: $ => seq(
+      $.kwDO,
+      optional(
+        choice(
+          seq($.identifier, '=', $.expression, $.kwTO, $.expression),
+          seq($.kwWHILE, $.expression),
+          $.kwTRANSACTION
+        ) 
+      ),
+      $.code_block
+    ),
 
     parameter_declaration: $ => choice(
       seq(

@@ -13,6 +13,10 @@
           },
           {
             "type": "SYMBOL",
+            "name": "preprocessor"
+          },
+          {
+            "type": "SYMBOL",
             "name": "statement"
           }
         ]
@@ -370,6 +374,14 @@
         {
           "type": "SYMBOL",
           "name": "builtin_function"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "pseudo_function"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "preprocessor"
         }
       ]
     },
@@ -1504,11 +1516,28 @@
       ]
     },
     "builtin_function": {
-      "type": "CHOICE",
+      "type": "SEQ",
       "members": [
         {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "kwNUM_ENTRIES"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "kwREPLACE"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "kwVALID_OBJECT"
+            }
+          ]
+        },
+        {
           "type": "SYMBOL",
-          "name": "replace_function"
+          "name": "argument_list"
         }
       ]
     },
@@ -1527,19 +1556,6 @@
         {
           "type": "SYMBOL",
           "name": "kwENTRY"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "argument_list"
-        }
-      ]
-    },
-    "replace_function": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "kwREPLACE"
         },
         {
           "type": "SYMBOL",
@@ -1705,6 +1721,61 @@
         {
           "type": "SYMBOL",
           "name": "kwDO"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "identifier"
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "="
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "expression"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "kwTO"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "expression"
+                    }
+                  ]
+                },
+                {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "kwWHILE"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "expression"
+                    }
+                  ]
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "kwTRANSACTION"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         },
         {
           "type": "SYMBOL",
@@ -5553,6 +5624,19 @@
         }
       ]
     },
+    "kwNUM_ENTRIES": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "NUM-ENTRIES"
+        },
+        {
+          "type": "STRING",
+          "value": "num-entries"
+        }
+      ]
+    },
     "kwOF": {
       "type": "CHOICE",
       "members": [
@@ -6177,6 +6261,32 @@
         }
       ]
     },
+    "kwTO": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "TO"
+        },
+        {
+          "type": "STRING",
+          "value": "to"
+        }
+      ]
+    },
+    "kwTRANSACTION": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "TRANSACTION"
+        },
+        {
+          "type": "STRING",
+          "value": "transaction"
+        }
+      ]
+    },
     "kwTRUE": {
       "type": "CHOICE",
       "members": [
@@ -6281,6 +6391,19 @@
         }
       ]
     },
+    "kwVALID_OBJECT": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "VALID-OBJECT"
+        },
+        {
+          "type": "STRING",
+          "value": "valid-object"
+        }
+      ]
+    },
     "kwVALUE": {
       "type": "CHOICE",
       "members": [
@@ -6356,6 +6479,19 @@
         {
           "type": "STRING",
           "value": "when"
+        }
+      ]
+    },
+    "kwWHILE": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "WHILE"
+        },
+        {
+          "type": "STRING",
+          "value": "while"
         }
       ]
     },
@@ -6456,7 +6592,12 @@
       "value": "\\s|\\\\\\r?\\n"
     }
   ],
-  "conflicts": [],
+  "conflicts": [
+    [
+      "program",
+      "expression"
+    ]
+  ],
   "precedences": [],
   "externals": [
     {

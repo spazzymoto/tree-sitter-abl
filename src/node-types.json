@@ -64,6 +64,14 @@
         "named": true
       },
       {
+        "type": "preprocessor",
+        "named": true
+      },
+      {
+        "type": "pseudo_function",
+        "named": true
+      },
+      {
         "type": "subscript_expression",
         "named": true
       },
@@ -546,11 +554,23 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
-          "type": "replace_function",
+          "type": "argument_list",
+          "named": true
+        },
+        {
+          "type": "kwNUM_ENTRIES",
+          "named": true
+        },
+        {
+          "type": "kwREPLACE",
+          "named": true
+        },
+        {
+          "type": "kwVALID_OBJECT",
           "named": true
         }
       ]
@@ -1691,7 +1711,23 @@
           "named": true
         },
         {
+          "type": "expression",
+          "named": true
+        },
+        {
           "type": "kwDO",
+          "named": true
+        },
+        {
+          "type": "kwTO",
+          "named": true
+        },
+        {
+          "type": "kwTRANSACTION",
+          "named": true
+        },
+        {
+          "type": "kwWHILE",
           "named": true
         }
       ]
@@ -2415,6 +2451,11 @@
     "fields": {}
   },
   {
+    "type": "kwNUM_ENTRIES",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "kwOK",
     "named": true,
     "fields": {}
@@ -2630,6 +2671,16 @@
     "fields": {}
   },
   {
+    "type": "kwTO",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "kwTRANSACTION",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "kwTRUE",
     "named": true,
     "fields": {}
@@ -2670,6 +2721,11 @@
     "fields": {}
   },
   {
+    "type": "kwVALID_OBJECT",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "kwVARIABLE",
     "named": true,
     "fields": {}
@@ -2691,6 +2747,11 @@
   },
   {
     "type": "kwWHEN",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "kwWHILE",
     "named": true,
     "fields": {}
   },
@@ -3394,6 +3455,10 @@
       "required": false,
       "types": [
         {
+          "type": "preprocessor",
+          "named": true
+        },
+        {
           "type": "preprocessor_directive",
           "named": true
         },
@@ -3414,25 +3479,6 @@
       "types": [
         {
           "type": "entry_function",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "replace_function",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "argument_list",
-          "named": true
-        },
-        {
-          "type": "kwREPLACE",
           "named": true
         }
       ]
@@ -4633,6 +4679,10 @@
     "named": false
   },
   {
+    "type": "NUM-ENTRIES",
+    "named": false
+  },
+  {
     "type": "OF",
     "named": false
   },
@@ -4825,6 +4875,14 @@
     "named": false
   },
   {
+    "type": "TO",
+    "named": false
+  },
+  {
+    "type": "TRANSACTION",
+    "named": false
+  },
+  {
     "type": "TRUE",
     "named": false
   },
@@ -4853,6 +4911,10 @@
     "named": false
   },
   {
+    "type": "VALID-OBJECT",
+    "named": false
+  },
+  {
     "type": "VALIDATE",
     "named": false
   },
@@ -4878,6 +4940,10 @@
   },
   {
     "type": "WHEN",
+    "named": false
+  },
+  {
+    "type": "WHILE",
     "named": false
   },
   {
@@ -5285,6 +5351,10 @@
     "named": false
   },
   {
+    "type": "num-entries",
+    "named": false
+  },
+  {
     "type": "of",
     "named": false
   },
@@ -5481,6 +5551,14 @@
     "named": false
   },
   {
+    "type": "to",
+    "named": false
+  },
+  {
+    "type": "transaction",
+    "named": false
+  },
+  {
     "type": "true",
     "named": false
   },
@@ -5513,6 +5591,10 @@
     "named": false
   },
   {
+    "type": "valid-object",
+    "named": false
+  },
+  {
     "type": "validate",
     "named": false
   },
@@ -5538,6 +5620,10 @@
   },
   {
     "type": "when",
+    "named": false
+  },
+  {
+    "type": "while",
     "named": false
   },
   {
