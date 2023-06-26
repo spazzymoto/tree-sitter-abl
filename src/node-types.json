@@ -126,6 +126,10 @@
         "named": true
       },
       {
+        "type": "delete_object_statement",
+        "named": true
+      },
+      {
         "type": "do_statement",
         "named": true
       },
@@ -1704,6 +1708,33 @@
     }
   },
   {
+    "type": "delete_object_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "kwDELETE",
+          "named": true
+        },
+        {
+          "type": "kwNO_ERROR",
+          "named": true
+        },
+        {
+          "type": "kwOBJECT",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "do_statement",
     "named": true,
     "fields": {
@@ -2168,6 +2199,11 @@
     "fields": {}
   },
   {
+    "type": "kwDELETE",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "kwDESCENDING",
     "named": true,
     "fields": {}
@@ -2459,6 +2495,11 @@
   },
   {
     "type": "kwNUM_ENTRIES",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "kwOBJECT",
     "named": true,
     "fields": {}
   },
@@ -4448,6 +4489,10 @@
     "named": false
   },
   {
+    "type": "DELETE",
+    "named": false
+  },
+  {
     "type": "DESCENDING",
     "named": false
   },
@@ -4685,6 +4730,10 @@
   },
   {
     "type": "NUM-ENTRIES",
+    "named": false
+  },
+  {
+    "type": "OBJECT",
     "named": false
   },
   {
@@ -5124,6 +5173,10 @@
     "named": false
   },
   {
+    "type": "delete",
+    "named": false
+  },
+  {
     "type": "descending",
     "named": false
   },
@@ -5369,6 +5422,10 @@
   },
   {
     "type": "num-entries",
+    "named": false
+  },
+  {
+    "type": "object",
     "named": false
   },
   {

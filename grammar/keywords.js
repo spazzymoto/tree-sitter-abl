@@ -46,6 +46,7 @@ module.exports = {
   kwDATETIME_TZ: _ => kw('DATETIME-TZ'),
   kwDECIMAL: _ => kw('DECIMAL'),
   kwDEFINE: _ => kw('DEFINE'),
+  kwDELETE: _ => kw('DELETE'),
   kwDESCENDING: _ => kw('DESCENDING'),
   kwDO: _ => kw('DO'),
 
@@ -129,6 +130,7 @@ module.exports = {
   kwNUM_ENTRIES: _ => kw('NUM-ENTRIES'),
 
   // O
+  kwOBJECT: _ => kw('OBJECT'),
   kwOF: _ => kw('OF'),
   kwOK: _ => kw('OK'),
   kwOK_CANCEL: _ => kw('OK-CANCEL'),

@@ -322,6 +322,7 @@ module.exports = grammar({
       $.define_procedure_parameter_statement,
       $.define_stream_statement,
       $.do_statement,
+      $.delete_object_statement,
 
       $.empty_temp_table_statement,
 
@@ -523,6 +524,14 @@ module.exports = grammar({
       '.'
     ),
 
+    delete_object_statement: $ => seq(
+      $.kwDELETE,
+      $.kwOBJECT,
+      $.expression,
+      optional($.kwNO_ERROR),
+      '.'
+    ),
+
     empty_temp_table_statement: $ => seq(
       $.kwEMPTY,
       $.kwTEMP_TABLE,
@@ -695,4 +704,3 @@ module.exports = grammar({
     ..._keywords
   }
 });
-

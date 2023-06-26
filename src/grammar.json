@@ -1610,6 +1610,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "delete_object_statement"
+        },
+        {
+          "type": "SYMBOL",
           "name": "empty_temp_table_statement"
         },
         {
@@ -2759,6 +2763,39 @@
         {
           "type": "SYMBOL",
           "name": "_do_block"
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "delete_object_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "kwDELETE"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "kwOBJECT"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "expression"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "kwNO_ERROR"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         },
         {
           "type": "STRING",
@@ -4873,6 +4910,19 @@
         }
       ]
     },
+    "kwDELETE": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "DELETE"
+        },
+        {
+          "type": "STRING",
+          "value": "delete"
+        }
+      ]
+    },
     "kwDESCENDING": {
       "type": "CHOICE",
       "members": [
@@ -5654,6 +5704,19 @@
         {
           "type": "STRING",
           "value": "num-entries"
+        }
+      ]
+    },
+    "kwOBJECT": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "OBJECT"
+        },
+        {
+          "type": "STRING",
+          "value": "object"
         }
       ]
     },
