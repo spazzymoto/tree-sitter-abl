@@ -17,3 +17,64 @@ END.
 		  (identifier)
 		  (identifier)))
 	  (kwEND))))
+
+===============
+do to statement
+===============
+
+DO iCount = 1 TO NUM-ENTRIES("One,Two":U):
+  
+END.
+
+---
+
+(program
+  (do_statement
+    (kwDO)
+    (identifier)
+    (decimal_integer_literal)
+    (kwTO)
+    (builtin_function
+      (kwNUM_ENTRIES)
+      (argument_list
+        (character_literal
+          (character_modifier))))
+    (code_block
+      (kwEND))))
+
+========
+do while
+========
+
+DO WHILE TRUE:
+
+END.
+
+---
+
+(program
+  (do_statement
+    (kwDO)
+	(kwWHILE)
+	(true
+	  (kwTRUE))
+	(code_block
+	  (kwEND))))
+
+=============
+do transation
+=============
+
+DO TRANSACTION:
+
+END.
+
+---
+
+(program
+  (do_statement
+    (kwDO)
+	(kwTRANSACTION)
+	(code_block
+	  (kwEND))))
+	
