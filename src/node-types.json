@@ -605,7 +605,7 @@
         "required": false,
         "types": [
           {
-            "type": "string_modifier",
+            "type": "character_modifier",
             "named": true
           }
         ]
@@ -2947,6 +2947,10 @@
         {
           "type": "kwVOID",
           "named": true
+        },
+        {
+          "type": "parameter_declaration",
+          "named": true
         }
       ]
     }
@@ -3040,6 +3044,10 @@
         },
         {
           "type": "kwVOID",
+          "named": true
+        },
+        {
+          "type": "parameter_declaration",
           "named": true
         }
       ]
@@ -4989,6 +4997,10 @@
     "named": false
   },
   {
+    "type": "character_modifier",
+    "named": true
+  },
+  {
     "type": "class",
     "named": false
   },
@@ -5431,10 +5443,6 @@
   {
     "type": "stream",
     "named": false
-  },
-  {
-    "type": "string_modifier",
-    "named": true
   },
   {
     "type": "table",

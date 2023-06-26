@@ -49,4 +49,4 @@ RETURN ERROR "whoops":U.
     (kwRETURN)
     (kwERROR)
     (character_literal
-      (string_modifier))))
+      (character_modifier))))

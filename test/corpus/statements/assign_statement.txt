@@ -17,9 +17,9 @@ ASSIGN ENTRY(1, cFile, "/":U) = "":U.
             (decimal_integer_literal)
             (identifier)
             (character_literal
-              (string_modifier)))))
+              (character_modifier)))))
       (character_literal
-        (string_modifier)))))
+        (character_modifier)))))
 
 =================
 assign multi line
@@ -37,7 +37,7 @@ ASSIGN
     (assignment_expression
       (identifier)
       (character_literal
-        (string_modifier)))
+        (character_modifier)))
     (assignment_expression
       (identifier)
       (decimal_integer_literal))
@@ -74,7 +74,7 @@ ASSIGN cTest = "value":U WHEN TRUE.
     (assignment_expression
       (identifier)
       (character_literal
-        (string_modifier))
+        (character_modifier))
       (kwWHEN)
       (true
         (kwTRUE)))))

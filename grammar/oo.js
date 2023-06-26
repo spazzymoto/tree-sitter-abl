@@ -124,9 +124,7 @@ function methodWith($, modifiers, body = '.') {
       $._datatype
     ),
     $.identifier,
-    '(',
-    // TODO: parameter list
-    ')',
+    $._parameter_list,
     body
   )
 }

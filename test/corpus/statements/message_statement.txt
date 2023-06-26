@@ -10,7 +10,7 @@ MESSAGE "Test":U.
   (message_statement
     (kwMESSAGE)
     (character_literal
-      (string_modifier))))
+      (character_modifier))))
 
 ======================
 message statement skip
@@ -24,7 +24,7 @@ MESSAGE "Test":U SKIP cTest.
   (message_statement
     (kwMESSAGE)
       (character_literal
-	(string_modifier))
+    	(character_modifier))
       (kwSKIP)
       (identifier)))
 
@@ -42,7 +42,7 @@ MESSAGE cTest SKIP "oh dear":U VIEW-AS ALERT-BOX WARNING BUTTONS YES-NO-CANCEL T
     (identifier)
     (kwSKIP)
     (character_literal
-      (string_modifier))
+      (character_modifier))
     (kwVIEW_AS)
     (kwALERT_BOX)
     (kwWARNING)
@@ -50,4 +50,4 @@ MESSAGE cTest SKIP "oh dear":U VIEW-AS ALERT-BOX WARNING BUTTONS YES-NO-CANCEL T
     (kwYES_NO_CANCEL)
     (kwTITLE)
     (character_literal
-      (string_modifier))))
+      (character_modifier))))

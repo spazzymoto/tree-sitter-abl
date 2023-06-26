@@ -79,16 +79,14 @@ module.exports = grammar({
     false: $ => $.kwFALSE,
 
     character_literal: $ => seq(
-      field('literal', $._string_literal),
-      optional(field('modifier', $.string_modifier))
+      field('literal', choice(
+        seq("'", repeat(choice(/[^~'\n]/, /~(.|\n)/)), "'"),
+        seq('"', repeat(choice(/[^~"\n]/, /~(.|\n)/)), '"'),
+      )),
+      optional(field('modifier', $.character_modifier))
     ),
 
-    _string_literal: _ => choice(
-      seq("'", repeat(choice(/[^~'\n]/, /~(.|\n)/)), "'"),
-      seq('"', repeat(choice(/[^~"\n]/, /~(.|\n)/)), '"'),
-    ),
-
-    string_modifier: _ => ':U',
+    character_modifier: _ => ':U',
 
     unknown_literal: _ => '?',
 

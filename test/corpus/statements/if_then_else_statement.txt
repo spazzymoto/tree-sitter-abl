@@ -21,10 +21,10 @@ ELSE
       (assignment_expression
         (identifier)
         (character_literal
-          (string_modifier))))
+          (character_modifier))))
     (kwELSE)
     (expression_statement
       (assignment_expression
         (identifier)
         (character_literal
-          (string_modifier))))))
+          (character_modifier))))))

@@ -54,7 +54,7 @@ DEFINE TEMP-TABLE ttTempTable NO-UNDO SERIALIZE-NAME "temp-table":U
     (kwNO_UNDO)
     (kwSERIALIZE_NAME)
     (character_literal
-      (string_modifier))
+      (character_modifier))
     (temp_table_field
       (kwFIELD)
       (identifier)
@@ -63,7 +63,7 @@ DEFINE TEMP-TABLE ttTempTable NO-UNDO SERIALIZE-NAME "temp-table":U
 	(kwCHARACTER))
       (kwSERIALIZE_NAME)
       (character_literal
-	(string_modifier)))
+	(character_modifier)))
     (temp_table_field
       (kwFIELD)
       (identifier)
@@ -75,7 +75,7 @@ DEFINE TEMP-TABLE ttTempTable NO-UNDO SERIALIZE-NAME "temp-table":U
 	(identifier))
       (kwSERIALIZE_NAME)
       (character_literal
-	(string_modifier)))
+	(character_modifier)))
     (temp_table_field
       (kwFIELD)
       (identifier)
@@ -122,7 +122,7 @@ DEFINE DATASET dsTest SERIALIZE-NAME "test":U
     (identifier)
     (kwSERIALIZE_NAME)
     (character_literal
-      (string_modifier))
+      (character_modifier))
     (kwFOR)
     (identifier)
     (identifier)))

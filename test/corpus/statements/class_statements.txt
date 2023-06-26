@@ -88,10 +88,10 @@ END CLASS.
         (kwCHARACTER))
       (kwINITIAL)
       (character_literal
-        (string_modifier))
+        (character_modifier))
       (kwSERIALIZE_NAME)
       (character_literal
-        (string_modifier))
+        (character_modifier))
       (kwNO_UNDO)
       (kwGET)
       (code_block
