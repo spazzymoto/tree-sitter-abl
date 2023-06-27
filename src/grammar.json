@@ -377,10 +377,6 @@
         },
         {
           "type": "SYMBOL",
-          "name": "pseudo_function"
-        },
-        {
-          "type": "SYMBOL",
           "name": "preprocessor"
         }
       ]
@@ -1165,7 +1161,7 @@
                 },
                 {
                   "type": "SYMBOL",
-                  "name": "pseudo_function"
+                  "name": "builtin_function"
                 },
                 {
                   "type": "SYMBOL",
@@ -1523,6 +1519,22 @@
           "members": [
             {
               "type": "SYMBOL",
+              "name": "kwENTRY"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "kwFILL"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "kwINDEX"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "kwLENGTH"
+            },
+            {
+              "type": "SYMBOL",
               "name": "kwNUM_ENTRIES"
             },
             {
@@ -1531,31 +1543,13 @@
             },
             {
               "type": "SYMBOL",
+              "name": "kwSUBSTRING"
+            },
+            {
+              "type": "SYMBOL",
               "name": "kwVALID_OBJECT"
             }
           ]
-        },
-        {
-          "type": "SYMBOL",
-          "name": "argument_list"
-        }
-      ]
-    },
-    "pseudo_function": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "entry_function"
-        }
-      ]
-    },
-    "entry_function": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "kwENTRY"
         },
         {
           "type": "SYMBOL",
@@ -1613,6 +1607,10 @@
         {
           "type": "SYMBOL",
           "name": "do_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "delete_object_statement"
         },
         {
           "type": "SYMBOL",
@@ -2765,6 +2763,39 @@
         {
           "type": "SYMBOL",
           "name": "_do_block"
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        }
+      ]
+    },
+    "delete_object_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "kwDELETE"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "kwOBJECT"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "expression"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "kwNO_ERROR"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         },
         {
           "type": "STRING",
@@ -4879,6 +4910,19 @@
         }
       ]
     },
+    "kwDELETE": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "DELETE"
+        },
+        {
+          "type": "STRING",
+          "value": "delete"
+        }
+      ]
+    },
     "kwDESCENDING": {
       "type": "CHOICE",
       "members": [
@@ -5045,6 +5089,19 @@
         {
           "type": "STRING",
           "value": "file"
+        }
+      ]
+    },
+    "kwFILL": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "FILL"
+        },
+        {
+          "type": "STRING",
+          "value": "fill"
         }
       ]
     },
@@ -5386,6 +5443,19 @@
         }
       ]
     },
+    "kwLENGTH": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "LENGTH"
+        },
+        {
+          "type": "STRING",
+          "value": "length"
+        }
+      ]
+    },
     "kwLIKE": {
       "type": "CHOICE",
       "members": [
@@ -5634,6 +5704,19 @@
         {
           "type": "STRING",
           "value": "num-entries"
+        }
+      ]
+    },
+    "kwOBJECT": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "OBJECT"
+        },
+        {
+          "type": "STRING",
+          "value": "object"
         }
       ]
     },
@@ -6141,6 +6224,19 @@
         {
           "type": "STRING",
           "value": "stream"
+        }
+      ]
+    },
+    "kwSUBSTRING": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "SUBSTRING"
+        },
+        {
+          "type": "STRING",
+          "value": "substring"
         }
       ]
     },

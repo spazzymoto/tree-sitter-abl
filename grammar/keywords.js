@@ -46,6 +46,7 @@ module.exports = {
   kwDATETIME_TZ: _ => kw('DATETIME-TZ'),
   kwDECIMAL: _ => kw('DECIMAL'),
   kwDEFINE: _ => kw('DEFINE'),
+  kwDELETE: _ => kw('DELETE'),
   kwDESCENDING: _ => kw('DESCENDING'),
   kwDO: _ => kw('DO'),
 
@@ -63,6 +64,7 @@ module.exports = {
   kwFALSE: _ => kw('FALSE'),
   kwFIELD: _ => kw('FIELD'),
   kwFILE: _ => kw('FILE'),
+  kwFILL: _ => kw('FILL'),
   kwFINAL: _ => kw('FINAL'),
   kwFOR: _ => kw('FOR'),
   kwFORMAT: _ => kw('FORMAT'),
@@ -101,6 +103,7 @@ module.exports = {
   // L
   kwLABEL: _ => kw('LABEL'),
   kwLE: _ => kw('LE'),
+  kwLENGTH: _ => kw('LENGTH'),
   kwLIKE: _ => kw('LIKE'),
   kwLIKE_SEQUENTIAL: _ => kw('LIKE-SEQUENTIAL'),
   kwLOGICAL: _ => kw('LOGICAL'),
@@ -127,6 +130,7 @@ module.exports = {
   kwNUM_ENTRIES: _ => kw('NUM-ENTRIES'),
 
   // O
+  kwOBJECT: _ => kw('OBJECT'),
   kwOF: _ => kw('OF'),
   kwOK: _ => kw('OK'),
   kwOK_CANCEL: _ => kw('OK-CANCEL'),
@@ -174,6 +178,7 @@ module.exports = {
   kwSKIP: _ => kw('SKIP'),
   kwSTATIC: _ => kw('STATIC'),
   kwSTREAM: _ => kw('STREAM'),
+  kwSUBSTRING: _ => kw('SUBSTRING'),
 
   // T
   kwTABLE: _ => kw('TABLE'),
