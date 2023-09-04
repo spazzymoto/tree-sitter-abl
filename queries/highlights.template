@@ -1,0 +1,15 @@
+
+(identifier) @variable
+
+; Literals
+
+(character_literal) @string
+(character_modifier) @number
+
+[
+  (integer_literal)
+] @number
+
+[
+ <-KEYWORDS->
+] @keyword

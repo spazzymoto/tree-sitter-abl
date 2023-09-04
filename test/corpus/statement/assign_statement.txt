@@ -1,0 +1,25 @@
+================================================================================
+Assign Statement
+================================================================================
+
+ASSIGN
+  i = 1
+  c = "Hello" WHEN TRUE
+  NO-ERROR.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assign_statement
+    (assign_spec
+	  (assignment_expression
+	    (identifier)
+        (primary_expression
+	      (integer_literal))))
+    (assign_spec
+	  (assignment_expression
+        (identifier)
+		(primary_expression
+          (character_literal)))
+	(primary_expression
+      (true)))))
