@@ -1,0 +1,35 @@
+======================
+Aggregate no condition
+======================
+
+AGGREGATE numCustomers = COUNT(CustNum) FOR Customer.
+
+--
+
+(source_file
+  (aggregate_statement
+    (identifier)
+    (identifier)
+    (identifier)))
+
+========================
+Aggregate with condition
+========================
+
+AGGREGATE avgBalance = AVERAGE(Balance) FOR Customer
+  WHERE Country EQ 'USA' AND City EQ 'Chicago'.
+
+---
+
+(source_file
+  (aggregate_statement
+    (identifier)
+    (identifier)
+    (identifier)
+    (binary_expression
+      (binary_expression
+        (identifier)
+        (character_literal))
+      (binary_expression
+        (identifier)
+        (character_literal)))))

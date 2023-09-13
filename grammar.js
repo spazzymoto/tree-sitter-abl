@@ -449,6 +449,7 @@ module.exports = grammar({
         seq(
           choice(
             $.accumulate_statement,
+            $.aggregate_statement,
             $.assign_statement,
 
             $.case_statement,
@@ -497,6 +498,20 @@ module.exports = grammar({
         ),
         repeat(seq(kw("BY"), $._expression)),
         ")",
+      ),
+
+    aggregate_statement: $ =>
+      seq(
+        kw("AGGREGATE"),
+        $.identifier,
+        "=",
+        choice(kw("COUNT"), kw("TOTAL"), kw("AVERAGE")),
+        "(",
+        $.identifier,
+        ")",
+        kw("FOR"),
+        $.identifier,
+        optional($._where_clause),
       ),
 
     assign_statement: $ =>
@@ -675,6 +690,8 @@ module.exports = grammar({
     //
     // Helpers
     //
+
+    _where_clause: $ => seq(kw("WHERE"), $._expression),
 
     _code_block: $ => seq($._statement_colon, repeat($._statement), kw("END")),
 

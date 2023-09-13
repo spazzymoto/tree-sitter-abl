@@ -4627,6 +4627,10 @@
                 },
                 {
                   "type": "SYMBOL",
+                  "name": "aggregate_statement"
+                },
+                {
+                  "type": "SYMBOL",
                   "name": "assign_statement"
                 },
                 {
@@ -4951,6 +4955,142 @@
         {
           "type": "STRING",
           "value": ")"
+        }
+      ]
+    },
+    "aggregate_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "aggregate"
+              },
+              {
+                "type": "STRING",
+                "value": "AGGREGATE"
+              }
+            ]
+          },
+          "named": false,
+          "value": "AGGREGATE"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        },
+        {
+          "type": "STRING",
+          "value": "="
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": "count"
+                  },
+                  {
+                    "type": "STRING",
+                    "value": "COUNT"
+                  }
+                ]
+              },
+              "named": false,
+              "value": "COUNT"
+            },
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": "total"
+                  },
+                  {
+                    "type": "STRING",
+                    "value": "TOTAL"
+                  }
+                ]
+              },
+              "named": false,
+              "value": "TOTAL"
+            },
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": "average"
+                  },
+                  {
+                    "type": "STRING",
+                    "value": "AVERAGE"
+                  }
+                ]
+              },
+              "named": false,
+              "value": "AVERAGE"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "for"
+              },
+              {
+                "type": "STRING",
+                "value": "FOR"
+              }
+            ]
+          },
+          "named": false,
+          "value": "FOR"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_where_clause"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },
@@ -6516,6 +6656,33 @@
         {
           "type": "PATTERN",
           "value": "[^\\n]*"
+        }
+      ]
+    },
+    "_where_clause": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "where"
+              },
+              {
+                "type": "STRING",
+                "value": "WHERE"
+              }
+            ]
+          },
+          "named": false,
+          "value": "WHERE"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_expression"
         }
       ]
     },
