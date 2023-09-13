@@ -45,11 +45,14 @@ module.exports = grammar({
       prec.right(
         PREC.OBJ_ACCESS,
         seq(
-          /[_\p{XID_Start}][_\p{XID_Continue}]*/,
+          /[_\p{XID_Start}][-_\p{XID_Continue}]*/,
           optional(
             seq(
               $._dot,
-              sep1(choice(/[_\p{XID_Start}][_\p{XID_Continue}]*/, "*"), $._dot),
+              sep1(
+                choice(/[_\p{XID_Start}][-_\p{XID_Continue}]*/, "*"),
+                $._dot,
+              ),
             ),
           ),
         ),
@@ -456,6 +459,7 @@ module.exports = grammar({
             $.accumulate_statement,
             $.aggregate_statement,
             $.assign_statement,
+            $.apply_statement,
 
             $.case_statement,
             $.compile_statement,
@@ -524,6 +528,13 @@ module.exports = grammar({
 
     _assign_spec: $ =>
       seq($.assignment_expression, optional(seq(kw("WHEN"), $._expression))),
+
+    apply_statement: $ =>
+      seq(
+        kw("APPLY"),
+        $._primary_expression,
+        optional(seq(kw("TO"), $._widget_phrase)),
+      ),
 
     case_statement: $ =>
       seq(
@@ -697,6 +708,18 @@ module.exports = grammar({
     //
 
     _where_clause: $ => seq(kw("WHERE"), $._expression),
+    _widget_phrase: $ =>
+      choice(
+        seq(kw("FRAME"), $.identifier),
+        seq(
+          optional(kw("FIELD")),
+          $.identifier,
+          optional(seq(kw("IN"), kw("FRAME"), $.identifier)),
+        ),
+        seq($.identifier, optional(seq(kw("IN"), kw("BROWSE"), $.identifier))),
+        seq(choice(kw("MENU"), kw("SUB-MENU")), $.identifier),
+        $.system_handle,
+      ),
 
     _code_block: $ => seq($._statement_colon, repeat($._statement), kw("END")),
 

@@ -1,0 +1,13 @@
+===============
+Apply statement
+===============
+
+APPLY "CHOOSE" TO order-but IN FRAME x.
+
+---
+
+(source_file
+  (apply_statement
+    (character_literal)
+    (identifier)
+    (identifier)))
