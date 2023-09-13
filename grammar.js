@@ -102,14 +102,14 @@ module.exports = grammar({
     ),
 
     assignment_expression: $ => prec.right(PREC.ASSIGN, seq(
-      field('left', choice(
+      choice(
         $.identifier,
         $.reference_attribute,
         $.array_access,
         $.pseudo_function,
-      )),
-      field('operator', choice('=', '+=', '-=', '*=', '/=')),
-      field('right', $._expression),
+      ),
+      choice('=', '+=', '-=', '*=', '/='),
+      $._expression,
     )),
 
     binary_expression: $ => choice(
@@ -139,21 +139,21 @@ module.exports = grammar({
         [kw('MOD'), PREC.MULT],
       ].map(([operator, precedence]) =>
         prec.left(precedence, seq(
-          field('left', $._expression),
-          field('operator', operator),
-          field('right', $._expression)
+          $._expression,
+          operator,
+          $._expression
         ))
       )),
 
     if_expression: $ => prec.right(PREC.IF, seq(
       kw('IF'),
-      field('condition', $._expression),
+      $._expression,
       kw('THEN'),
-      field('consequence', $._statement),
+      $._statement,
       optional(
         seq(
           kw('ELSE'),
-          field('alternative', $._statement)
+          $._statement
         )
       )
     )),
@@ -175,30 +175,30 @@ module.exports = grammar({
       [kw('NOT'), PREC.UNARY],
     ].map(([operator, precedence]) =>
       prec.left(precedence, seq(
-        field('operator', operator),
-        field('operand', $._expression)
+        operator,
+        $._expression
       ))
     )),
 
     parenthesized_expression: $ => seq('(', $._expression, ')'),
 
     reference_attribute: $ => seq(
-      field('reference', $.primary_expression),
+      $.primary_expression,
       $._colon,
-      field('property', choice($.system_handle_attribute, $.identifier))
+      choice($.system_handle_attribute, $.identifier)
     ),
 
     reference_method: $ => seq(
-      field('reference', $.primary_expression),
+      $.primary_expression,
       $._colon,
-      field('method', choice($.system_handle_method, $.identifier)),
-      field('arguments', $.argument_list)
+      choice($.system_handle_method, $.identifier),
+      $.argument_list
     ),
 
     array_access: $ => seq(
-      field('array', $.primary_expression),
+      $.primary_expression,
       '[',
-      field('index', $._expression),
+      $._expression,
       ']',
     ),
 
@@ -339,12 +339,12 @@ module.exports = grammar({
 
     assign_spec: $ => seq(
       $.assignment_expression,
-      optional(seq(kw('WHEN'), field('when', $._expression)))
+      optional(seq(kw('WHEN'), $._expression))
     ),
 
     case_statement: $ => seq(
       kw('CASE'),
-      field('condition', $._expression),
+      $._expression,
       $._statement_colon,
       repeat1($.when_spec),
       kw('END'),
@@ -352,7 +352,7 @@ module.exports = grammar({
     ),
 
     when_spec: $ => seq(
-      sep1(seq(kw('WHEN'), field('condition', $._expression)), kw('OR')),
+      sep1(seq(kw('WHEN'), $._expression), kw('OR')),
       kw('THEN'),
       $._statement
     ),
@@ -360,11 +360,15 @@ module.exports = grammar({
     compile_statement: $ => seq(
       kw('COMPILE'),
       choice(
-        field('value', $._value),
+        $._value,
         // TODO: path
       ),
       anyOf(
-        kw('SAVE'),
+        seq(kw('OPTIONS'), $.character_literal),
+        seq(kw('SAVE'), 
+          optional(seq('=', $._expression)),
+          optional(seq(kw('INTO'), choice($._value)))
+        ),
         seq(kw('XREF-XML'),
           choice(
             $._value,
@@ -374,6 +378,8 @@ module.exports = grammar({
         kw('NO-ERROR')
       )
     ),
+
+    _save_spec: $ => seq(kw('SAVE'), kw('FALSE')),
 
     _define_statement: $ => seq(
       kw('DEFINE'),
@@ -388,10 +394,10 @@ module.exports = grammar({
     define_buffer_statement: $ => seq(
       $._define_statement,
       kw('BUFFER'),
-      field('name', $.identifier),
+      $.identifier,
       kw('FOR'),
       optional(kw('TEMP-TABLE')),
-      field('table', $.identifier),
+      $.identifier,
       anyOf(
         kw('PRESELECT'),
         $._label,
@@ -406,7 +412,7 @@ module.exports = grammar({
       kw('DEFINE'),
       choice(kw('INPUT'), kw('OUTPUT'), kw('INPUT-OUTPUT'), kw('RETURN')),
       kw('PARAMETER'),
-      field('name', $.identifier),
+      $.identifier,
       kw('AS'),
       $._datatype,
       anyOf(
@@ -423,7 +429,7 @@ module.exports = grammar({
     define_variable_statement: $ => seq(
       $._define_statement,
       kw('VARIABLE'),
-      field('name', $.identifier),
+      $.identifier,
       kw('AS'),
       $._datatype,
       anyOf(
@@ -442,12 +448,12 @@ module.exports = grammar({
     ),
 
     do_statement: $ => seq(
-      optional(seq(field('label', $.identifier), $._statement_colon)),
+      optional(seq($.identifier, $._statement_colon)),
       kw('DO'),
       optional(
         choice(
-          seq(field('accumulator', $.identifier), '=', field('from', $._expression), kw('TO'), field('to', $._expression)),
-          seq(kw('WHILE'), field('while', $._expression)),
+          seq($.identifier, '=', $._expression, kw('TO'), $._expression),
+          seq(kw('WHILE'), $._expression),
           kw('TRANSACTION')
         )
       ),
@@ -466,8 +472,8 @@ module.exports = grammar({
     run_statement: $ => seq(
       kw('RUN'),
       choice(
-        field('name', $.identifier),
-        seq(kw('VALUE'), '(', field('value', $._expression), ')'),
+        $.identifier,
+        seq(kw('VALUE'), '(', $._expression, ')'),
         // TODO: path name
       ),
       anyOf(
@@ -480,7 +486,7 @@ module.exports = grammar({
 
     using_statement: $ => seq(
       kw('USING'),
-      field('typename', $.identifier),
+      $.identifier,
       optional(
         seq(
           kw('FROM'),
@@ -515,7 +521,7 @@ module.exports = grammar({
       kw('END')
     ),
 
-    _datatype: $ => field('type', seq(
+    _datatype: $ => seq(
       choice(
         $.primitive_type,
         seq(optional(kw('CLASS')), $.identifier),
@@ -526,7 +532,7 @@ module.exports = grammar({
         kw('EXTENT'),
         $.integer_literal
       ))
-    )),
+    ),
 
 
 
@@ -537,15 +543,15 @@ module.exports = grammar({
     _serializable: $ => choice(kw('SERIALIZABLE'), kw('NON-SERIALIZABLE')),
 
     _case_sensitive: $ => seq(optional(kw('NOT')), kw('CASE-SENSITIVE')),
-    _column_label: $ => seq(kw('COLUMN-LABEL'), field('column_label', $.character_literal)),
+    _column_label: $ => seq(kw('COLUMN-LABEL'), $.character_literal),
     _decimals: $ => seq(kw('DECIMALS'), $.integer_literal),
     _format: $ => seq(kw('FORMAT'), $.character_literal),
     _initial: $ => seq(kw('INITIAL'), choice($._literal, seq('[', commaSep1($._literal), ']'))),
-    _label: $ => seq(kw('LABEL'), field('label', $.character_literal)),
-    _namespace_uri: $ => seq(kw('NAMESPACE-URI'), field('namespace_uri', $.character_literal)),
-    _namespace_prefix: $ => seq(kw('NAMESPACE-PREFIX'), field('namespace_prefix', $.character_literal)),
-    _xml_node_name: $ => seq(kw('XML-NODE-NAME'), field('xml_node_name', $.character_literal)),
-    _serialize_name: $ => seq(kw('SERIALIZE-NAME'), field('serialize_name', $.character_literal)),
+    _label: $ => seq(kw('LABEL'), $.character_literal),
+    _namespace_uri: $ => seq(kw('NAMESPACE-URI'), $.character_literal),
+    _namespace_prefix: $ => seq(kw('NAMESPACE-PREFIX'), $.character_literal),
+    _xml_node_name: $ => seq(kw('XML-NODE-NAME'), $.character_literal),
+    _serialize_name: $ => seq(kw('SERIALIZE-NAME'), $.character_literal),
 
     _value: $ => seq(kw('VALUE'), '(', $._expression, ')')
   }
