@@ -525,7 +525,14 @@ module.exports = grammar({
       ),
 
     assign_statement: $ =>
-      seq(kw("ASSIGN"), repeat1($._assign_spec), optional(kw("NO-ERROR"))),
+      seq(
+        kw("ASSIGN"),
+        choice(
+          repeat1($._assign_spec),
+          seq($.identifier, optional(seq(kw("EXCEPT"), repeat1($.identifier)))),
+        ),
+        optional(kw("NO-ERROR")),
+      ),
 
     _assign_spec: $ =>
       seq($.assignment_expression, optional(seq(kw("WHEN"), $._expression))),

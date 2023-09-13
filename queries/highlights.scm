@@ -204,6 +204,7 @@
   "AGGREGATE"
   "FOR"
   "ASSIGN"
+  "EXCEPT"
   "NO-ERROR"
   "WHEN"
   "APPLY"
