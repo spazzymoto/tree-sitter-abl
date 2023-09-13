@@ -4431,6 +4431,24 @@
                 "members": [
                   {
                     "type": "STRING",
+                    "value": "asc"
+                  },
+                  {
+                    "type": "STRING",
+                    "value": "ASC"
+                  }
+                ]
+              },
+              "named": false,
+              "value": "ASC"
+            },
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "STRING",
                     "value": "alias"
                   },
                   {

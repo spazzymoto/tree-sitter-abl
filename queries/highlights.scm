@@ -189,6 +189,7 @@
   "AMBIGUOS"
   "ABSOLUTE"
   "ADD-INTERVAL"
+  "ASC"
   "ALIAS"
   "ENTRY"
   "FILL"

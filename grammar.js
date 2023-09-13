@@ -425,6 +425,7 @@ module.exports = grammar({
         choice(
           kw("ABSOLUTE"),
           kw("ADD-INTERVAL"),
+          kw("ASC"),
           kw("ALIAS"),
           kw("ENTRY"),
           kw("FILL"),
