@@ -1,5 +1,52 @@
 ================================================================================
-Entry Function
+Builtin "normal" functions
+================================================================================
+
+ASSIGN
+  abs = ABSOLUTE(value)
+  item = ENTRY(i, value)
+  trash = FILL(crap, 420)
+  i = INDEX(value, "#")
+  size = LENGTH(value)
+  entries = NUM-ENTRIES(value)
+  stuff = REPLACE(bad, "[token]", value)
+  part1 = SUBSTRING(value, 1)
+  part2 = SUBSTRING(value, 7, 11)
+  valid = VALID-OBJECT(obj)
+  hHandle = WIDGET-HANDLE(cHandleString)
+  iYear = YEAR(TODAY).
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assign_statement
+    (assignment_expression (identifier)
+      (builtin_function (argument_list (identifier))))
+    (assignment_expression (identifier)
+      (builtin_function (argument_list (identifier) (identifier))))
+    (assignment_expression (identifier)
+      (builtin_function (argument_list (identifier) (integer_literal))))
+    (assignment_expression (identifier)
+      (builtin_function (argument_list (identifier) (character_literal))))
+    (assignment_expression (identifier)
+      (builtin_function (argument_list (identifier))))
+    (assignment_expression (identifier)
+      (builtin_function (argument_list (identifier))))
+    (assignment_expression (identifier)
+      (builtin_function (argument_list (identifier) (character_literal) (identifier))))
+    (assignment_expression (identifier)
+      (builtin_function (argument_list (identifier) (integer_literal))))
+    (assignment_expression (identifier)
+      (builtin_function (argument_list (identifier) (integer_literal) (integer_literal))))
+    (assignment_expression (identifier)
+      (builtin_function (argument_list (identifier))))
+    (assignment_expression (identifier)
+      (builtin_function (argument_list (identifier))))
+    (assignment_expression (identifier)
+      (builtin_function (argument_list (builtin_function))))))
+
+================================================================================
+Psuedo Functions
 ================================================================================
 
 ASSIGN ENTRY(1, cTest) = "".
@@ -9,41 +56,24 @@ ASSIGN ENTRY(1, cTest) = "".
 (source_file
   (assign_statement
     (assignment_expression
-	  (builtin_function
-		(argument_list
-	      (integer_literal)
-		  (identifier)))
-	  (character_literal))))
+      (builtin_function
+        (argument_list
+          (integer_literal)
+          (identifier)))
+      (character_literal))))
 
 ================================================================================
-Widget-Handle Function
+Statement functions
 ================================================================================
 
-ASSIGN hHandle = WIDGET-HANDLE(cHandleString).
+ASSIGN
+  count = ACCUMULATE COUNT table.field.
 
 --------------------------------------------------------------------------------
 
 (source_file
   (assign_statement
     (assignment_expression
-	  (identifier)
-	  (builtin_function
-	    (argument_list
-	      (identifier))))))
-
-================================================================================
-Year Function
-================================================================================
-
-ASSIGN iYear = YEAR(TODAY).
-
---------------------------------------------------------------------------------
-
-(source_file
-  (assign_statement
-    (assignment_expression
-	  (identifier)
-	  (builtin_function
-	    (argument_list
-		  (builtin_function))))))
-
+      (identifier)
+      (builtin_function
+        (identifier)))))

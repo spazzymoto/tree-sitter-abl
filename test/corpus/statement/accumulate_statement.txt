@@ -1,0 +1,26 @@
+===========================
+Accumulate multiple phrases
+===========================
+
+ACCUMULATE Customer.CreditLimit (AVERAGE COUNT MAXIMUM).
+
+---
+
+(source_file
+  (accumulate_statement
+    (identifier)))
+
+===================
+Accumulate break by
+===================
+
+ACCUMULATE Customer.Balance
+  (TOTAL BY Customer.SalesRep BY Customer.Country).
+
+---
+
+(source_file
+  (accumulate_statement
+    (identifier)
+    (identifier)
+    (identifier)))

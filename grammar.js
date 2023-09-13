@@ -35,7 +35,7 @@ module.exports = grammar({
 
   conflicts: $ => [
     [$.reference_method, $.reference_attribute],
-    // [$._pseudo_function, $.builtin_function],
+    [$._primary_expression, $._accumulate_function], // TODO: not sure if this is right
   ],
 
   rules: {
@@ -59,14 +59,15 @@ module.exports = grammar({
     // Literals
     //
 
-    _literal: $ => choice(
-      $.integer_literal,
-      $.decimal_literal,
-      $.character_literal,
-      $.unknown_literal,
-      $.true,
-      $.false
-    ),
+    _literal: $ =>
+      choice(
+        $.integer_literal,
+        $.decimal_literal,
+        $.character_literal,
+        $.unknown_literal,
+        $.true,
+        $.false,
+      ),
 
     integer_literal: _ => /[0-9]+/,
     decimal_literal: _ => /[0-9]*\.[0-9]+/,
@@ -393,30 +394,50 @@ module.exports = grammar({
     // Functions
     //
 
-    _function: $ => seq(
-      choice(
-        kw('ENTRY'),
-        kw('FILL'),
-        kw('INDEX'),
-        kw('LENGTH'),
-        kw('NUM_ENTRIES'),
-        kw('REPLACE'),
-        kw('SUBSTRING'),
-        kw('VALID_OBJECT'),
-        kw('WIDGET-HANDLE'),
-        kw('YEAR')
+    _accumulate_function: $ =>
+      seq(
+        kw("ACCUMULATE"),
+        choice(
+          kw("AVERAGE"),
+          kw("COUNT"),
+          kw("MAXIMUM"),
+          kw("MINIMUM"),
+          kw("TOTAL"),
+          kw("SUB-AVERAGE"),
+          kw("SUB-COUNT"),
+          kw("SUB-MAXIMUM"),
+          kw("SUB-MINIMUM"),
+          kw("SUB-TOTAL"),
+        ),
+        optional(kw("BY")),
+        // TODO: Resolve conflict when using _expression
+        choice($.identifier, $.reference_attribute),
       ),
-      $.argument_list
-    ),
 
-    _keyword_function: $ => choice(
-      kw('TODAY')
-    ),
+    _function: $ =>
+      seq(
+        choice(
+          kw("ABSOLUTE"),
+          kw("ENTRY"),
+          kw("FILL"),
+          kw("INDEX"),
+          kw("LENGTH"),
+          kw("NUM-ENTRIES"),
+          kw("REPLACE"),
+          kw("SUBSTRING"),
+          kw("VALID-OBJECT"),
+          kw("WIDGET-HANDLE"),
+          kw("YEAR"),
+        ),
+        $.argument_list,
+      ),
 
-    builtin_function: $ => choice(
-      $._function,
-      $._keyword_function
-    ),
+    _keyword_function: $ => choice(kw("TODAY")),
+
+    _statement_function: $ => choice($._accumulate_function),
+
+    builtin_function: $ =>
+      choice($._function, $._keyword_function, $._statement_function),
 
     //
     // Statements
@@ -426,6 +447,7 @@ module.exports = grammar({
       choice(
         seq(
           choice(
+            $.accumulate_statement,
             $.assign_statement,
 
             $.case_statement,
@@ -453,31 +475,51 @@ module.exports = grammar({
         alias($._end_of_statement, $.empty_statement),
       ),
 
-    assign_statement: $ => seq(
-      kw('ASSIGN'),
-      repeat1($._assign_spec),
-      optional(kw('NO-ERROR'))
-    ),
+    accumulate_statement: $ =>
+      seq(
+        kw("ACCUMULATE"),
+        $._expression,
+        "(",
+        repeat1(
+          choice(
+            kw("AVERAGE"),
+            kw("COUNT"),
+            kw("MAXIMUM"),
+            kw("MINIMUM"),
+            kw("TOTAL"),
+            kw("SUB-AVERAGE"),
+            kw("SUB-COUNT"),
+            kw("SUB-MAXIMUM"),
+            kw("SUB-MINIMUM"),
+            kw("SUB-TOTAL"),
+          ),
+        ),
+        repeat(seq(kw("BY"), $._expression)),
+        ")",
+      ),
 
-    _assign_spec: $ => seq(
-      $.assignment_expression,
-      optional(seq(kw('WHEN'), $._expression))
-    ),
+    assign_statement: $ =>
+      seq(kw("ASSIGN"), repeat1($._assign_spec), optional(kw("NO-ERROR"))),
 
-    case_statement: $ => seq(
-      kw('CASE'),
-      $._expression,
-      $._statement_colon,
-      repeat1($._when_spec),
-      kw('END'),
-      kw('CASE')
-    ),
+    _assign_spec: $ =>
+      seq($.assignment_expression, optional(seq(kw("WHEN"), $._expression))),
 
-    _when_spec: $ => seq(
-      sep1(seq(kw('WHEN'), $._expression), kw('OR')),
-      kw('THEN'),
-      $._statement
-    ),
+    case_statement: $ =>
+      seq(
+        kw("CASE"),
+        $._expression,
+        $._statement_colon,
+        repeat1($._when_spec),
+        kw("END"),
+        kw("CASE"),
+      ),
+
+    _when_spec: $ =>
+      seq(
+        sep1(seq(kw("WHEN"), $._expression), kw("OR")),
+        kw("THEN"),
+        $._statement,
+      ),
 
     compile_statement: $ =>
       seq(
