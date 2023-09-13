@@ -1,0 +1,40 @@
+================================================================================
+Case Statement
+================================================================================
+
+CASE cTest:
+  WHEN "this" OR
+  WHEN "that" THEN ASSIGN i = 1.
+
+  WHEN "them" THEN DO:
+    ASSIGN i = 2.
+  END.
+END CASE.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (case_statement
+    (primary_expression
+	  (identifier))
+	(when_spec
+	  (primary_expression
+        (character_literal))
+	  (primary_expression
+        (character_literal))
+      (assign_statement
+        (assign_spec
+		  (assignment_expression
+            (identifier)
+			(primary_expression
+              (integer_literal))))))
+    (when_spec
+	  (primary_expression
+        (character_literal))
+      (do_statement
+        (assign_statement
+          (assign_spec
+		    (assignment_expression
+              (identifier)
+			  (primary_expression
+                (integer_literal)))))))))

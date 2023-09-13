@@ -1,0 +1,29 @@
+================================================================================
+Define New Shared Buffer Statement
+================================================================================
+
+DEFINE NEW SHARED BUFFER bufTest FOR TEMP-TABLE test_table LABEL "Test" PRESELECT.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (define_buffer_statement
+    (identifier)
+    (identifier)
+    (character_literal)))
+
+================================================================================
+Define Variable As Class Statement
+================================================================================
+
+DEFINE VARIABLE cTest AS MyClass NO-UNDO SERIALIZE-NAME "Test":U.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (define_variable_statement
+    (identifier)
+    (identifier)
+    (character_literal
+      (character_modifier))))
+
