@@ -414,6 +414,9 @@ module.exports = grammar({
         choice($.identifier, $.reference_attribute),
       ),
 
+    _ambiguos_function: $ =>
+      seq(kw("AMBIGUOS"), choice($.identifier, seq("(", $.identifier, ")"))),
+
     _function: $ =>
       seq(
         choice(
@@ -436,7 +439,8 @@ module.exports = grammar({
 
     _keyword_function: $ => choice(kw("TODAY")),
 
-    _statement_function: $ => choice($._accumulate_function),
+    _statement_function: $ =>
+      choice($._accumulate_function, $._ambiguos_function),
 
     builtin_function: $ =>
       choice($._function, $._keyword_function, $._statement_function),
