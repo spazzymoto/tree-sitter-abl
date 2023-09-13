@@ -190,6 +190,7 @@
   "ABSOLUTE"
   "ADD-INTERVAL"
   "ASC"
+  "AUDIT-ENABLED"
   "ALIAS"
   "ENTRY"
   "FILL"

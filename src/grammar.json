@@ -4449,6 +4449,24 @@
                 "members": [
                   {
                     "type": "STRING",
+                    "value": "audit-enabled"
+                  },
+                  {
+                    "type": "STRING",
+                    "value": "AUDIT-ENABLED"
+                  }
+                ]
+              },
+              "named": false,
+              "value": "AUDIT-ENABLED"
+            },
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "STRING",
                     "value": "alias"
                   },
                   {

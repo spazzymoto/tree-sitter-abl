@@ -426,6 +426,7 @@ module.exports = grammar({
           kw("ABSOLUTE"),
           kw("ADD-INTERVAL"),
           kw("ASC"),
+          kw("AUDIT-ENABLED"),
           kw("ALIAS"),
           kw("ENTRY"),
           kw("FILL"),
@@ -714,6 +715,9 @@ module.exports = grammar({
     //
     // Helpers
     //
+
+    // TODO
+    // _at_phrase: $ => seq(),
 
     _where_clause: $ => seq(kw("WHERE"), $._expression),
     _widget_phrase: $ =>

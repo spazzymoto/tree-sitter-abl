@@ -2089,6 +2089,10 @@
     "named": false
   },
   {
+    "type": "AUDIT-ENABLED",
+    "named": false
+  },
+  {
     "type": "AVERAGE",
     "named": false
   },
