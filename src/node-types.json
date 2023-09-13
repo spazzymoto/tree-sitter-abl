@@ -1851,6 +1851,10 @@
     "named": false
   },
   {
+    "type": "ADD-INTERVAL",
+    "named": false
+  },
+  {
     "type": "ADD-SUPER-PROCEDURE",
     "named": false
   },

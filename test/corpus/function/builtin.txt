@@ -4,6 +4,7 @@ Builtin "normal" functions
 
 ASSIGN
   abs = ABSOLUTE(value)
+  dt = ADD-INTERVAL(TODAY, 1, "MONTHS")
   item = ENTRY(i, value)
   trash = FILL(crap, 420)
   i = INDEX(value, "#")
@@ -22,6 +23,8 @@ ASSIGN
   (assign_statement
     (assignment_expression (identifier)
       (builtin_function (argument_list (identifier))))
+    (assignment_expression (identifier)
+      (builtin_function (argument_list (builtin_function) (integer_literal) (character_literal))))
     (assignment_expression (identifier)
       (builtin_function (argument_list (identifier) (identifier))))
     (assignment_expression (identifier)

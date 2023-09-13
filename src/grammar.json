@@ -4364,6 +4364,24 @@
                 "members": [
                   {
                     "type": "STRING",
+                    "value": "add-interval"
+                  },
+                  {
+                    "type": "STRING",
+                    "value": "ADD-INTERVAL"
+                  }
+                ]
+              },
+              "named": false,
+              "value": "ADD-INTERVAL"
+            },
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "STRING",
                     "value": "entry"
                   },
                   {

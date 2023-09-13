@@ -187,6 +187,7 @@
   "SUB-TOTAL"
   "BY"
   "ABSOLUTE"
+  "ADD-INTERVAL"
   "ENTRY"
   "FILL"
   "INDEX"
