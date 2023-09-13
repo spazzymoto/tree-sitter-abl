@@ -1966,6 +1966,10 @@
     "named": false
   },
   {
+    "type": "ALIAS",
+    "named": false
+  },
+  {
     "type": "AND",
     "named": false
   },

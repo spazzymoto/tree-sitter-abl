@@ -4382,6 +4382,24 @@
                 "members": [
                   {
                     "type": "STRING",
+                    "value": "alias"
+                  },
+                  {
+                    "type": "STRING",
+                    "value": "ALIAS"
+                  }
+                ]
+              },
+              "named": false,
+              "value": "ALIAS"
+            },
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "STRING",
                     "value": "entry"
                   },
                   {

@@ -188,6 +188,7 @@
   "BY"
   "ABSOLUTE"
   "ADD-INTERVAL"
+  "ALIAS"
   "ENTRY"
   "FILL"
   "INDEX"

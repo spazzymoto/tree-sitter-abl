@@ -419,6 +419,7 @@ module.exports = grammar({
         choice(
           kw("ABSOLUTE"),
           kw("ADD-INTERVAL"),
+          kw("ALIAS"),
           kw("ENTRY"),
           kw("FILL"),
           kw("INDEX"),
