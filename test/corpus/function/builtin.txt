@@ -81,12 +81,18 @@ Statement Functions
 ASSIGN
   count = ACCUMULATE COUNT table.field
   ambg = AMBIGUOS table
-  ambg = AMBIGUOS(other_table).
+  ambg = AMBIGUOS(other_table)
+  avail = AVAILABLE table
+  avail = AVAILABLE(other_table).
 
 --------------------------------------------------------------------------------
 
 (source_file
   (assign_statement
+    (assignment_expression (identifier)
+      (builtin_function (identifier)))
+    (assignment_expression (identifier)
+      (builtin_function (identifier)))
     (assignment_expression (identifier)
       (builtin_function (identifier)))
     (assignment_expression (identifier)

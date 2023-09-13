@@ -2093,6 +2093,10 @@
     "named": false
   },
   {
+    "type": "AVAILABLE",
+    "named": false
+  },
+  {
     "type": "AVERAGE",
     "named": false
   },
