@@ -9,10 +9,8 @@ Expression Statement
 (source_file
   (expression_statement
     (binary_expression
-	  (primary_expression
-        (integer_literal))
-	  (primary_expression
-        (integer_literal)))))
+      (integer_literal)
+      (integer_literal))))
 
 ================================================================================
 Assignment Expression
@@ -31,45 +29,35 @@ c = table.field.
   (expression_statement
     (assignment_expression
       (identifier)
-      (primary_expression
+      (integer_literal)))
+  (expression_statement
+    (assignment_expression
+      (identifier)
+      (binary_expression
+        (integer_literal)
         (integer_literal))))
   (expression_statement
     (assignment_expression
       (identifier)
-      (binary_expression
-        (primary_expression
-          (integer_literal))
-        (primary_expression
-          (integer_literal)))))
-  (expression_statement
-    (assignment_expression
-      (identifier)
       (unary_expression
-        (primary_expression
-          (true)))))
+        (true))))
   (expression_statement
     (assignment_expression
       (identifier)
       (binary_expression
-        (primary_expression
-          (parenthesized_expression
-            (binary_expression
-              (primary_expression
-                (integer_literal))
-              (primary_expression
-                (integer_literal)))))
-        (primary_expression  
-          (integer_literal)))))
+        (parenthesized_expression
+          (binary_expression
+            (integer_literal)
+            (integer_literal)))
+        (integer_literal))))
   (expression_statement
     (assignment_expression
       (identifier)
-      (primary_expression
-        (character_literal))))
+      (character_literal)))
   (expression_statement
     (assignment_expression
       (identifier)
-      (primary_expression
-        (identifier)))))
+      (identifier))))
 
 ================================================================================
 Unary Expression
@@ -83,12 +71,9 @@ Unary Expression
 (source_file
   (expression_statement
     (unary_expression
-      (primary_expression
-        (integer_literal))))
+      (integer_literal)))
   (expression_statement
     (binary_expression
       (unary_expression
-        (primary_expression
-          (integer_literal)))
-      (primary_expression
-        (integer_literal)))))
+        (integer_literal))
+      (integer_literal))))

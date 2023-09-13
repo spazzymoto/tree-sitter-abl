@@ -1,5 +1,5 @@
-const fs = require('fs');
-fs.writeFileSync('keyword.txt', '');
+const fs = require("fs");
+fs.writeFileSync("keyword.txt", "");
 const knownKeywords = [];
 
 const PREC = {
@@ -9,11 +9,11 @@ const PREC = {
   AND: 4,
   EQUALITY: 5,
   REL: 6,
-  ADD: 7, 
+  ADD: 7,
   MULT: 8,
   UNARY: 9,
   OBJ_ACCESS: 10,
-}
+};
 
 module.exports = grammar({
   name: "abl",
@@ -41,539 +41,644 @@ module.exports = grammar({
   rules: {
     source_file: $ => repeat($._statement),
 
-    identifier: $ => prec.right(PREC.OBJ_ACCESS, seq(/[_\p{XID_Start}][_\p{XID_Continue}]*/, optional(seq($._dot, sep1(choice(/[_\p{XID_Start}][_\p{XID_Continue}]*/, '*'), $._dot))))),
+    identifier: $ =>
+      prec.right(
+        PREC.OBJ_ACCESS,
+        seq(
+          /[_\p{XID_Start}][_\p{XID_Continue}]*/,
+          optional(
+            seq(
+              $._dot,
+              sep1(choice(/[_\p{XID_Start}][_\p{XID_Continue}]*/, "*"), $._dot),
+            ),
+          ),
+        ),
+      ),
 
     //
     // Literals
     //
 
-    _literal: $ => choice(
-      $.integer_literal,
-      $.decimal_literal,
-      $.character_literal,
-      $.unknown_literal,
-      $.true,
-      $.false,
-    ),
+    _literal: $ =>
+      choice(
+        $.integer_literal,
+        $.decimal_literal,
+        $.character_literal,
+        $.unknown_literal,
+        $.true,
+        $.false,
+      ),
 
     integer_literal: _ => /[0-9]+/,
     decimal_literal: _ => /[0-9]*\.[0-9]+/,
-    true: _ => kw('TRUE'),
-    false: _ => kw('FALSE'),
-    unknown_literal: _ => '?',
-    character_modifier: $ => seq($._colon, choice('U')),
-    character_literal: $ => prec.right(PREC.OBJ_ACCESS, seq($._character_literal, optional($.character_modifier))),
+    true: _ => kw("TRUE"),
+    false: _ => kw("FALSE"),
+    unknown_literal: _ => "?",
+    character_modifier: $ => seq($._colon, choice("U")),
+    character_literal: $ =>
+      prec.right(
+        PREC.OBJ_ACCESS,
+        seq($._character_literal, optional($.character_modifier)),
+      ),
 
     //
     // Types
     //
 
-    primitive_type: $ => choice(
-      kw('BLOB'),
-      kw('CHARACTER'),
-      kw('CLOB'),
-      kw('COM-HANDLE'),
-      kw('DATE'),
-      kw('DATETIME'),
-      kw('DATETIME-TZ'),
-      kw('DECIMAL'),
-      kw('HANDLE'),
-      kw('INT64'),
-      kw('INTEGER'),
-      kw('LOGICAL'),
-      kw('LONGCHAR'),
-      kw('MEMPTR'),
-      kw('RAW'),
-      kw('RECID'),
-      kw('ROWID'),
-      kw('WIDGET-HANDLE')
-    ),
+    primitive_type: $ =>
+      choice(
+        kw("BLOB"),
+        kw("CHARACTER"),
+        kw("CLOB"),
+        kw("COM-HANDLE"),
+        kw("DATE"),
+        kw("DATETIME"),
+        kw("DATETIME-TZ"),
+        kw("DECIMAL"),
+        kw("HANDLE"),
+        kw("INT64"),
+        kw("INTEGER"),
+        kw("LOGICAL"),
+        kw("LONGCHAR"),
+        kw("MEMPTR"),
+        kw("RAW"),
+        kw("RECID"),
+        kw("ROWID"),
+        kw("WIDGET-HANDLE"),
+      ),
 
     //
     // Expressions
     //
 
-    _expression: $ => choice(
-      $.assignment_expression,
-      $.binary_expression,
-      $.if_expression,
-      $.primary_expression,
-      $.unary_expression,
-    ),
-
-    assignment_expression: $ => prec.right(PREC.ASSIGN, seq(
+    _expression: $ =>
       choice(
-        $.identifier,
-        $.reference_attribute,
-        $.array_access,
-        $.pseudo_function,
+        $.assignment_expression,
+        $.binary_expression,
+        $.if_expression,
+        $._primary_expression,
+        $.unary_expression,
       ),
-      choice('=', '+=', '-=', '*=', '/='),
-      $._expression,
-    )),
 
-    binary_expression: $ => choice(
-      ...[
-        ['>', PREC.REL],
-        ['<', PREC.REL],
-        ['>=', PREC.REL],
-        ['<=', PREC.REL],
-        [kw('LT'), PREC.EQUALITY],
-        [kw('GT'), PREC.EQUALITY],
-        [kw('LE'), PREC.EQUALITY],
-        [kw('GE'), PREC.EQUALITY],
-        
-        ['=', PREC.EQUALITY],
-        ['<>', PREC.EQUALITY],
-        [kw('EQ'), PREC.EQUALITY],
-        [kw('NE'), PREC.EQUALITY],
-        
-        [kw('AND'), PREC.AND],
-        [kw('OR'), PREC.OR],
-        
-        ['+', PREC.ADD],
-        ['-', PREC.ADD],
-        
-        ['*', PREC.MULT],
-        ['/', PREC.MULT],
-        [kw('MOD'), PREC.MULT],
-      ].map(([operator, precedence]) =>
-        prec.left(precedence, seq(
-          $._expression,
-          operator,
-          $._expression
-        ))
-      )),
-
-    if_expression: $ => prec.right(PREC.IF, seq(
-      kw('IF'),
-      $._expression,
-      kw('THEN'),
-      $._statement,
-      optional(
+    assignment_expression: $ =>
+      prec.right(
+        PREC.ASSIGN,
         seq(
-          kw('ELSE'),
-          $._statement
-        )
-      )
-    )),
+          choice(
+            $.identifier,
+            $.reference_attribute,
+            $.array_access,
+            $.pseudo_function,
+          ),
+          choice("=", "+=", "-=", "*=", "/="),
+          $._expression,
+        ),
+      ),
 
-    primary_expression: $ => choice(
-      $._literal,
-      $.identifier,
-      $.system_handle,
-      $.parenthesized_expression,
-      $.reference_attribute,
-      $.reference_method,
-      $.array_access,
-      $.builtin_function,
-    ),
+    binary_expression: $ =>
+      choice(
+        ...[
+          [">", PREC.REL],
+          ["<", PREC.REL],
+          [">=", PREC.REL],
+          ["<=", PREC.REL],
+          [kw("LT"), PREC.EQUALITY],
+          [kw("GT"), PREC.EQUALITY],
+          [kw("LE"), PREC.EQUALITY],
+          [kw("GE"), PREC.EQUALITY],
 
-    unary_expression: $ => choice(...[
-      ['+', PREC.UNARY],
-      ['-', PREC.UNARY],
-      [kw('NOT'), PREC.UNARY],
-    ].map(([operator, precedence]) =>
-      prec.left(precedence, seq(
-        operator,
-        $._expression
-      ))
-    )),
+          ["=", PREC.EQUALITY],
+          ["<>", PREC.EQUALITY],
+          [kw("EQ"), PREC.EQUALITY],
+          [kw("NE"), PREC.EQUALITY],
 
-    parenthesized_expression: $ => seq('(', $._expression, ')'),
+          [kw("AND"), PREC.AND],
+          [kw("OR"), PREC.OR],
 
-    reference_attribute: $ => seq(
-      $.primary_expression,
-      $._colon,
-      choice($.system_handle_attribute, $.identifier)
-    ),
+          ["+", PREC.ADD],
+          ["-", PREC.ADD],
 
-    reference_method: $ => seq(
-      $.primary_expression,
-      $._colon,
-      choice($.system_handle_method, $.identifier),
-      $.argument_list
-    ),
+          ["*", PREC.MULT],
+          ["/", PREC.MULT],
+          [kw("MOD"), PREC.MULT],
+        ].map(([operator, precedence]) =>
+          prec.left(precedence, seq($._expression, operator, $._expression)),
+        ),
+      ),
 
-    array_access: $ => seq(
-      $.primary_expression,
-      '[',
-      $._expression,
-      ']',
-    ),
+    if_expression: $ =>
+      prec.right(
+        PREC.IF,
+        seq(
+          kw("IF"),
+          $._expression,
+          kw("THEN"),
+          $._statement,
+          optional(seq(kw("ELSE"), $._statement)),
+        ),
+      ),
 
-    argument_list: $ => seq(
-      '(',
-      commaSep(seq(
-        optional(choice(kw('INPUT'), kw('OUTPUT'), kw('INPUT-OUTPUT'))),
-        $._expression
-      )),
-      ')'
-    ),
-    
+    _primary_expression: $ =>
+      choice(
+        $._literal,
+        $.identifier,
+        $.system_handle,
+        $.parenthesized_expression,
+        $.reference_attribute,
+        $.reference_method,
+        $.array_access,
+        $.builtin_function,
+      ),
+
+    unary_expression: $ =>
+      choice(
+        ...[
+          ["+", PREC.UNARY],
+          ["-", PREC.UNARY],
+          [kw("NOT"), PREC.UNARY],
+        ].map(([operator, precedence]) =>
+          prec.left(precedence, seq(operator, $._expression)),
+        ),
+      ),
+
+    parenthesized_expression: $ => seq("(", $._expression, ")"),
+
+    reference_attribute: $ =>
+      seq(
+        $._primary_expression,
+        $._colon,
+        choice($.system_handle_attribute, $.identifier),
+      ),
+
+    reference_method: $ =>
+      seq(
+        $._primary_expression,
+        $._colon,
+        choice($.system_handle_method, $.identifier),
+        $.argument_list,
+      ),
+
+    array_access: $ => seq($._primary_expression, "[", $._expression, "]"),
+
+    argument_list: $ =>
+      seq(
+        "(",
+        commaSep(
+          seq(
+            optional(choice(kw("INPUT"), kw("OUTPUT"), kw("INPUT-OUTPUT"))),
+            $._expression,
+          ),
+        ),
+        ")",
+      ),
+
     //
     // System Handles
     //
 
-    system_handle: $ => choice(
-      kw('SELF'),
-      kw('SESSION'), 
-      kw('TARGET-PROCEDURE'),
-      kw('SOURCE-PROCEDURE'),
-      kw('THIS-OBJECT'),
-      kw('THIS-PROCEDURE')
-    ),
+    system_handle: $ =>
+      choice(
+        kw("SELF"),
+        kw("SESSION"),
+        kw("TARGET-PROCEDURE"),
+        kw("SOURCE-PROCEDURE"),
+        kw("THIS-OBJECT"),
+        kw("THIS-PROCEDURE"),
+      ),
 
-    system_handle_attribute: $ => choice(
+    system_handle_attribute: $ =>
+      choice(
+        // Procedure handle attributes
+        kw("ADM-DATA"),
+        kw("ASYNC-REQUEST-COUNT"),
+        kw("CURRENT-WINDOW"),
+        kw("DB-REFERENCES"),
+        kw("FILE-NAME"),
+        kw("HANDLE"),
+        kw("INSTANTIATING-PROCEDURE"),
+        kw("INTERNAL-ENTRIES"),
+        kw("NAME"),
+        kw("NEXT-SIBLING"),
+        kw("PERSISTENT"),
+        kw("PREV-SIBLING"),
+        kw("PRIVATE-DATA"),
+        kw("PROXY"),
+        kw("PUBLISHED-EVENTS"),
+        kw("REMOTE"),
+        kw("SERVER"),
+        kw("SUPER-PROCEDURES"),
+        kw("SINGLE-RUN"),
+        kw("SINGLETON"),
+        kw("TRANSACTION"),
+        kw("TYPE"),
+        kw("UNIQUE-ID"),
 
-      // Procedure handle attributes
-      kw('ADM-DATA'), kw('ASYNC-REQUEST-COUNT'), kw('CURRENT-WINDOW'), kw('DB-REFERENCES'), kw('FILE-NAME'), kw('HANDLE'),
-      kw('INSTANTIATING-PROCEDURE'), kw('INTERNAL-ENTRIES'), kw('NAME'), kw('NEXT-SIBLING'), kw('PERSISTENT'), kw('PREV-SIBLING'),
-      kw('PRIVATE-DATA'), kw('PROXY'), kw('PUBLISHED-EVENTS'), kw('REMOTE'), kw('SERVER'), kw('SUPER-PROCEDURES'), kw('SINGLE-RUN'),
-      kw('SINGLETON'), kw('TRANSACTION'), kw('TYPE'), kw('UNIQUE-ID'),
-      
-      // Session Handle Attributes
-      kw('APPL-ALERT-BOXES'), kw('BASE-ADE'), kw('BATCH-MODE'), kw('CHARSET'), kw('CLIENT-TYPE'), kw('CONTEXT-HELP-FILE'),
-      kw('CPCASE'), kw('CPCOLL'), kw('CPINTERNAL'), kw('CPLOG'), kw('CPPRINT'), kw('CPRCODEIN'), kw('CPRCODEOUT'), kw('CPSTREAM'),
-      kw('CPTERM'), kw('CURRENT-REQUEST-INFO'), kw('CURRENT-RESPONSE-INFO'), kw('DATA-ENTRY-RETURN'), kw('DATE-FORMAT'),
-      kw('DEBUG-ALERT'), kw('DISPLAY-TIMEZONE'), kw('DISPLAY-TYPE'), kw('ERROR-STACK-TRACE'), kw('EXECUTION-LOG'), kw('FIRST-BUFFER'),
-      kw('FIRST-CHILD'), kw('FIRST-DATASET'), kw('FIRST-DATA-SOURCE'), kw('FIRST-FORM'), kw('FIRST-OBJECT'), kw('FIRST-PROCEDURE'),
-      kw('FIRST-QUERY'), kw('FIRST-SERVER'), kw('FIRST-SERVER-SOCKET'), kw('FIRST-SOCKET'), kw('FRAME-SPACING'), kw('HANDLE'),
-      kw('HEIGHT-CHARS'), kw('HEIGHT-PIXELS'), kw('ICFPARAMETER'), kw('IMMEDIATE-DISPLAY'), kw('INHERIT-BGCOLOR'), kw('INHERIT-FGCOLOR'),
-      kw('INSTANTIATING-PROCEDURE'), kw('LAST-CHILD'), kw('LAST-FORM'), kw('LAST-OBJECT'), kw('LAST-PROCEDURE'), kw('LAST-SERVER'),
-      kw('LAST-SERVER-SOCKET'), kw('LAST-SOCKET'), kw('LOCAL-VERSION-INFO'), kw('MULTITASKING-INTERVAL'), kw('NEXT-SIBLING'),
-      kw('NUMERIC-DECIMAL-POINT'), kw('NUMERIC-FORMAT'), kw('NUMERIC-SEPARATOR'), kw('PARAMETER'), kw('PIXELS-PER-COLUMN'),
-      kw('PIXELS-PER-ROW'), kw('PRINTER-CONTROL-HANDLE'), kw('PRINTER-HDC'), kw('PRINTER-NAME'), kw('PRINTER-PORT'),
-      kw('PROXY-PASSWORD'), kw('PROXY-USERID'), kw('REMOTE'), kw('SCHEMA-CHANGE'), kw('SERVER-CONNECTION-BOUND'),
-      kw('SERVER-CONNECTION-BOUND-REQUEST'), kw('SERVER-CONNECTION-CONTEXT'), kw('SERVER-CONNECTION-ID'),
-      kw('SERVER-OPERATING-MODE'), kw('STARTUP-PARAMETERS'), kw('STREAM'), kw('SUPER-PROCEDURES'), kw('SUPPRESS-WARNINGS'),
-      kw('SUPPRESS-WARNINGS-LIST'), kw('SYSTEM-ALERT-BOXES'), kw('THREE-D'), kw('TIME-SOURCE'), kw('TIMEZONE'), kw('TOOLTIPS'),
-      kw('TYPE'), kw('V6DISPLAY'), kw('WC-ADMIN-APP'), kw('WIDTH-CHARS'), kw('WIDTH-PIXELS'), kw('WINDOW-SYSTEM'),
-      kw('WORK-AREA-HEIGHT-PIXELS'), kw('WORK-AREA-WIDTH-PIXELS'), kw('WORK-AREA-X'), kw('WORK-AREA-Y'), kw('YEAR-OFFSET'),
-      kw('TEMP-DIRECTORY')
-    ),
+        // Session Handle Attributes
+        kw("APPL-ALERT-BOXES"),
+        kw("BASE-ADE"),
+        kw("BATCH-MODE"),
+        kw("CHARSET"),
+        kw("CLIENT-TYPE"),
+        kw("CONTEXT-HELP-FILE"),
+        kw("CPCASE"),
+        kw("CPCOLL"),
+        kw("CPINTERNAL"),
+        kw("CPLOG"),
+        kw("CPPRINT"),
+        kw("CPRCODEIN"),
+        kw("CPRCODEOUT"),
+        kw("CPSTREAM"),
+        kw("CPTERM"),
+        kw("CURRENT-REQUEST-INFO"),
+        kw("CURRENT-RESPONSE-INFO"),
+        kw("DATA-ENTRY-RETURN"),
+        kw("DATE-FORMAT"),
+        kw("DEBUG-ALERT"),
+        kw("DISPLAY-TIMEZONE"),
+        kw("DISPLAY-TYPE"),
+        kw("ERROR-STACK-TRACE"),
+        kw("EXECUTION-LOG"),
+        kw("FIRST-BUFFER"),
+        kw("FIRST-CHILD"),
+        kw("FIRST-DATASET"),
+        kw("FIRST-DATA-SOURCE"),
+        kw("FIRST-FORM"),
+        kw("FIRST-OBJECT"),
+        kw("FIRST-PROCEDURE"),
+        kw("FIRST-QUERY"),
+        kw("FIRST-SERVER"),
+        kw("FIRST-SERVER-SOCKET"),
+        kw("FIRST-SOCKET"),
+        kw("FRAME-SPACING"),
+        kw("HANDLE"),
+        kw("HEIGHT-CHARS"),
+        kw("HEIGHT-PIXELS"),
+        kw("ICFPARAMETER"),
+        kw("IMMEDIATE-DISPLAY"),
+        kw("INHERIT-BGCOLOR"),
+        kw("INHERIT-FGCOLOR"),
+        kw("INSTANTIATING-PROCEDURE"),
+        kw("LAST-CHILD"),
+        kw("LAST-FORM"),
+        kw("LAST-OBJECT"),
+        kw("LAST-PROCEDURE"),
+        kw("LAST-SERVER"),
+        kw("LAST-SERVER-SOCKET"),
+        kw("LAST-SOCKET"),
+        kw("LOCAL-VERSION-INFO"),
+        kw("MULTITASKING-INTERVAL"),
+        kw("NEXT-SIBLING"),
+        kw("NUMERIC-DECIMAL-POINT"),
+        kw("NUMERIC-FORMAT"),
+        kw("NUMERIC-SEPARATOR"),
+        kw("PARAMETER"),
+        kw("PIXELS-PER-COLUMN"),
+        kw("PIXELS-PER-ROW"),
+        kw("PRINTER-CONTROL-HANDLE"),
+        kw("PRINTER-HDC"),
+        kw("PRINTER-NAME"),
+        kw("PRINTER-PORT"),
+        kw("PROXY-PASSWORD"),
+        kw("PROXY-USERID"),
+        kw("REMOTE"),
+        kw("SCHEMA-CHANGE"),
+        kw("SERVER-CONNECTION-BOUND"),
+        kw("SERVER-CONNECTION-BOUND-REQUEST"),
+        kw("SERVER-CONNECTION-CONTEXT"),
+        kw("SERVER-CONNECTION-ID"),
+        kw("SERVER-OPERATING-MODE"),
+        kw("STARTUP-PARAMETERS"),
+        kw("STREAM"),
+        kw("SUPER-PROCEDURES"),
+        kw("SUPPRESS-WARNINGS"),
+        kw("SUPPRESS-WARNINGS-LIST"),
+        kw("SYSTEM-ALERT-BOXES"),
+        kw("THREE-D"),
+        kw("TIME-SOURCE"),
+        kw("TIMEZONE"),
+        kw("TOOLTIPS"),
+        kw("TYPE"),
+        kw("V6DISPLAY"),
+        kw("WC-ADMIN-APP"),
+        kw("WIDTH-CHARS"),
+        kw("WIDTH-PIXELS"),
+        kw("WINDOW-SYSTEM"),
+        kw("WORK-AREA-HEIGHT-PIXELS"),
+        kw("WORK-AREA-WIDTH-PIXELS"),
+        kw("WORK-AREA-X"),
+        kw("WORK-AREA-Y"),
+        kw("YEAR-OFFSET"),
+        kw("TEMP-DIRECTORY"),
+      ),
 
-    system_handle_method: $ => choice(
+    system_handle_method: $ =>
+      choice(
+        // Procedure handle methods
+        kw("ADD-SUPER-PROCEDURE"),
+        kw("GET-SIGNATURE"),
+        kw("REMOVE-SUPER-PROCEDURE"),
+        kw("SET-CALLBACK"),
+        kw("SET-CALLBACK-PROCEDURE"),
 
-      // Procedure handle methods
-      kw('ADD-SUPER-PROCEDURE'),
-      kw('GET-SIGNATURE'),
-      kw('REMOVE-SUPER-PROCEDURE'),
-      kw('SET-CALLBACK'),
-      kw('SET-CALLBACK-PROCEDURE'),
+        // Session Handle Methods
+        kw("ADD-SUPER-PROCEDURE"),
+        kw("EXPORT"),
+        kw("GET-PRINTERS"),
+        kw("GET-WAIT-STATE"),
+        kw("REMOVE-SUPER-PROCEDURE"),
+        kw("SET-NUMERIC-FORMAT"),
+        kw("SET-WAIT-STATE"),
+      ),
 
-      // Session Handle Methods
-      kw('ADD-SUPER-PROCEDURE'),
-      kw('EXPORT'),
-      kw('GET-PRINTERS'),
-      kw('GET-WAIT-STATE'),
-      kw('REMOVE-SUPER-PROCEDURE'),
-      kw('SET-NUMERIC-FORMAT'),
-      kw('SET-WAIT-STATE'),
-    ),
-    
     //
     // Functions, duplicated between pseudo and built in for them ast's
     //
 
-    pseudo_function: $ => seq(
-      choice(
-        kw('ENTRY'),
-      ),
-      $.argument_list
-    ),
+    pseudo_function: $ => seq(choice(kw("ENTRY")), $.argument_list),
 
-    builtin_function: $ => seq(
-      choice(
-        kw('ENTRY'),
-        kw('FILL'),
-        kw('INDEX'),
-        kw('LENGTH'),
-        kw('NUM_ENTRIES'),
-        kw('REPLACE'),
-        kw('SUBSTRING'),
-        kw('VALID_OBJECT'),
+    builtin_function: $ =>
+      seq(
+        choice(
+          kw("ENTRY"),
+          kw("FILL"),
+          kw("INDEX"),
+          kw("LENGTH"),
+          kw("NUM_ENTRIES"),
+          kw("REPLACE"),
+          kw("SUBSTRING"),
+          kw("VALID_OBJECT"),
+        ),
+        $.argument_list,
       ),
-      $.argument_list
-    ),
 
     //
     // Statements
     //
 
-    _statement: $ => choice(
-      seq(
-        choice(
-          $.assign_statement,
-
-          $.case_statement,
-          $.compile_statement,
-
-          $.define_buffer_statement,
-          $.define_parameter_statement,
-          $.define_variable_statement,
-
-          $.do_statement,
-
-          $.error_level_statement,
-          alias($._expression, $.expression_statement),
-
-          $.procedure_statement,
-
-          $.quit_statement,
-
-          $.run_statement,
-
-          $.using_statement
-        ),
-        $._end_of_statement,
-      ),
-      alias($._end_of_statement, $.empty_statement)
-    ),
-
-    assign_statement: $ => seq(
-      kw('ASSIGN'),
-      repeat1($.assign_spec),
-      optional(kw('NO-ERROR'))
-    ),
-
-    assign_spec: $ => seq(
-      $.assignment_expression,
-      optional(seq(kw('WHEN'), $._expression))
-    ),
-
-    case_statement: $ => seq(
-      kw('CASE'),
-      $._expression,
-      $._statement_colon,
-      repeat1($.when_spec),
-      kw('END'),
-      kw('CASE')
-    ),
-
-    when_spec: $ => seq(
-      sep1(seq(kw('WHEN'), $._expression), kw('OR')),
-      kw('THEN'),
-      $._statement
-    ),
-
-    compile_statement: $ => seq(
-      kw('COMPILE'),
+    _statement: $ =>
       choice(
-        $._value,
-        // TODO: path
-      ),
-      anyOf(
-        seq(kw('OPTIONS'), $.character_literal),
-        seq(kw('SAVE'), 
-          optional(seq('=', $._expression)),
-          optional(seq(kw('INTO'), choice($._value)))
-        ),
-        seq(kw('XREF-XML'),
-          choice(
-            $._value,
-            //TODO: path
-          )
-        ),
-        kw('NO-ERROR')
-      )
-    ),
-
-    _save_spec: $ => seq(kw('SAVE'), kw('FALSE')),
-
-    _define_statement: $ => seq(
-      kw('DEFINE'),
-      anyOf(
-        $._new_global_shared,
-        $._access_mode,
-        $._serializable,
-        kw('STATIC')
-      )
-    ),
-
-    define_buffer_statement: $ => seq(
-      $._define_statement,
-      kw('BUFFER'),
-      $.identifier,
-      kw('FOR'),
-      optional(kw('TEMP-TABLE')),
-      $.identifier,
-      anyOf(
-        kw('PRESELECT'),
-        $._label,
-        $._namespace_uri,
-        $._namespace_prefix,
-        $._xml_node_name,
-        $._serialize_name
-      )
-    ),
-
-    define_parameter_statement: $ => seq(
-      kw('DEFINE'),
-      choice(kw('INPUT'), kw('OUTPUT'), kw('INPUT-OUTPUT'), kw('RETURN')),
-      kw('PARAMETER'),
-      $.identifier,
-      kw('AS'),
-      $._datatype,
-      anyOf(
-        $._case_sensitive,
-        $._format,
-        $._decimals,
-        $._initial,
-        $._column_label,
-        $._label,
-        kw('NO-UNDO')
-      )
-    ),
-
-    define_variable_statement: $ => seq(
-      $._define_statement,
-      kw('VARIABLE'),
-      $.identifier,
-      kw('AS'),
-      $._datatype,
-      anyOf(
-        $._serialize_name,
-        kw('NO-UNDO')
-      )
-    ),
-
-    error_level_statement: $ => seq(
-      choice(kw('BLOCK-LEVEL'), kw('ROUTINE-LEVEL')),
-      kw('ON'),
-      kw('ERROR'),
-      kw('UNDO'),
-      ',',
-      kw('THROW')
-    ),
-
-    do_statement: $ => seq(
-      optional(seq($.identifier, $._statement_colon)),
-      kw('DO'),
-      optional(
-        choice(
-          seq($.identifier, '=', $._expression, kw('TO'), $._expression),
-          seq(kw('WHILE'), $._expression),
-          kw('TRANSACTION')
-        )
-      ),
-      $._code_block
-    ),
-
-    procedure_statement: $ => seq(
-      kw('PROCEDURE'),
-      $.identifier,
-      $._code_block,
-      optional(kw('PROCEDURE'))
-    ),
-
-    quit_statement: $ => kw('QUIT'),
-
-    run_statement: $ => seq(
-      kw('RUN'),
-      choice(
-        $.identifier,
-        seq(kw('VALUE'), '(', $._expression, ')'),
-        // TODO: path name
-      ),
-      anyOf(
-        // TODO: see documentaion ...
-        //
-        $.argument_list,
-        kw('NO-ERROR')
-      )
-    ),
-
-    using_statement: $ => seq(
-      kw('USING'),
-      $.identifier,
-      optional(
         seq(
-          kw('FROM'),
           choice(
-            kw('ASSEMBLY'),
-            kw('PROPATH')
-          )
-        )
-      )
-    ),
+            $.assign_statement,
+
+            $.case_statement,
+            $.compile_statement,
+
+            $.define_buffer_statement,
+            $.define_parameter_statement,
+            $.define_variable_statement,
+
+            $.do_statement,
+
+            $.error_level_statement,
+            alias($._expression, $.expression_statement),
+
+            $.procedure_statement,
+
+            $.quit_statement,
+
+            $.run_statement,
+
+            $.using_statement,
+          ),
+          $._end_of_statement,
+        ),
+        alias($._end_of_statement, $.empty_statement),
+      ),
+
+    assign_statement: $ =>
+      seq(kw("ASSIGN"), repeat1($.assign_spec), optional(kw("NO-ERROR"))),
+
+    assign_spec: $ =>
+      seq($.assignment_expression, optional(seq(kw("WHEN"), $._expression))),
+
+    case_statement: $ =>
+      seq(
+        kw("CASE"),
+        $._expression,
+        $._statement_colon,
+        repeat1($.when_spec),
+        kw("END"),
+        kw("CASE"),
+      ),
+
+    when_spec: $ =>
+      seq(
+        sep1(seq(kw("WHEN"), $._expression), kw("OR")),
+        kw("THEN"),
+        $._statement,
+      ),
+
+    compile_statement: $ =>
+      seq(
+        kw("COMPILE"),
+        choice(
+          $._value,
+          // TODO: path
+        ),
+        anyOf(
+          seq(kw("OPTIONS"), $.character_literal),
+          seq(
+            kw("SAVE"),
+            optional(seq("=", $._expression)),
+            optional(seq(kw("INTO"), choice($._value))),
+          ),
+          seq(
+            kw("XREF-XML"),
+            choice(
+              $._value,
+              //TODO: path
+            ),
+          ),
+          kw("NO-ERROR"),
+        ),
+      ),
+
+    _save_spec: $ => seq(kw("SAVE"), kw("FALSE")),
+
+    _define_statement: $ =>
+      seq(
+        kw("DEFINE"),
+        anyOf(
+          $._new_global_shared,
+          $._access_mode,
+          $._serializable,
+          kw("STATIC"),
+        ),
+      ),
+
+    define_buffer_statement: $ =>
+      seq(
+        $._define_statement,
+        kw("BUFFER"),
+        $.identifier,
+        kw("FOR"),
+        optional(kw("TEMP-TABLE")),
+        $.identifier,
+        anyOf(
+          kw("PRESELECT"),
+          $._label,
+          $._namespace_uri,
+          $._namespace_prefix,
+          $._xml_node_name,
+          $._serialize_name,
+        ),
+      ),
+
+    define_parameter_statement: $ =>
+      seq(
+        kw("DEFINE"),
+        choice(kw("INPUT"), kw("OUTPUT"), kw("INPUT-OUTPUT"), kw("RETURN")),
+        kw("PARAMETER"),
+        $.identifier,
+        kw("AS"),
+        $._datatype,
+        anyOf(
+          $._case_sensitive,
+          $._format,
+          $._decimals,
+          $._initial,
+          $._column_label,
+          $._label,
+          kw("NO-UNDO"),
+        ),
+      ),
+
+    define_variable_statement: $ =>
+      seq(
+        $._define_statement,
+        kw("VARIABLE"),
+        $.identifier,
+        kw("AS"),
+        $._datatype,
+        anyOf($._serialize_name, kw("NO-UNDO")),
+      ),
+
+    error_level_statement: $ =>
+      seq(
+        choice(kw("BLOCK-LEVEL"), kw("ROUTINE-LEVEL")),
+        kw("ON"),
+        kw("ERROR"),
+        kw("UNDO"),
+        ",",
+        kw("THROW"),
+      ),
+
+    do_statement: $ =>
+      seq(
+        optional(seq($.identifier, $._statement_colon)),
+        kw("DO"),
+        optional(
+          choice(
+            seq($.identifier, "=", $._expression, kw("TO"), $._expression),
+            seq(kw("WHILE"), $._expression),
+            kw("TRANSACTION"),
+          ),
+        ),
+        $._code_block,
+      ),
+
+    procedure_statement: $ =>
+      seq(
+        kw("PROCEDURE"),
+        $.identifier,
+        $._code_block,
+        optional(kw("PROCEDURE")),
+      ),
+
+    quit_statement: $ => kw("QUIT"),
+
+    run_statement: $ =>
+      seq(
+        kw("RUN"),
+        choice(
+          $.identifier,
+          seq(kw("VALUE"), "(", $._expression, ")"),
+          // TODO: path name
+        ),
+        anyOf(
+          // TODO: see documentaion ...
+          //
+          $.argument_list,
+          kw("NO-ERROR"),
+        ),
+      ),
+
+    using_statement: $ =>
+      seq(
+        kw("USING"),
+        $.identifier,
+        optional(seq(kw("FROM"), choice(kw("ASSEMBLY"), kw("PROPATH")))),
+      ),
 
     //
     // PreProcessor directives
     //
 
-    preprocessor_directive: $ => choice(
-      $.analyze_suspend, 
-    ),
-    
-    analyze_suspend: $ => seq(
-      kw('&ANALYZE-SUSPEND'),
-      /[^\n]*/
-    ),
-    
+    preprocessor_directive: $ => choice($.analyze_suspend),
+
+    analyze_suspend: $ => seq(kw("&ANALYZE-SUSPEND"), /[^\n]*/),
+
     //
     // Helpers
     //
 
-    _code_block: $ => seq(
-      $._statement_colon,
-      repeat($._statement),
-      kw('END')
-    ),
+    _code_block: $ => seq($._statement_colon, repeat($._statement), kw("END")),
 
-    _datatype: $ => seq(
-      choice(
-        $.primitive_type,
-        seq(optional(kw('CLASS')), $.identifier),
-        
-        seq(kw('LIKE'), $.identifier)
+    _datatype: $ =>
+      seq(
+        choice(
+          $.primitive_type,
+          seq(optional(kw("CLASS")), $.identifier),
+
+          seq(kw("LIKE"), $.identifier),
+        ),
+        optional(seq(kw("EXTENT"), $.integer_literal)),
       ),
-      optional(seq(
-        kw('EXTENT'),
-        $.integer_literal
-      ))
-    ),
 
+    _new_global_shared: $ =>
+      seq(optional(seq(kw("NEW"), optional(kw("GLOBAL")))), kw("SHARED")),
 
+    _access_mode: $ => choice(kw("PRIVATE"), kw("PROTECTED"), kw("PUBLIC")),
 
-    _new_global_shared: $ => seq(optional(seq(kw('NEW'), optional(kw('GLOBAL')))), kw('SHARED')),
+    _serializable: $ => choice(kw("SERIALIZABLE"), kw("NON-SERIALIZABLE")),
 
-    _access_mode: $ => choice(kw('PRIVATE'), kw('PROTECTED'), kw('PUBLIC')),
+    _case_sensitive: $ => seq(optional(kw("NOT")), kw("CASE-SENSITIVE")),
+    _column_label: $ => seq(kw("COLUMN-LABEL"), $.character_literal),
+    _decimals: $ => seq(kw("DECIMALS"), $.integer_literal),
+    _format: $ => seq(kw("FORMAT"), $.character_literal),
+    _initial: $ =>
+      seq(
+        kw("INITIAL"),
+        choice($._literal, seq("[", commaSep1($._literal), "]")),
+      ),
+    _label: $ => seq(kw("LABEL"), $.character_literal),
+    _namespace_uri: $ => seq(kw("NAMESPACE-URI"), $.character_literal),
+    _namespace_prefix: $ => seq(kw("NAMESPACE-PREFIX"), $.character_literal),
+    _xml_node_name: $ => seq(kw("XML-NODE-NAME"), $.character_literal),
+    _serialize_name: $ => seq(kw("SERIALIZE-NAME"), $.character_literal),
 
-    _serializable: $ => choice(kw('SERIALIZABLE'), kw('NON-SERIALIZABLE')),
-
-    _case_sensitive: $ => seq(optional(kw('NOT')), kw('CASE-SENSITIVE')),
-    _column_label: $ => seq(kw('COLUMN-LABEL'), $.character_literal),
-    _decimals: $ => seq(kw('DECIMALS'), $.integer_literal),
-    _format: $ => seq(kw('FORMAT'), $.character_literal),
-    _initial: $ => seq(kw('INITIAL'), choice($._literal, seq('[', commaSep1($._literal), ']'))),
-    _label: $ => seq(kw('LABEL'), $.character_literal),
-    _namespace_uri: $ => seq(kw('NAMESPACE-URI'), $.character_literal),
-    _namespace_prefix: $ => seq(kw('NAMESPACE-PREFIX'), $.character_literal),
-    _xml_node_name: $ => seq(kw('XML-NODE-NAME'), $.character_literal),
-    _serialize_name: $ => seq(kw('SERIALIZE-NAME'), $.character_literal),
-
-    _value: $ => seq(kw('VALUE'), '(', $._expression, ')')
-  }
+    _value: $ => seq(kw("VALUE"), "(", $._expression, ")"),
+  },
 });
 
 // Generate case insentitive match for ABL keyword
 function kw(keyword) {
   if (knownKeywords.indexOf(keyword) === -1) {
-    fs.appendFileSync('keyword.txt', `  "${keyword}"\n`);
+    fs.appendFileSync("keyword.txt", `  "${keyword}"\n`);
 
-    knownKeywords.push(keyword)
+    knownKeywords.push(keyword);
   }
 
   if (keyword.toUpperCase() != keyword) {
     throw new Error(`Expected upper case keyword got ${keyword}`);
   }
 
-  return alias(choice(keyword.toLowerCase(), keyword.toUpperCase()), keyword)
+  return alias(choice(keyword.toLowerCase(), keyword.toUpperCase()), keyword);
 }
 
 function anyOf(...rules) {
-  return repeat(choice(...rules))
+  return repeat(choice(...rules));
 }
 
 function commaSep1(rule) {
