@@ -182,6 +182,8 @@
   "REPLACE"
   "SUBSTRING"
   "VALID_OBJECT"
+  "YEAR"
+  "TODAY"
   "ASSIGN"
   "NO-ERROR"
   "WHEN"

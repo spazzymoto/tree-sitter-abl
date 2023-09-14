@@ -11,12 +11,10 @@ ASSIGN
 
 (source_file
   (assign_statement
-    (assign_spec
     (assignment_expression
       (identifier)
-      (integer_literal)))
-    (assign_spec
-    (assignment_expression
+      (integer_literal))
+	(assignment_expression
       (identifier)
-      (character_literal))
-    (true))))
+	  (character_literal))
+	(true)))

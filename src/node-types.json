@@ -163,7 +163,7 @@
     }
   },
   {
-    "type": "assign_spec",
+    "type": "assign_statement",
     "named": true,
     "fields": {},
     "children": {
@@ -242,21 +242,6 @@
     }
   },
   {
-    "type": "assign_statement",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "assign_spec",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "assignment_expression",
     "named": true,
     "fields": {},
@@ -306,10 +291,6 @@
         },
         {
           "type": "parenthesized_expression",
-          "named": true
-        },
-        {
-          "type": "pseudo_function",
           "named": true
         },
         {
@@ -424,7 +405,7 @@
     "fields": {},
     "children": {
       "multiple": false,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "argument_list",
@@ -446,6 +427,10 @@
           "named": true
         },
         {
+          "type": "assign_statement",
+          "named": true
+        },
+        {
           "type": "assignment_expression",
           "named": true
         },
@@ -458,11 +443,47 @@
           "named": true
         },
         {
+          "type": "case_statement",
+          "named": true
+        },
+        {
           "type": "character_literal",
           "named": true
         },
         {
+          "type": "compile_statement",
+          "named": true
+        },
+        {
           "type": "decimal_literal",
+          "named": true
+        },
+        {
+          "type": "define_buffer_statement",
+          "named": true
+        },
+        {
+          "type": "define_parameter_statement",
+          "named": true
+        },
+        {
+          "type": "define_variable_statement",
+          "named": true
+        },
+        {
+          "type": "do_statement",
+          "named": true
+        },
+        {
+          "type": "empty_statement",
+          "named": true
+        },
+        {
+          "type": "error_level_statement",
+          "named": true
+        },
+        {
+          "type": "expression_statement",
           "named": true
         },
         {
@@ -486,11 +507,23 @@
           "named": true
         },
         {
+          "type": "procedure_statement",
+          "named": true
+        },
+        {
+          "type": "quit_statement",
+          "named": true
+        },
+        {
           "type": "reference_attribute",
           "named": true
         },
         {
           "type": "reference_method",
+          "named": true
+        },
+        {
+          "type": "run_statement",
           "named": true
         },
         {
@@ -510,7 +543,7 @@
           "named": true
         },
         {
-          "type": "when_spec",
+          "type": "using_statement",
           "named": true
         }
       ]
@@ -1224,21 +1257,6 @@
     }
   },
   {
-    "type": "pseudo_function",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "argument_list",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "quit_statement",
     "named": true,
     "fields": {}
@@ -1640,141 +1658,6 @@
       "types": [
         {
           "type": "identifier",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "when_spec",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "array_access",
-          "named": true
-        },
-        {
-          "type": "assign_statement",
-          "named": true
-        },
-        {
-          "type": "assignment_expression",
-          "named": true
-        },
-        {
-          "type": "binary_expression",
-          "named": true
-        },
-        {
-          "type": "builtin_function",
-          "named": true
-        },
-        {
-          "type": "case_statement",
-          "named": true
-        },
-        {
-          "type": "character_literal",
-          "named": true
-        },
-        {
-          "type": "compile_statement",
-          "named": true
-        },
-        {
-          "type": "decimal_literal",
-          "named": true
-        },
-        {
-          "type": "define_buffer_statement",
-          "named": true
-        },
-        {
-          "type": "define_parameter_statement",
-          "named": true
-        },
-        {
-          "type": "define_variable_statement",
-          "named": true
-        },
-        {
-          "type": "do_statement",
-          "named": true
-        },
-        {
-          "type": "empty_statement",
-          "named": true
-        },
-        {
-          "type": "error_level_statement",
-          "named": true
-        },
-        {
-          "type": "expression_statement",
-          "named": true
-        },
-        {
-          "type": "false",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "if_expression",
-          "named": true
-        },
-        {
-          "type": "integer_literal",
-          "named": true
-        },
-        {
-          "type": "parenthesized_expression",
-          "named": true
-        },
-        {
-          "type": "procedure_statement",
-          "named": true
-        },
-        {
-          "type": "quit_statement",
-          "named": true
-        },
-        {
-          "type": "reference_attribute",
-          "named": true
-        },
-        {
-          "type": "reference_method",
-          "named": true
-        },
-        {
-          "type": "run_statement",
-          "named": true
-        },
-        {
-          "type": "system_handle",
-          "named": true
-        },
-        {
-          "type": "true",
-          "named": true
-        },
-        {
-          "type": "unary_expression",
-          "named": true
-        },
-        {
-          "type": "unknown_literal",
-          "named": true
-        },
-        {
-          "type": "using_statement",
           "named": true
         }
       ]
@@ -2669,6 +2552,10 @@
     "named": false
   },
   {
+    "type": "TODAY",
+    "named": false
+  },
+  {
     "type": "TOOLTIPS",
     "named": false
   },
@@ -2766,6 +2653,10 @@
   },
   {
     "type": "XREF-XML",
+    "named": false
+  },
+  {
+    "type": "YEAR",
     "named": false
   },
   {
