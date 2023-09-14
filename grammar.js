@@ -35,7 +35,7 @@ module.exports = grammar({
 
   conflicts: $ => [
     [$.reference_method, $.reference_attribute],
-    // [$._pseudo_function, $.builtin_function],
+    [$._primary_expression, $._accumulate_function], // TODO: not sure if this is right
   ],
 
   rules: {
@@ -45,11 +45,14 @@ module.exports = grammar({
       prec.right(
         PREC.OBJ_ACCESS,
         seq(
-          /[_\p{XID_Start}][_\p{XID_Continue}]*/,
+          /[_\p{XID_Start}][-_\p{XID_Continue}]*/,
           optional(
             seq(
               $._dot,
-              sep1(choice(/[_\p{XID_Start}][_\p{XID_Continue}]*/, "*"), $._dot),
+              sep1(
+                choice(/[_\p{XID_Start}][-_\p{XID_Continue}]*/, "*"),
+                $._dot,
+              ),
             ),
           ),
         ),
@@ -59,14 +62,15 @@ module.exports = grammar({
     // Literals
     //
 
-    _literal: $ => choice(
-      $.integer_literal,
-      $.decimal_literal,
-      $.character_literal,
-      $.unknown_literal,
-      $.true,
-      $.false
-    ),
+    _literal: $ =>
+      choice(
+        $.integer_literal,
+        $.decimal_literal,
+        $.character_literal,
+        $.unknown_literal,
+        $.true,
+        $.false,
+      ),
 
     integer_literal: _ => /[0-9]+/,
     decimal_literal: _ => /[0-9]*\.[0-9]+/,
@@ -393,30 +397,65 @@ module.exports = grammar({
     // Functions
     //
 
-    _function: $ => seq(
-      choice(
-        kw('ENTRY'),
-        kw('FILL'),
-        kw('INDEX'),
-        kw('LENGTH'),
-        kw('NUM_ENTRIES'),
-        kw('REPLACE'),
-        kw('SUBSTRING'),
-        kw('VALID_OBJECT'),
-        kw('WIDGET-HANDLE'),
-        kw('YEAR')
+    _accumulate_function: $ =>
+      seq(
+        kw("ACCUMULATE"),
+        choice(
+          kw("AVERAGE"),
+          kw("COUNT"),
+          kw("MAXIMUM"),
+          kw("MINIMUM"),
+          kw("TOTAL"),
+          kw("SUB-AVERAGE"),
+          kw("SUB-COUNT"),
+          kw("SUB-MAXIMUM"),
+          kw("SUB-MINIMUM"),
+          kw("SUB-TOTAL"),
+        ),
+        optional(kw("BY")),
+        // TODO: Resolve conflict when using _expression
+        choice($.identifier, $.reference_attribute),
       ),
-      $.argument_list
-    ),
 
-    _keyword_function: $ => choice(
-      kw('TODAY')
-    ),
+    _ambiguos_function: $ =>
+      seq(kw("AMBIGUOS"), choice($.identifier, seq("(", $.identifier, ")"))),
 
-    builtin_function: $ => choice(
-      $._function,
-      $._keyword_function
-    ),
+    _available_function: $ =>
+      seq(kw("AVAILABLE"), choice($.identifier, seq("(", $.identifier, ")"))),
+
+    _function: $ =>
+      seq(
+        choice(
+          kw("ABSOLUTE"),
+          kw("ADD-INTERVAL"),
+          kw("ASC"),
+          kw("AUDIT-ENABLED"),
+          kw("ALIAS"),
+          kw("ENTRY"),
+          kw("FILL"),
+          kw("INDEX"),
+          kw("LENGTH"),
+          kw("NUM-ENTRIES"),
+          kw("REPLACE"),
+          kw("SUBSTRING"),
+          kw("VALID-OBJECT"),
+          kw("WIDGET-HANDLE"),
+          kw("YEAR"),
+        ),
+        $.argument_list,
+      ),
+
+    _keyword_function: $ => choice(kw("TODAY")),
+
+    _statement_function: $ =>
+      choice(
+        $._accumulate_function,
+        $._ambiguos_function,
+        $._available_function,
+      ),
+
+    builtin_function: $ =>
+      choice($._function, $._keyword_function, $._statement_function),
 
     //
     // Statements
@@ -426,7 +465,10 @@ module.exports = grammar({
       choice(
         seq(
           choice(
+            $.accumulate_statement,
+            $.aggregate_statement,
             $.assign_statement,
+            $.apply_statement,
 
             $.case_statement,
             $.compile_statement,
@@ -453,31 +495,79 @@ module.exports = grammar({
         alias($._end_of_statement, $.empty_statement),
       ),
 
-    assign_statement: $ => seq(
-      kw('ASSIGN'),
-      repeat1($._assign_spec),
-      optional(kw('NO-ERROR'))
-    ),
+    accumulate_statement: $ =>
+      seq(
+        kw("ACCUMULATE"),
+        $._expression,
+        "(",
+        repeat1(
+          choice(
+            kw("AVERAGE"),
+            kw("COUNT"),
+            kw("MAXIMUM"),
+            kw("MINIMUM"),
+            kw("TOTAL"),
+            kw("SUB-AVERAGE"),
+            kw("SUB-COUNT"),
+            kw("SUB-MAXIMUM"),
+            kw("SUB-MINIMUM"),
+            kw("SUB-TOTAL"),
+          ),
+        ),
+        repeat(seq(kw("BY"), $._expression)),
+        ")",
+      ),
 
-    _assign_spec: $ => seq(
-      $.assignment_expression,
-      optional(seq(kw('WHEN'), $._expression))
-    ),
+    aggregate_statement: $ =>
+      seq(
+        kw("AGGREGATE"),
+        $.identifier,
+        "=",
+        choice(kw("COUNT"), kw("TOTAL"), kw("AVERAGE")),
+        "(",
+        $.identifier,
+        ")",
+        kw("FOR"),
+        $.identifier,
+        optional($._where_clause),
+      ),
 
-    case_statement: $ => seq(
-      kw('CASE'),
-      $._expression,
-      $._statement_colon,
-      repeat1($._when_spec),
-      kw('END'),
-      kw('CASE')
-    ),
+    assign_statement: $ =>
+      seq(
+        kw("ASSIGN"),
+        choice(
+          repeat1($._assign_spec),
+          seq($.identifier, optional(seq(kw("EXCEPT"), repeat1($.identifier)))),
+        ),
+        optional(kw("NO-ERROR")),
+      ),
 
-    _when_spec: $ => seq(
-      sep1(seq(kw('WHEN'), $._expression), kw('OR')),
-      kw('THEN'),
-      $._statement
-    ),
+    _assign_spec: $ =>
+      seq($.assignment_expression, optional(seq(kw("WHEN"), $._expression))),
+
+    apply_statement: $ =>
+      seq(
+        kw("APPLY"),
+        $._primary_expression,
+        optional(seq(kw("TO"), $._widget_phrase)),
+      ),
+
+    case_statement: $ =>
+      seq(
+        kw("CASE"),
+        $._expression,
+        $._statement_colon,
+        repeat1($._when_spec),
+        kw("END"),
+        kw("CASE"),
+      ),
+
+    _when_spec: $ =>
+      seq(
+        sep1(seq(kw("WHEN"), $._expression), kw("OR")),
+        kw("THEN"),
+        $._statement,
+      ),
 
     compile_statement: $ =>
       seq(
@@ -632,6 +722,23 @@ module.exports = grammar({
     //
     // Helpers
     //
+
+    // TODO
+    // _at_phrase: $ => seq(),
+
+    _where_clause: $ => seq(kw("WHERE"), $._expression),
+    _widget_phrase: $ =>
+      choice(
+        seq(kw("FRAME"), $.identifier),
+        seq(
+          optional(kw("FIELD")),
+          $.identifier,
+          optional(seq(kw("IN"), kw("FRAME"), $.identifier)),
+        ),
+        seq($.identifier, optional(seq(kw("IN"), kw("BROWSE"), $.identifier))),
+        seq(choice(kw("MENU"), kw("SUB-MENU")), $.identifier),
+        $.system_handle,
+      ),
 
     _code_block: $ => seq($._statement_colon, repeat($._statement), kw("END")),
 

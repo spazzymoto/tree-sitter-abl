@@ -1,8 +1,229 @@
 [
   {
+    "type": "accumulate_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "array_access",
+          "named": true
+        },
+        {
+          "type": "assignment_expression",
+          "named": true
+        },
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "builtin_function",
+          "named": true
+        },
+        {
+          "type": "character_literal",
+          "named": true
+        },
+        {
+          "type": "decimal_literal",
+          "named": true
+        },
+        {
+          "type": "false",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "if_expression",
+          "named": true
+        },
+        {
+          "type": "integer_literal",
+          "named": true
+        },
+        {
+          "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "reference_attribute",
+          "named": true
+        },
+        {
+          "type": "reference_method",
+          "named": true
+        },
+        {
+          "type": "system_handle",
+          "named": true
+        },
+        {
+          "type": "true",
+          "named": true
+        },
+        {
+          "type": "unary_expression",
+          "named": true
+        },
+        {
+          "type": "unknown_literal",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "aggregate_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "array_access",
+          "named": true
+        },
+        {
+          "type": "assignment_expression",
+          "named": true
+        },
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "builtin_function",
+          "named": true
+        },
+        {
+          "type": "character_literal",
+          "named": true
+        },
+        {
+          "type": "decimal_literal",
+          "named": true
+        },
+        {
+          "type": "false",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "if_expression",
+          "named": true
+        },
+        {
+          "type": "integer_literal",
+          "named": true
+        },
+        {
+          "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "reference_attribute",
+          "named": true
+        },
+        {
+          "type": "reference_method",
+          "named": true
+        },
+        {
+          "type": "system_handle",
+          "named": true
+        },
+        {
+          "type": "true",
+          "named": true
+        },
+        {
+          "type": "unary_expression",
+          "named": true
+        },
+        {
+          "type": "unknown_literal",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "analyze_suspend",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "apply_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "array_access",
+          "named": true
+        },
+        {
+          "type": "builtin_function",
+          "named": true
+        },
+        {
+          "type": "character_literal",
+          "named": true
+        },
+        {
+          "type": "decimal_literal",
+          "named": true
+        },
+        {
+          "type": "false",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "integer_literal",
+          "named": true
+        },
+        {
+          "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "reference_attribute",
+          "named": true
+        },
+        {
+          "type": "reference_method",
+          "named": true
+        },
+        {
+          "type": "system_handle",
+          "named": true
+        },
+        {
+          "type": "true",
+          "named": true
+        },
+        {
+          "type": "unknown_literal",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "argument_list",
@@ -410,6 +631,14 @@
         {
           "type": "argument_list",
           "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "reference_attribute",
+          "named": true
         }
       ]
     }
@@ -422,6 +651,18 @@
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "accumulate_statement",
+          "named": true
+        },
+        {
+          "type": "aggregate_statement",
+          "named": true
+        },
+        {
+          "type": "apply_statement",
+          "named": true
+        },
         {
           "type": "array_access",
           "named": true
@@ -746,6 +987,18 @@
       "required": false,
       "types": [
         {
+          "type": "accumulate_statement",
+          "named": true
+        },
+        {
+          "type": "aggregate_statement",
+          "named": true
+        },
+        {
+          "type": "apply_statement",
+          "named": true
+        },
+        {
           "type": "array_access",
           "named": true
         },
@@ -975,6 +1228,18 @@
       "required": true,
       "types": [
         {
+          "type": "accumulate_statement",
+          "named": true
+        },
+        {
+          "type": "aggregate_statement",
+          "named": true
+        },
+        {
+          "type": "apply_statement",
+          "named": true
+        },
+        {
           "type": "array_access",
           "named": true
         },
@@ -1193,6 +1458,18 @@
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "accumulate_statement",
+          "named": true
+        },
+        {
+          "type": "aggregate_statement",
+          "named": true
+        },
+        {
+          "type": "apply_statement",
+          "named": true
+        },
         {
           "type": "assign_statement",
           "named": true
@@ -1491,6 +1768,18 @@
       "required": false,
       "types": [
         {
+          "type": "accumulate_statement",
+          "named": true
+        },
+        {
+          "type": "aggregate_statement",
+          "named": true
+        },
+        {
+          "type": "apply_statement",
+          "named": true
+        },
+        {
           "type": "assign_statement",
           "named": true
         },
@@ -1736,11 +2025,35 @@
     "named": false
   },
   {
+    "type": "ABSOLUTE",
+    "named": false
+  },
+  {
+    "type": "ACCUMULATE",
+    "named": false
+  },
+  {
+    "type": "ADD-INTERVAL",
+    "named": false
+  },
+  {
     "type": "ADD-SUPER-PROCEDURE",
     "named": false
   },
   {
     "type": "ADM-DATA",
+    "named": false
+  },
+  {
+    "type": "AGGREGATE",
+    "named": false
+  },
+  {
+    "type": "ALIAS",
+    "named": false
+  },
+  {
+    "type": "AMBIGUOS",
     "named": false
   },
   {
@@ -1752,7 +2065,15 @@
     "named": false
   },
   {
+    "type": "APPLY",
+    "named": false
+  },
+  {
     "type": "AS",
+    "named": false
+  },
+  {
+    "type": "ASC",
     "named": false
   },
   {
@@ -1765,6 +2086,18 @@
   },
   {
     "type": "ASYNC-REQUEST-COUNT",
+    "named": false
+  },
+  {
+    "type": "AUDIT-ENABLED",
+    "named": false
+  },
+  {
+    "type": "AVAILABLE",
+    "named": false
+  },
+  {
+    "type": "AVERAGE",
     "named": false
   },
   {
@@ -1784,7 +2117,15 @@
     "named": false
   },
   {
+    "type": "BROWSE",
+    "named": false
+  },
+  {
     "type": "BUFFER",
+    "named": false
+  },
+  {
+    "type": "BY",
     "named": false
   },
   {
@@ -1829,6 +2170,10 @@
   },
   {
     "type": "CONTEXT-HELP-FILE",
+    "named": false
+  },
+  {
+    "type": "COUNT",
     "named": false
   },
   {
@@ -1956,6 +2301,10 @@
     "named": false
   },
   {
+    "type": "EXCEPT",
+    "named": false
+  },
+  {
     "type": "EXECUTION-LOG",
     "named": false
   },
@@ -1969,6 +2318,10 @@
   },
   {
     "type": "FALSE",
+    "named": false
+  },
+  {
+    "type": "FIELD",
     "named": false
   },
   {
@@ -2032,6 +2385,10 @@
     "named": false
   },
   {
+    "type": "FRAME",
+    "named": false
+  },
+  {
     "type": "FRAME-SPACING",
     "named": false
   },
@@ -2085,6 +2442,10 @@
   },
   {
     "type": "IMMEDIATE-DISPLAY",
+    "named": false
+  },
+  {
+    "type": "IN",
     "named": false
   },
   {
@@ -2192,7 +2553,19 @@
     "named": false
   },
   {
+    "type": "MAXIMUM",
+    "named": false
+  },
+  {
     "type": "MEMPTR",
+    "named": false
+  },
+  {
+    "type": "MENU",
+    "named": false
+  },
+  {
+    "type": "MINIMUM",
     "named": false
   },
   {
@@ -2244,6 +2617,10 @@
     "named": false
   },
   {
+    "type": "NUM-ENTRIES",
+    "named": false
+  },
+  {
     "type": "NUMERIC-DECIMAL-POINT",
     "named": false
   },
@@ -2253,10 +2630,6 @@
   },
   {
     "type": "NUMERIC-SEPARATOR",
-    "named": false
-  },
-  {
-    "type": "NUM_ENTRIES",
     "named": false
   },
   {
@@ -2488,6 +2861,30 @@
     "named": false
   },
   {
+    "type": "SUB-AVERAGE",
+    "named": false
+  },
+  {
+    "type": "SUB-COUNT",
+    "named": false
+  },
+  {
+    "type": "SUB-MAXIMUM",
+    "named": false
+  },
+  {
+    "type": "SUB-MENU",
+    "named": false
+  },
+  {
+    "type": "SUB-MINIMUM",
+    "named": false
+  },
+  {
+    "type": "SUB-TOTAL",
+    "named": false
+  },
+  {
     "type": "SUBSTRING",
     "named": false
   },
@@ -2560,6 +2957,10 @@
     "named": false
   },
   {
+    "type": "TOTAL",
+    "named": false
+  },
+  {
     "type": "TRANSACTION",
     "named": false
   },
@@ -2592,7 +2993,7 @@
     "named": false
   },
   {
-    "type": "VALID_OBJECT",
+    "type": "VALID-OBJECT",
     "named": false
   },
   {
@@ -2609,6 +3010,10 @@
   },
   {
     "type": "WHEN",
+    "named": false
+  },
+  {
+    "type": "WHERE",
     "named": false
   },
   {
