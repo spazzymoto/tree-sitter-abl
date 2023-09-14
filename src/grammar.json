@@ -578,7 +578,7 @@
               },
               {
                 "type": "SYMBOL",
-                "name": "pseudo_function"
+                "name": "builtin_function"
               }
             ]
           },
@@ -4086,39 +4086,7 @@
         }
       ]
     },
-    "pseudo_function": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "ALIAS",
-              "content": {
-                "type": "CHOICE",
-                "members": [
-                  {
-                    "type": "STRING",
-                    "value": "entry"
-                  },
-                  {
-                    "type": "STRING",
-                    "value": "ENTRY"
-                  }
-                ]
-              },
-              "named": false,
-              "value": "ENTRY"
-            }
-          ]
-        },
-        {
-          "type": "SYMBOL",
-          "name": "argument_list"
-        }
-      ]
-    },
-    "builtin_function": {
+    "_function": {
       "type": "SEQ",
       "members": [
         {
@@ -4267,12 +4235,84 @@
               },
               "named": false,
               "value": "VALID_OBJECT"
+            },
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": "widget-handle"
+                  },
+                  {
+                    "type": "STRING",
+                    "value": "WIDGET-HANDLE"
+                  }
+                ]
+              },
+              "named": false,
+              "value": "WIDGET-HANDLE"
+            },
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": "year"
+                  },
+                  {
+                    "type": "STRING",
+                    "value": "YEAR"
+                  }
+                ]
+              },
+              "named": false,
+              "value": "YEAR"
             }
           ]
         },
         {
           "type": "SYMBOL",
           "name": "argument_list"
+        }
+      ]
+    },
+    "_keyword_function": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "today"
+              },
+              {
+                "type": "STRING",
+                "value": "TODAY"
+              }
+            ]
+          },
+          "named": false,
+          "value": "TODAY"
+        }
+      ]
+    },
+    "builtin_function": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_function"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_keyword_function"
         }
       ]
     },
@@ -4386,7 +4426,7 @@
           "type": "REPEAT1",
           "content": {
             "type": "SYMBOL",
-            "name": "assign_spec"
+            "name": "_assign_spec"
           }
         },
         {
@@ -4417,7 +4457,7 @@
         }
       ]
     },
-    "assign_spec": {
+    "_assign_spec": {
       "type": "SEQ",
       "members": [
         {
@@ -4494,7 +4534,7 @@
           "type": "REPEAT1",
           "content": {
             "type": "SYMBOL",
-            "name": "when_spec"
+            "name": "_when_spec"
           }
         },
         {
@@ -4535,7 +4575,7 @@
         }
       ]
     },
-    "when_spec": {
+    "_when_spec": {
       "type": "SEQ",
       "members": [
         {
@@ -6636,10 +6676,6 @@
     [
       "reference_method",
       "reference_attribute"
-    ],
-    [
-      "pseudo_function",
-      "builtin_function"
     ]
   ],
   "precedences": [],

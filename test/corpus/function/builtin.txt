@@ -1,0 +1,49 @@
+================================================================================
+Entry Function
+================================================================================
+
+ASSIGN ENTRY(1, cTest) = "".
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assign_statement
+    (assignment_expression
+	  (builtin_function
+		(argument_list
+	      (integer_literal)
+		  (identifier)))
+	  (character_literal))))
+
+================================================================================
+Widget-Handle Function
+================================================================================
+
+ASSIGN hHandle = WIDGET-HANDLE(cHandleString).
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assign_statement
+    (assignment_expression
+	  (identifier)
+	  (builtin_function
+	    (argument_list
+	      (identifier))))))
+
+================================================================================
+Year Function
+================================================================================
+
+ASSIGN iYear = YEAR(TODAY).
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assign_statement
+    (assignment_expression
+	  (identifier)
+	  (builtin_function
+	    (argument_list
+		  (builtin_function))))))
+

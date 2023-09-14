@@ -16,19 +16,15 @@ END CASE.
 (source_file
   (case_statement
     (identifier)
-    (when_spec
-      (character_literal)
-      (character_literal)
+	(character_literal)
+	(character_literal)
+    (assign_statement
+	  (assignment_expression
+        (identifier)
+	    (integer_literal)))
+	(character_literal)
+    (do_statement
       (assign_statement
-        (assign_spec
-        (assignment_expression
+	    (assignment_expression
           (identifier)
-          (integer_literal)))))
-    (when_spec
-      (character_literal)
-      (do_statement
-        (assign_statement
-          (assign_spec
-          (assignment_expression
-            (identifier)
-            (integer_literal))))))))
+		  (integer_literal))))))

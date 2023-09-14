@@ -35,7 +35,7 @@ module.exports = grammar({
 
   conflicts: $ => [
     [$.reference_method, $.reference_attribute],
-    [$.pseudo_function, $.builtin_function],
+    // [$._pseudo_function, $.builtin_function],
   ],
 
   rules: {
@@ -59,15 +59,14 @@ module.exports = grammar({
     // Literals
     //
 
-    _literal: $ =>
-      choice(
-        $.integer_literal,
-        $.decimal_literal,
-        $.character_literal,
-        $.unknown_literal,
-        $.true,
-        $.false,
-      ),
+    _literal: $ => choice(
+      $.integer_literal,
+      $.decimal_literal,
+      $.character_literal,
+      $.unknown_literal,
+      $.true,
+      $.false
+    ),
 
     integer_literal: _ => /[0-9]+/,
     decimal_literal: _ => /[0-9]*\.[0-9]+/,
@@ -128,7 +127,7 @@ module.exports = grammar({
             $.identifier,
             $.reference_attribute,
             $.array_access,
-            $.pseudo_function,
+            $.builtin_function,
           ),
           choice("=", "+=", "-=", "*=", "/="),
           $._expression,
@@ -391,25 +390,33 @@ module.exports = grammar({
       ),
 
     //
-    // Functions, duplicated between pseudo and built in for them ast's
+    // Functions
     //
 
-    pseudo_function: $ => seq(choice(kw("ENTRY")), $.argument_list),
-
-    builtin_function: $ =>
-      seq(
-        choice(
-          kw("ENTRY"),
-          kw("FILL"),
-          kw("INDEX"),
-          kw("LENGTH"),
-          kw("NUM_ENTRIES"),
-          kw("REPLACE"),
-          kw("SUBSTRING"),
-          kw("VALID_OBJECT"),
-        ),
-        $.argument_list,
+    _function: $ => seq(
+      choice(
+        kw('ENTRY'),
+        kw('FILL'),
+        kw('INDEX'),
+        kw('LENGTH'),
+        kw('NUM_ENTRIES'),
+        kw('REPLACE'),
+        kw('SUBSTRING'),
+        kw('VALID_OBJECT'),
+        kw('WIDGET-HANDLE'),
+        kw('YEAR')
       ),
+      $.argument_list
+    ),
+
+    _keyword_function: $ => choice(
+      kw('TODAY')
+    ),
+
+    builtin_function: $ => choice(
+      $._function,
+      $._keyword_function
+    ),
 
     //
     // Statements
@@ -446,28 +453,31 @@ module.exports = grammar({
         alias($._end_of_statement, $.empty_statement),
       ),
 
-    assign_statement: $ =>
-      seq(kw("ASSIGN"), repeat1($.assign_spec), optional(kw("NO-ERROR"))),
+    assign_statement: $ => seq(
+      kw('ASSIGN'),
+      repeat1($._assign_spec),
+      optional(kw('NO-ERROR'))
+    ),
 
-    assign_spec: $ =>
-      seq($.assignment_expression, optional(seq(kw("WHEN"), $._expression))),
+    _assign_spec: $ => seq(
+      $.assignment_expression,
+      optional(seq(kw('WHEN'), $._expression))
+    ),
 
-    case_statement: $ =>
-      seq(
-        kw("CASE"),
-        $._expression,
-        $._statement_colon,
-        repeat1($.when_spec),
-        kw("END"),
-        kw("CASE"),
-      ),
+    case_statement: $ => seq(
+      kw('CASE'),
+      $._expression,
+      $._statement_colon,
+      repeat1($._when_spec),
+      kw('END'),
+      kw('CASE')
+    ),
 
-    when_spec: $ =>
-      seq(
-        sep1(seq(kw("WHEN"), $._expression), kw("OR")),
-        kw("THEN"),
-        $._statement,
-      ),
+    _when_spec: $ => seq(
+      sep1(seq(kw('WHEN'), $._expression), kw('OR')),
+      kw('THEN'),
+      $._statement
+    ),
 
     compile_statement: $ =>
       seq(
