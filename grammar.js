@@ -225,7 +225,7 @@ module.exports = grammar({
 
     array_access: $ => seq($._primary_expression, "[", $._expression, "]"),
 
-    new_object: $ => seq(kw('NEW'), $.identifier, $.argument_list),
+    new_object: $ => seq(kw("NEW"), $.identifier, $.argument_list),
 
     argument_list: $ =>
       seq(
@@ -501,7 +501,7 @@ module.exports = grammar({
             $.var_statement,
             $.view_statement,
 
-            $.wait_for_statement
+            $.wait_for_statement,
           ),
           $._end_of_statement,
         ),
@@ -724,54 +724,52 @@ module.exports = grammar({
         optional(seq(kw("FROM"), choice(kw("ASSEMBLY"), kw("PROPATH")))),
       ),
 
-    validate_statement: $ => seq(
-      kw('VALIDATE'),
-      $.identifier,
-      optional(
-        kw('NO-ERROR')
-      )
-    ),
+    validate_statement: $ =>
+      seq(kw("VALIDATE"), $.identifier, optional(kw("NO-ERROR"))),
 
-    var_statement: $ => seq(
-      kw('VAR'),
-      anyOf(
-        $._access_mode,
-        $._serializable,
-        kw("STATIC"),
+    var_statement: $ =>
+      seq(
+        kw("VAR"),
+        anyOf($._access_mode, $._serializable, kw("STATIC")),
+        $._datatype,
+        commaSep1(
+          seq(
+            $.identifier,
+            optional(
+              seq(
+                "=",
+                choice($._expression, seq("[", commaSep1($._expression), "]")),
+              ),
+            ),
+          ),
+        ),
       ),
-      $._datatype,
-      commaSep1(seq($.identifier, optional(seq('=', choice($._expression, seq('[', commaSep1($._expression), ']'))))))
-    ),
 
-    view_statement: $ => seq(
-      kw('VIEW'),
-      choice(
-        seq(kw('STREAM'), $.identifier),
-        seq(kw('STREAM-HANDLE'), $.identifier),
-        $._widget_phrase
+    view_statement: $ =>
+      seq(
+        kw("VIEW"),
+        choice(
+          seq(kw("STREAM"), $.identifier),
+          seq(kw("STREAM-HANDLE"), $.identifier),
+          $._widget_phrase,
+        ),
+        optional(seq(kw("IN"), kw("WINDOW"), $.identifier)),
       ),
-      optional(
-        seq(kw('IN'), kw('WINDOW'), $.identifier)
-      )
-    ),
 
-    wait_for_statement: $ => seq(
-      kw('WAIT-FOR'),
-      choice(
-        sep1($._event_spec, kw('OR'))
+    wait_for_statement: $ =>
+      seq(
+        kw("WAIT-FOR"),
+        choice(sep1($._event_spec, kw("OR"))),
+        anyOf(seq(kw("FOCUS"), $.identifier), seq(kw("PAUSE"), $._expression)),
       ),
-      anyOf(
-        seq(kw('FOCUS'), $.identifier),
-        seq(kw('PAUSE'), $._expression)
-      )
-    ),
 
     // TODO: look at supporting space delimiters for event list and widget list
-    _event_spec: $ => seq(
-      sep1(choice(kw('COMPLETE'), kw('CHOOSE')), ','),
-      kw('OF'),
-      sep1($.identifier, ',')
-    ),
+    _event_spec: $ =>
+      seq(
+        sep1(choice(kw("COMPLETE"), kw("CHOOSE")), ","),
+        kw("OF"),
+        sep1($.identifier, ","),
+      ),
 
     //
     // PreProcessor directives
@@ -812,7 +810,7 @@ module.exports = grammar({
 
           seq(kw("LIKE"), $.identifier),
         ),
-        optional(seq('[', $.integer_literal, ']')),
+        optional(seq("[", $.integer_literal, "]")),
         optional(seq(kw("EXTENT"), $.integer_literal)),
       ),
 
@@ -840,17 +838,29 @@ module.exports = grammar({
 
     _value: $ => seq(kw("VALUE"), "(", $._expression, ")"),
 
-    _widget_phrase: $ => seq(
-      kw('FRAME'),
-      $.identifier,
-      choice(
-        seq(kw('FIELD'), $.identifier, optional(seq(kw('IN'), kw('FRAME'), $.identifier))),
-        seq(choice(kw('MENU'), kw('SUB-MENU')), $.identifier),
-        seq(kw('MENU-ITEM'), $.identifier, optional(seq(kw('IN'), kw('MENU'), $.identifier))),
-        $.system_handle,
-        seq($.identifier, optional(seq(kw('IN'), kw('BROWSE'), $.identifier)))
-      )
-    )
+    _widget_phrase: $ =>
+      seq(
+        kw("FRAME"),
+        $.identifier,
+        choice(
+          seq(
+            kw("FIELD"),
+            $.identifier,
+            optional(seq(kw("IN"), kw("FRAME"), $.identifier)),
+          ),
+          seq(choice(kw("MENU"), kw("SUB-MENU")), $.identifier),
+          seq(
+            kw("MENU-ITEM"),
+            $.identifier,
+            optional(seq(kw("IN"), kw("MENU"), $.identifier)),
+          ),
+          $.system_handle,
+          seq(
+            $.identifier,
+            optional(seq(kw("IN"), kw("BROWSE"), $.identifier)),
+          ),
+        ),
+      ),
   },
 });
 
