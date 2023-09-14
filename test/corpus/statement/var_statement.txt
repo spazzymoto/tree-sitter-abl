@@ -1,0 +1,121 @@
+================================================================================
+Var Multi Variable Statement
+================================================================================
+
+VAR CHARACTER s1, s2, s3, s4.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (var_statement
+    (primitive_type)
+	(identifier)
+	(identifier)
+	(identifier)
+	(identifier)))
+
+================================================================================
+Var Multi Variable With 1 Value Statement
+================================================================================
+
+VAR CHARACTER s1, s2, s3 = 1.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (var_statement
+    (primitive_type)
+	(identifier)
+	(identifier)
+	(identifier)
+	(integer_literal)))
+
+================================================================================
+Var Multi Variable With 2 Value Statement
+================================================================================
+
+VAR DATE d1, d2 = TODAY, d3 = TODAY.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (var_statement
+    (primitive_type)
+	(identifier)
+	(identifier)
+	(builtin_function)
+	(identifier)
+ 	(builtin_function)))
+
+================================================================================
+Var Multiple Instantiated Object Variable Statement
+================================================================================
+
+VAR myclass myobj1 = NEW myclass("MA"), 
+            myobj2 = NEW myclass("VT"),
+            myobj3 = NEW myclass("NH").
+			
+--------------------------------------------------------------------------------
+
+(source_file
+  (var_statement
+    (identifier)
+	(identifier)
+	(new_object
+	  (identifier)
+	  (argument_list
+	    (character_literal)))
+	(identifier)
+	(new_object
+	  (identifier)
+	  (argument_list
+	    (character_literal)))
+	(identifier)
+	(new_object
+	  (identifier)
+	  (argument_list
+	    (character_literal)))))
+
+================================================================================
+Integer Variables Initialized Using Expressions
+================================================================================
+
+VAR INTEGER x = a + b , y = a - b, z = x - y.
+			
+--------------------------------------------------------------------------------
+
+(source_file
+  (var_statement
+    (primitive_type)
+	(identifier)
+	(binary_expression
+	  (identifier)
+	  (identifier))
+	(identifier)
+	(binary_expression
+	  (identifier)
+	  (identifier))
+	(identifier)
+	(binary_expression
+	  (identifier)
+	  (identifier))))
+
+================================================================================
+Initialized Determinate Array Variable
+================================================================================
+
+VAR INTEGER[2] a = [1, 2], b = [3, 4].			
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (var_statement
+    (primitive_type)
+	(integer_literal)
+	(identifier)
+	(integer_literal)
+	(integer_literal)
+	(identifier)
+	(integer_literal)
+	(integer_literal)))
+

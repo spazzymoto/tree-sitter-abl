@@ -1,0 +1,19 @@
+================================================================================
+Wait-For Statement
+================================================================================
+
+WAIT-FOR 
+	COMPLETE, CHOOSE OF hWidget OR 
+	COMPLETE OF hWindow
+	FOCUS hWidget
+	PAUSE 1.
+
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (wait_for_statement
+    (identifier)
+	(identifier)
+	(identifier)
+	(integer_literal)))
