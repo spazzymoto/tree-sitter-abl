@@ -1,81 +1,108 @@
 ================================================================================
-Builtin Functions
+Absolute
 ================================================================================
 
 ASSIGN
-  abs = ABSOLUTE(value)
-  dt = ADD-INTERVAL(TODAY, 1, "MONTHS")
-  name = ALIAS(2)
-  chr = ASC(123)
-  audit = AUDIT-ENABLED(sportsdb)
+  abs = ABSOLUTE(value).
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assign_statement
+    (assignment_expression
+      (identifier)
+      (builtin_function
+        (argument_list
+          (identifier))))))
+
+================================================================================
+Add interval
+================================================================================
+
+ASSIGN
+  dt = ADD-INTERVAL(TODAY, 1, "MONTHS").
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assign_statement
+    (assignment_expression
+      (identifier)
+      (builtin_function
+        (argument_list
+          (builtin_function)
+          (integer_literal)
+          (character_literal))))))
+
+================================================================================
+Alias
+================================================================================
+
+ASSIGN
+  name = ALIAS(2).
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assign_statement
+    (assignment_expression
+      (identifier)
+      (builtin_function
+        (argument_list
+          (integer_literal))))))
+
+================================================================================
+Asc
+================================================================================
+
+ASSIGN
+  chr = ASC(123).
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assign_statement
+    (assignment_expression
+      (identifier)
+      (builtin_function
+        (argument_list
+          (integer_literal))))))
+
+================================================================================
+Audit enabled
+================================================================================
+
+ASSIGN
+  audit = AUDIT-ENABLED(sportsdb).
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assign_statement
+    (assignment_expression
+      (identifier)
+      (builtin_function
+        (argument_list
+          (identifier))))))
+
+================================================================================
+Entry
+================================================================================
+
+ASSIGN
   item = ENTRY(i, value)
-  trash = FILL(crap, 420)
-  i = INDEX(value, "#")
-  size = LENGTH(value)
-  entries = NUM-ENTRIES(value)
-  stuff = REPLACE(bad, "[token]", value)
-  part1 = SUBSTRING(value, 1)
-  part2 = SUBSTRING(value, 7, 11)
-  valid = VALID-EVENT(hHandle, "Open", "GUI")
-  valid = VALID-HANDLE(hHandle)
-  valid = VALID-OBJECT(obj)
-  iWeekday = WEEKDAY(TODAY)
-  hHandle = WIDGET-HANDLE(cHandleString)
-  iYear = YEAR(TODAY).
+  ENTRY(1, cTest) = "".
 
 --------------------------------------------------------------------------------
 
 (source_file
   (assign_statement
-    (assignment_expression (identifier)
-      (builtin_function (argument_list (identifier))))
-    (assignment_expression (identifier)
-      (builtin_function (argument_list (builtin_function) (integer_literal) (character_literal))))
-    (assignment_expression (identifier)
-      (builtin_function (argument_list (integer_literal))))
-    (assignment_expression (identifier)
-      (builtin_function (argument_list (integer_literal))))
-    (assignment_expression (identifier)
-      (builtin_function (argument_list (identifier))))
-    (assignment_expression (identifier)
-      (builtin_function (argument_list (identifier) (identifier))))
-    (assignment_expression (identifier)
-      (builtin_function (argument_list (identifier) (integer_literal))))
-    (assignment_expression (identifier)
-      (builtin_function (argument_list (identifier) (character_literal))))
-    (assignment_expression (identifier)
-      (builtin_function (argument_list (identifier))))
-    (assignment_expression (identifier)
-      (builtin_function (argument_list (identifier))))
-    (assignment_expression (identifier)
-      (builtin_function (argument_list (identifier) (character_literal) (identifier))))
-    (assignment_expression (identifier)
-      (builtin_function (argument_list (identifier) (integer_literal))))
-    (assignment_expression (identifier)
-      (builtin_function (argument_list (identifier) (integer_literal) (integer_literal))))
-    (assignment_expression (identifier)
-      (builtin_function (argument_list (identifier, character_literal, character_literal))))
-    (assignment_expression (identifier)
-      (builtin_function (argument_list (identifier))))
-    (assignment_expression (identifier)
-      (builtin_function (argument_list (identifier))))
-    (assignment_expression (identifier)
-      (builtin_function (argument_list (builtin_function))))
-    (assignment_expression (identifier)
-      (builtin_function (argument_list (identifier))))
-    (assignment_expression (identifier)
-      (builtin_function (argument_list (builtin_function))))))
-
-================================================================================
-Psuedo Functions
-================================================================================
-
-ASSIGN ENTRY(1, cTest) = "".
-
---------------------------------------------------------------------------------
-
-(source_file
-  (assign_statement
+    (assignment_expression
+      (identifier)
+      (builtin_function
+        (argument_list
+          (identifier)
+          (identifier))))
     (assignment_expression
       (builtin_function
         (argument_list
@@ -84,15 +111,255 @@ ASSIGN ENTRY(1, cTest) = "".
       (character_literal))))
 
 ================================================================================
-Statement Functions
+Fill
 ================================================================================
 
 ASSIGN
-  count = ACCUMULATE COUNT table.field
+  trash = FILL(crap, 420).
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assign_statement
+    (assignment_expression
+      (identifier)
+      (builtin_function
+        (argument_list
+          (identifier)
+          (integer_literal))))))
+
+================================================================================
+Index
+================================================================================
+
+ASSIGN
+  i = INDEX(value, "#").
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assign_statement
+    (assignment_expression
+      (identifier)
+      (builtin_function
+        (argument_list
+          (identifier)
+          (character_literal))))))
+
+================================================================================
+Length
+================================================================================
+
+ASSIGN
+  size = LENGTH(value).
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assign_statement
+    (assignment_expression
+      (identifier)
+      (builtin_function
+        (argument_list
+          (identifier))))))
+
+================================================================================
+Num entries
+================================================================================
+
+ASSIGN
+  entries = NUM-ENTRIES(value).
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assign_statement
+    (assignment_expression
+      (identifier)
+      (builtin_function
+        (argument_list
+          (identifier))))))
+
+================================================================================
+Replace
+================================================================================
+
+ASSIGN
+  stuff = REPLACE(bad, "[token]", value).
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assign_statement
+    (assignment_expression
+      (identifier)
+      (builtin_function
+        (argument_list
+          (identifier)
+          (character_literal)
+          (identifier))))))
+
+================================================================================
+Substring
+================================================================================
+
+ASSIGN
+  part1 = SUBSTRING(value, 1)
+  part2 = SUBSTRING(value, 7, 11)
+  SUBSTRING(value, 7, 11) = newValue.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assign_statement
+    (assignment_expression
+      (identifier)
+      (builtin_function
+        (argument_list
+          (identifier)
+          (integer_literal))))
+    (assignment_expression
+      (identifier)
+      (builtin_function
+        (argument_list
+          (identifier)
+          (integer_literal)
+          (integer_literal))))
+    (assignment_expression
+      (builtin_function
+        (argument_list
+          (identifier)
+          (integer_literal)
+          (integer_literal)))
+      (identifier))))
+
+================================================================================
+Valid event
+================================================================================
+
+ASSIGN
+  valid = VALID-EVENT(hHandle, "Open", "GUI").
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assign_statement
+    (assignment_expression
+      (identifier)
+      (builtin_function
+        (argument_list
+          (identifier)
+          (character_literal)
+          (character_literal))))))
+
+================================================================================
+Valid handle
+================================================================================
+
+ASSIGN
+  valid = VALID-HANDLE(hHandle).
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assign_statement
+    (assignment_expression
+      (identifier)
+      (builtin_function
+        (argument_list
+          (identifier))))))
+
+================================================================================
+Valid object
+================================================================================
+
+ASSIGN
+  valid = VALID-OBJECT(obj).
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assign_statement
+    (assignment_expression
+      (identifier)
+      (builtin_function
+        (argument_list
+          (identifier))))))
+
+================================================================================
+Weekday
+================================================================================
+
+ASSIGN
+  iWeekday = WEEKDAY(TODAY).
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assign_statement
+    (assignment_expression
+      (identifier)
+      (builtin_function
+        (argument_list
+          (builtin_function))))))
+
+================================================================================
+Widget handle
+================================================================================
+
+ASSIGN
+  hHandle = WIDGET-HANDLE(cHandleString).
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assign_statement
+    (assignment_expression
+      (identifier)
+      (builtin_function
+        (argument_list
+          (identifier))))))
+
+================================================================================
+Year
+================================================================================
+
+ASSIGN
+  iYear = YEAR(TODAY).
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assign_statement
+    (assignment_expression
+      (identifier)
+      (builtin_function
+        (argument_list
+          (builtin_function))))))
+
+================================================================================
+Accumulate
+================================================================================
+
+ASSIGN
+  count = ACCUMULATE COUNT table.field.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assign_statement
+    (assignment_expression
+      (identifier)
+      (builtin_function
+        (identifier)))))
+
+================================================================================
+Ambiguos
+================================================================================
+
+ASSIGN
   ambg = AMBIGUOS table
-  ambg = AMBIGUOS(other_table)
-  avail = AVAILABLE table
-  avail = AVAILABLE(other_table).
+  ambg = AMBIGUOS(other_table).
 
 --------------------------------------------------------------------------------
 
@@ -101,9 +368,20 @@ ASSIGN
     (assignment_expression (identifier)
       (builtin_function (identifier)))
     (assignment_expression (identifier)
-      (builtin_function (identifier)))
-    (assignment_expression (identifier)
-      (builtin_function (identifier)))
+      (builtin_function (identifier)))))
+
+================================================================================
+Statement Functions
+================================================================================
+
+ASSIGN
+  avail = AVAILABLE table
+  avail = AVAILABLE(other_table).
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assign_statement
     (assignment_expression (identifier)
       (builtin_function (identifier)))
     (assignment_expression (identifier)
