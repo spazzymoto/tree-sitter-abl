@@ -210,6 +210,7 @@
   "WHEN"
   "APPLY"
   "TO"
+  "BELL"
   "CASE"
   "END"
   "COMPILE"

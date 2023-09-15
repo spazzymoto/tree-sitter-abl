@@ -467,6 +467,8 @@ module.exports = grammar({
             $.assign_statement,
             $.apply_statement,
 
+            $.bell_statement,
+
             $.case_statement,
             $.compile_statement,
 
@@ -535,6 +537,8 @@ module.exports = grammar({
         $._primary_expression,
         optional(seq(kw("TO"), $._widget_phrase)),
       ),
+
+    bell_statement: $ => kw("BELL"),
 
     case_statement: $ =>
       seq(

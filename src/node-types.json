@@ -570,6 +570,11 @@
     }
   },
   {
+    "type": "bell_statement",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "binary_expression",
     "named": true,
     "fields": {},
@@ -753,6 +758,10 @@
         },
         {
           "type": "assignment_expression",
+          "named": true
+        },
+        {
+          "type": "bell_statement",
           "named": true
         },
         {
@@ -1119,6 +1128,10 @@
           "named": true
         },
         {
+          "type": "bell_statement",
+          "named": true
+        },
+        {
           "type": "binary_expression",
           "named": true
         },
@@ -1385,6 +1398,10 @@
         },
         {
           "type": "assignment_expression",
+          "named": true
+        },
+        {
+          "type": "bell_statement",
           "named": true
         },
         {
@@ -1655,6 +1672,10 @@
         },
         {
           "type": "assign_statement",
+          "named": true
+        },
+        {
+          "type": "bell_statement",
           "named": true
         },
         {
@@ -1996,6 +2017,10 @@
         },
         {
           "type": "assign_statement",
+          "named": true
+        },
+        {
+          "type": "bell_statement",
           "named": true
         },
         {
@@ -2640,6 +2665,10 @@
   },
   {
     "type": "BATCH-MODE",
+    "named": false
+  },
+  {
+    "type": "BELL",
     "named": false
   },
   {

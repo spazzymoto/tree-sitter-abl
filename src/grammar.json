@@ -4756,6 +4756,10 @@
                 },
                 {
                   "type": "SYMBOL",
+                  "name": "bell_statement"
+                },
+                {
+                  "type": "SYMBOL",
                   "name": "case_statement"
                 },
                 {
@@ -5234,6 +5238,24 @@
           ]
         }
       ]
+    },
+    "bell_statement": {
+      "type": "ALIAS",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "bell"
+          },
+          {
+            "type": "STRING",
+            "value": "BELL"
+          }
+        ]
+      },
+      "named": false,
+      "value": "BELL"
     },
     "case_statement": {
       "type": "SEQ",
