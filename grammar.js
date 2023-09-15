@@ -36,7 +36,7 @@ module.exports = grammar({
   conflicts: $ => [
     [$.reference_method, $.reference_attribute],
     [$._primary_expression, $._accumulate_function], // TODO: not sure if this is right
-    [$._widget_phrase]
+    [$._widget_phrase],
   ],
 
   rules: {
@@ -442,12 +442,12 @@ module.exports = grammar({
           kw("NUM-ENTRIES"),
           kw("REPLACE"),
           kw("SUBSTRING"),
-          kw('VALID-EVENT'),
-          kw('VALID-HANDLE'),
-          kw('VALID-OBJECT'),
-          kw('WEEKDAY'),
-          kw('WIDGET-HANDLE'),
-          kw('YEAR')
+          kw("VALID-EVENT"),
+          kw("VALID-HANDLE"),
+          kw("VALID-OBJECT"),
+          kw("WEEKDAY"),
+          kw("WIDGET-HANDLE"),
+          kw("YEAR"),
         ),
         $.argument_list,
       ),
@@ -748,11 +748,13 @@ module.exports = grammar({
     view_statement: $ =>
       seq(
         kw("VIEW"),
-        choice(
-          seq(kw("STREAM"), $.identifier),
-          seq(kw("STREAM-HANDLE"), $.identifier),
-          $._widget_phrase,
+        optional(
+          choice(
+            seq(kw("STREAM"), $.identifier),
+            seq(kw("STREAM-HANDLE"), $.identifier),
+          ),
         ),
+        optional($._widget_phrase),
         optional(seq(kw("IN"), kw("WINDOW"), $.identifier)),
       ),
 
@@ -785,20 +787,6 @@ module.exports = grammar({
 
     // TODO
     // _at_phrase: $ => seq(),
-
-    _where_clause: $ => seq(kw("WHERE"), $._expression),
-    _widget_phrase: $ =>
-      choice(
-        seq(kw("FRAME"), $.identifier),
-        seq(
-          optional(kw("FIELD")),
-          $.identifier,
-          optional(seq(kw("IN"), kw("FRAME"), $.identifier)),
-        ),
-        seq($.identifier, optional(seq(kw("IN"), kw("BROWSE"), $.identifier))),
-        seq(choice(kw("MENU"), kw("SUB-MENU")), $.identifier),
-        $.system_handle,
-      ),
 
     _code_block: $ => seq($._statement_colon, repeat($._statement), kw("END")),
 
@@ -838,28 +826,19 @@ module.exports = grammar({
 
     _value: $ => seq(kw("VALUE"), "(", $._expression, ")"),
 
+    _where_clause: $ => seq(kw("WHERE"), $._expression),
+
     _widget_phrase: $ =>
-      seq(
-        kw("FRAME"),
-        $.identifier,
-        choice(
-          seq(
-            kw("FIELD"),
-            $.identifier,
-            optional(seq(kw("IN"), kw("FRAME"), $.identifier)),
-          ),
-          seq(choice(kw("MENU"), kw("SUB-MENU")), $.identifier),
-          seq(
-            kw("MENU-ITEM"),
-            $.identifier,
-            optional(seq(kw("IN"), kw("MENU"), $.identifier)),
-          ),
-          $.system_handle,
-          seq(
-            $.identifier,
-            optional(seq(kw("IN"), kw("BROWSE"), $.identifier)),
-          ),
+      choice(
+        seq(kw("FRAME"), $.identifier),
+        seq(
+          optional(kw("FIELD")),
+          $.identifier,
+          optional(seq(kw("IN"), kw("FRAME"), $.identifier)),
         ),
+        seq($.identifier, optional(seq(kw("IN"), kw("BROWSE"), $.identifier))),
+        seq(choice(kw("MENU"), kw("SUB-MENU")), $.identifier),
+        $.system_handle,
       ),
   },
 });

@@ -48,6 +48,10 @@
           "named": true
         },
         {
+          "type": "new_object",
+          "named": true
+        },
+        {
           "type": "parenthesized_expression",
           "named": true
         },
@@ -127,6 +131,10 @@
           "named": true
         },
         {
+          "type": "new_object",
+          "named": true
+        },
+        {
           "type": "parenthesized_expression",
           "named": true
         },
@@ -196,6 +204,10 @@
         },
         {
           "type": "integer_literal",
+          "named": true
+        },
+        {
+          "type": "new_object",
           "named": true
         },
         {
@@ -2219,7 +2231,7 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "identifier",
@@ -2940,11 +2952,7 @@
     "named": false
   },
   {
-<<<<<<< main
     "type": "MINIMUM",
-=======
-    "type": "MENU-ITEM",
->>>>>>> VStatements Done
     "named": false
   },
   {
@@ -3248,7 +3256,10 @@
     "named": false
   },
   {
-<<<<<<< main
+    "type": "STREAM-HANDLE",
+    "named": false
+  },
+  {
     "type": "SUB-AVERAGE",
     "named": false
   },
@@ -3258,9 +3269,6 @@
   },
   {
     "type": "SUB-MAXIMUM",
-=======
-    "type": "STREAM-HANDLE",
->>>>>>> VStatements Done
     "named": false
   },
   {
@@ -3268,7 +3276,6 @@
     "named": false
   },
   {
-<<<<<<< main
     "type": "SUB-MINIMUM",
     "named": false
   },
@@ -3277,8 +3284,6 @@
     "named": false
   },
   {
-=======
->>>>>>> VStatements Done
     "type": "SUBSTRING",
     "named": false
   },
@@ -3387,9 +3392,6 @@
     "named": false
   },
   {
-<<<<<<< main
-    "type": "VALID-OBJECT",
-=======
     "type": "VALID-EVENT",
     "named": false
   },
@@ -3403,7 +3405,6 @@
   },
   {
     "type": "VALIDATE",
->>>>>>> VStatements Done
     "named": false
   },
   {

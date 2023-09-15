@@ -201,14 +201,10 @@
   "NUM-ENTRIES"
   "REPLACE"
   "SUBSTRING"
-<<<<<<< main
-  "VALID-OBJECT"
-=======
   "VALID-EVENT"
   "VALID-HANDLE"
   "VALID-OBJECT"
   "WEEKDAY"
->>>>>>> VStatements Done
   "YEAR"
   "TODAY"
   "AGGREGATE"
@@ -264,13 +260,6 @@
   "CHOOSE"
   "OF"
   "&ANALYZE-SUSPEND"
-  "WHERE"
-  "FRAME"
-  "FIELD"
-  "IN"
-  "BROWSE"
-  "MENU"
-  "SUB-MENU"
   "CLASS"
   "LIKE"
   "EXTENT"
@@ -291,11 +280,11 @@
   "NAMESPACE-PREFIX"
   "XML-NODE-NAME"
   "SERIALIZE-NAME"
+  "WHERE"
   "FRAME"
   "FIELD"
+  "BROWSE"
   "MENU"
   "SUB-MENU"
-  "MENU-ITEM"
-  "BROWSE"
 
 ] @keyword
