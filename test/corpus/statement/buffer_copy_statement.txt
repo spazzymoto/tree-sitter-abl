@@ -1,0 +1,72 @@
+================================================================================
+Buffer Copy Statement
+================================================================================
+
+BUFFER-COPY buffer_1
+         TO buffer_2.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (buffer_copy_statement
+    (identifier)
+    (identifier)))
+
+================================================================================
+Buffer Copy Except Statement
+================================================================================
+
+BUFFER-COPY buffer_1
+     EXCEPT field_1 field_2
+         TO buffer_2
+  NO-ERROR.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (buffer_copy_statement
+    (identifier)
+    (identifier)
+    (identifier)
+    (identifier)))
+
+================================================================================
+Buffer Copy Using Statement
+================================================================================
+
+BUFFER-COPY buffer_1
+      USING field_1 field_2
+         TO buffer_2
+  NO-LOBS.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (buffer_copy_statement
+    (identifier)
+    (identifier)
+    (identifier)
+    (identifier)))
+
+================================================================================
+Buffer Copy Assign Statement
+================================================================================
+
+BUFFER-COPY buffer_1
+         TO buffer_2
+     ASSIGN buffer_2.field_1 = 123
+            buffer_2.field_2 = "abc".
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (buffer_copy_statement
+    (identifier)
+    (identifier)
+    (assignment_expression
+      (identifier)
+      (integer_literal))
+    (assignment_expression
+      (identifier)
+      (character_literal))))
+

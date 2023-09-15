@@ -570,7 +570,110 @@
     }
   },
   {
+    "type": "bell_statement",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "binary_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "array_access",
+          "named": true
+        },
+        {
+          "type": "assignment_expression",
+          "named": true
+        },
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "builtin_function",
+          "named": true
+        },
+        {
+          "type": "character_literal",
+          "named": true
+        },
+        {
+          "type": "decimal_literal",
+          "named": true
+        },
+        {
+          "type": "false",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "if_expression",
+          "named": true
+        },
+        {
+          "type": "integer_literal",
+          "named": true
+        },
+        {
+          "type": "new_object",
+          "named": true
+        },
+        {
+          "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "reference_attribute",
+          "named": true
+        },
+        {
+          "type": "reference_method",
+          "named": true
+        },
+        {
+          "type": "system_handle",
+          "named": true
+        },
+        {
+          "type": "true",
+          "named": true
+        },
+        {
+          "type": "unary_expression",
+          "named": true
+        },
+        {
+          "type": "unknown_literal",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "buffer_compare_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "buffer_copy_statement",
     "named": true,
     "fields": {},
     "children": {
@@ -756,7 +859,19 @@
           "named": true
         },
         {
+          "type": "bell_statement",
+          "named": true
+        },
+        {
           "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "buffer_compare_statement",
+          "named": true
+        },
+        {
+          "type": "buffer_copy_statement",
           "named": true
         },
         {
@@ -1119,7 +1234,19 @@
           "named": true
         },
         {
+          "type": "bell_statement",
+          "named": true
+        },
+        {
           "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "buffer_compare_statement",
+          "named": true
+        },
+        {
+          "type": "buffer_copy_statement",
           "named": true
         },
         {
@@ -1388,7 +1515,19 @@
           "named": true
         },
         {
+          "type": "bell_statement",
+          "named": true
+        },
+        {
           "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "buffer_compare_statement",
+          "named": true
+        },
+        {
+          "type": "buffer_copy_statement",
           "named": true
         },
         {
@@ -1655,6 +1794,18 @@
         },
         {
           "type": "assign_statement",
+          "named": true
+        },
+        {
+          "type": "bell_statement",
+          "named": true
+        },
+        {
+          "type": "buffer_compare_statement",
+          "named": true
+        },
+        {
+          "type": "buffer_copy_statement",
           "named": true
         },
         {
@@ -1996,6 +2147,18 @@
         },
         {
           "type": "assign_statement",
+          "named": true
+        },
+        {
+          "type": "bell_statement",
+          "named": true
+        },
+        {
+          "type": "buffer_compare_statement",
+          "named": true
+        },
+        {
+          "type": "buffer_copy_statement",
           "named": true
         },
         {
@@ -2631,7 +2794,23 @@
     "named": false
   },
   {
+    "type": "BASE64-DECODE",
+    "named": false
+  },
+  {
+    "type": "BASE64-ENCODE",
+    "named": false
+  },
+  {
     "type": "BATCH-MODE",
+    "named": false
+  },
+  {
+    "type": "BELL",
+    "named": false
+  },
+  {
+    "type": "BINARY",
     "named": false
   },
   {
@@ -2643,11 +2822,43 @@
     "named": false
   },
   {
+    "type": "BOX",
+    "named": false
+  },
+  {
     "type": "BROWSE",
     "named": false
   },
   {
     "type": "BUFFER",
+    "named": false
+  },
+  {
+    "type": "BUFFER-COMPARE",
+    "named": false
+  },
+  {
+    "type": "BUFFER-COPY",
+    "named": false
+  },
+  {
+    "type": "BUFFER-GROUP-ID",
+    "named": false
+  },
+  {
+    "type": "BUFFER-GROUP-NAME",
+    "named": false
+  },
+  {
+    "type": "BUFFER-PARTITION-ID",
+    "named": false
+  },
+  {
+    "type": "BUFFER-TENANT-ID",
+    "named": false
+  },
+  {
+    "type": "BUFFER-TENANT-NAME",
     "named": false
   },
   {
@@ -3147,6 +3358,10 @@
     "named": false
   },
   {
+    "type": "NO-LOBS",
+    "named": false
+  },
+  {
     "type": "NO-UNDO",
     "named": false
   },
@@ -3300,6 +3515,10 @@
   },
   {
     "type": "REPLACE",
+    "named": false
+  },
+  {
+    "type": "RESULT",
     "named": false
   },
   {

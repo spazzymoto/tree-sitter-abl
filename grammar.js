@@ -421,6 +421,14 @@ module.exports = grammar({
             kw("ASC"),
             kw("AUDIT-ENABLED"),
             kw("ALIAS"),
+            kw("BASE64-DECODE"),
+            kw("BASE64-ENCODE"),
+            kw("BOX"),
+            kw("BUFFER-GROUP-ID"),
+            kw("BUFFER-GROUP-NAME"),
+            kw("BUFFER-PARTITION-ID"),
+            kw("BUFFER-TENANT-ID"),
+            kw("BUFFER-TENANT-NAME"),
             kw("ENTRY"),
             kw("FILL"),
             kw("INDEX"),
@@ -464,6 +472,10 @@ module.exports = grammar({
             $.aggregate_statement,
             $.assign_statement,
             $.apply_statement,
+
+            $.bell_statement,
+            $.buffer_compare_statement,
+            $.buffer_copy_statement,
 
             $.case_statement,
             $.compile_statement,
@@ -532,6 +544,47 @@ module.exports = grammar({
         kw("APPLY"),
         $._primary_expression,
         optional(seq(kw("TO"), $._widget_phrase)),
+      ),
+
+    bell_statement: $ => kw("BELL"),
+
+    buffer_compare_statement: $ =>
+      seq(
+        kw("BUFFER-COMPARE"),
+        $.identifier,
+        optional(seq(choice(kw("EXCEPT"), kw("USING")), repeat1($.identifier))),
+        kw("TO"),
+        $.identifier,
+        anyOf(
+          choice(kw("CASE-SENSITIVE"), kw("BINARY")),
+          seq(kw("SAVE"), optional(seq(kw("RESULT"), kw("IN"))), $.identifier),
+          // TODO:
+          // seq(
+          //   optional(kw("EXPLICIT")),
+          //   kw("COMPARES"),
+          //   $._statement_colon,
+          //   repeat1(
+          //     $._when_spec,
+          //     // seq(kw("WHEN"), $.binary_expression, kw("THEN"), $._statement),
+          //   ),
+          //   kw("END"),
+          //   optional(kw("COMPARES")),
+          // ),
+          kw("NO-LOBS"),
+        ),
+        optional(kw("NO-ERROR")),
+      ),
+
+    buffer_copy_statement: $ =>
+      seq(
+        kw("BUFFER-COPY"),
+        $.identifier,
+        optional(seq(choice(kw("EXCEPT"), kw("USING")), repeat1($.identifier))),
+        kw("TO"),
+        $.identifier,
+        optional(seq(kw("ASSIGN"), repeat1($._assign_spec))),
+        optional(kw("NO-LOBS")),
+        optional(kw("NO-ERROR")),
       ),
 
     case_statement: $ =>
