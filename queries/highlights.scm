@@ -185,6 +185,7 @@
   "ALIAS"
   "BASE64-DECODE"
   "BASE64-ENCODE"
+  "BOX"
   "ENTRY"
   "FILL"
   "INDEX"

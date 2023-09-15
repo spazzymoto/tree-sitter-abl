@@ -423,6 +423,7 @@ module.exports = grammar({
             kw("ALIAS"),
             kw("BASE64-DECODE"),
             kw("BASE64-ENCODE"),
+            kw("BOX"),
             kw("ENTRY"),
             kw("FILL"),
             kw("INDEX"),

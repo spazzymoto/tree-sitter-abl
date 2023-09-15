@@ -113,6 +113,24 @@ Entry
 ================================================================================
 
 ASSIGN
+  data = BOX(123, "UNSIGNED-BYTE").
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assign_statement
+    (assignment_expression
+      (identifier)
+      (builtin_function
+        (argument_list
+          (integer_literal)
+          (character_literal))))))
+
+================================================================================
+Entry
+================================================================================
+
+ASSIGN
   item = ENTRY(i, value)
   ENTRY(1, cTest) = "".
 

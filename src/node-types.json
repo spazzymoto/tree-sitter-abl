@@ -2680,6 +2680,10 @@
     "named": false
   },
   {
+    "type": "BOX",
+    "named": false
+  },
+  {
     "type": "BROWSE",
     "named": false
   },

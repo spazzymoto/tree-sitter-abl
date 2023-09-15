@@ -4396,6 +4396,24 @@
                   "members": [
                     {
                       "type": "STRING",
+                      "value": "box"
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "BOX"
+                    }
+                  ]
+                },
+                "named": false,
+                "value": "BOX"
+              },
+              {
+                "type": "ALIAS",
+                "content": {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "STRING",
                       "value": "entry"
                     },
                     {
