@@ -657,7 +657,7 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": false,
       "types": [
         {
@@ -665,11 +665,59 @@
           "named": true
         },
         {
+          "type": "array_access",
+          "named": true
+        },
+        {
+          "type": "builtin_function",
+          "named": true
+        },
+        {
+          "type": "character_literal",
+          "named": true
+        },
+        {
+          "type": "decimal_literal",
+          "named": true
+        },
+        {
+          "type": "false",
+          "named": true
+        },
+        {
           "type": "identifier",
           "named": true
         },
         {
+          "type": "integer_literal",
+          "named": true
+        },
+        {
+          "type": "new_object",
+          "named": true
+        },
+        {
+          "type": "parenthesized_expression",
+          "named": true
+        },
+        {
           "type": "reference_attribute",
+          "named": true
+        },
+        {
+          "type": "reference_method",
+          "named": true
+        },
+        {
+          "type": "system_handle",
+          "named": true
+        },
+        {
+          "type": "true",
+          "named": true
+        },
+        {
+          "type": "unknown_literal",
           "named": true
         }
       ]
@@ -817,6 +865,10 @@
         },
         {
           "type": "unknown_literal",
+          "named": true
+        },
+        {
+          "type": "use_statement",
           "named": true
         },
         {
@@ -1179,6 +1231,10 @@
           "named": true
         },
         {
+          "type": "use_statement",
+          "named": true
+        },
+        {
           "type": "using_statement",
           "named": true
         },
@@ -1444,6 +1500,10 @@
           "named": true
         },
         {
+          "type": "use_statement",
+          "named": true
+        },
+        {
           "type": "using_statement",
           "named": true
         },
@@ -1647,6 +1707,10 @@
         },
         {
           "type": "run_statement",
+          "named": true
+        },
+        {
+          "type": "use_statement",
           "named": true
         },
         {
@@ -1983,6 +2047,10 @@
           "named": true
         },
         {
+          "type": "use_statement",
+          "named": true
+        },
+        {
           "type": "using_statement",
           "named": true
         },
@@ -2027,6 +2095,89 @@
   },
   {
     "type": "unary_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "array_access",
+          "named": true
+        },
+        {
+          "type": "assignment_expression",
+          "named": true
+        },
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "builtin_function",
+          "named": true
+        },
+        {
+          "type": "character_literal",
+          "named": true
+        },
+        {
+          "type": "decimal_literal",
+          "named": true
+        },
+        {
+          "type": "false",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "if_expression",
+          "named": true
+        },
+        {
+          "type": "integer_literal",
+          "named": true
+        },
+        {
+          "type": "new_object",
+          "named": true
+        },
+        {
+          "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "reference_attribute",
+          "named": true
+        },
+        {
+          "type": "reference_method",
+          "named": true
+        },
+        {
+          "type": "system_handle",
+          "named": true
+        },
+        {
+          "type": "true",
+          "named": true
+        },
+        {
+          "type": "unary_expression",
+          "named": true
+        },
+        {
+          "type": "unknown_literal",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "use_statement",
     "named": true,
     "fields": {},
     "children": {
@@ -2952,6 +3103,10 @@
     "named": false
   },
   {
+    "type": "MENU-ITEM",
+    "named": false
+  },
+  {
     "type": "MINIMUM",
     "named": false
   },
@@ -3381,6 +3536,14 @@
   },
   {
     "type": "UNIQUE-ID",
+    "named": false
+  },
+  {
+    "type": "USE",
+    "named": false
+  },
+  {
+    "type": "USERID",
     "named": false
   },
   {

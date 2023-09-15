@@ -32,8 +32,7 @@ VIEW
 View Widget Phrase Browse Statement
 ================================================================================
 
-VIEW
-  column IN BROWSE browse
+VIEW column IN BROWSE browse
   IN WINDOW window.
 
 --------------------------------------------------------------------------------
@@ -48,8 +47,7 @@ VIEW
 View Widget Phrase Handle Statement
 ================================================================================
 
-VIEW
-  SESSION
+VIEW SESSION
   IN WINDOW window.
 
 --------------------------------------------------------------------------------

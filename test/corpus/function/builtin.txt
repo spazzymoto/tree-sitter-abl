@@ -386,3 +386,33 @@ ASSIGN
       (builtin_function (identifier)))
     (assignment_expression (identifier)
       (builtin_function (identifier)))))
+
+================================================================================
+UserID Function
+================================================================================
+
+ASSIGN cUser = USERID.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assign_statement
+    (assignment_expression
+      (identifier)
+      (builtin_function))))
+      
+================================================================================
+UserID DBName Function
+================================================================================
+
+ASSIGN cUser = USERID("DICTDB").
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assign_statement
+    (assignment_expression
+      (identifier)
+      (builtin_function
+        (argument_list
+          (character_literal))))))
