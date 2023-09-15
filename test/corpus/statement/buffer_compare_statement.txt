@@ -1,0 +1,67 @@
+================================================================================
+Buffer Compare Result Statement
+================================================================================
+
+BUFFER-COMPARE buffer_1
+            TO buffer_2
+          SAVE fields.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (buffer_compare_statement
+    (identifier)
+    (identifier)
+    (identifier)))
+
+================================================================================
+Buffer Compare Except Statement
+================================================================================
+
+BUFFER-COMPARE buffer_1
+         USING field_1 field_2
+            TO buffer_2
+  CASE-SENSITIVE
+  NO-ERROR.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (buffer_compare_statement
+    (identifier)
+    (identifier)
+    (identifier)
+    (identifier)))
+
+================================================================================
+Buffer Compare Using Statement
+================================================================================
+
+BUFFER-COMPARE buffer_1
+         USING field_1 field_2
+            TO buffer_2
+  BINARY
+  NO-LOBS.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (buffer_compare_statement
+    (identifier)
+    (identifier)
+    (identifier)
+    (identifier)))
+
+================================================================================
+Buffer Compare When Statement TODO
+================================================================================
+
+BUFFER-COMPARE buffer_1
+            TO buffer_2.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (buffer_compare_statement
+    (identifier)
+    (identifier)))

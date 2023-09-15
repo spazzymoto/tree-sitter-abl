@@ -658,6 +658,21 @@
     }
   },
   {
+    "type": "buffer_compare_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "builtin_function",
     "named": true,
     "fields": {},
@@ -766,6 +781,10 @@
         },
         {
           "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "buffer_compare_statement",
           "named": true
         },
         {
@@ -1136,6 +1155,10 @@
           "named": true
         },
         {
+          "type": "buffer_compare_statement",
+          "named": true
+        },
+        {
           "type": "builtin_function",
           "named": true
         },
@@ -1409,6 +1432,10 @@
           "named": true
         },
         {
+          "type": "buffer_compare_statement",
+          "named": true
+        },
+        {
           "type": "builtin_function",
           "named": true
         },
@@ -1676,6 +1703,10 @@
         },
         {
           "type": "bell_statement",
+          "named": true
+        },
+        {
+          "type": "buffer_compare_statement",
           "named": true
         },
         {
@@ -2021,6 +2052,10 @@
         },
         {
           "type": "bell_statement",
+          "named": true
+        },
+        {
+          "type": "buffer_compare_statement",
           "named": true
         },
         {
@@ -2672,6 +2707,10 @@
     "named": false
   },
   {
+    "type": "BINARY",
+    "named": false
+  },
+  {
     "type": "BLOB",
     "named": false
   },
@@ -2689,6 +2728,10 @@
   },
   {
     "type": "BUFFER",
+    "named": false
+  },
+  {
+    "type": "BUFFER-COMPARE",
     "named": false
   },
   {
@@ -3188,6 +3231,10 @@
     "named": false
   },
   {
+    "type": "NO-LOBS",
+    "named": false
+  },
+  {
     "type": "NO-UNDO",
     "named": false
   },
@@ -3341,6 +3388,10 @@
   },
   {
     "type": "REPLACE",
+    "named": false
+  },
+  {
+    "type": "RESULT",
     "named": false
   },
   {
