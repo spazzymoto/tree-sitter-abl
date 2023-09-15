@@ -1,0 +1,11 @@
+===============
+Use statement
+===============
+
+USE "environment" NO-ERROR.
+
+---
+
+(source_file
+  (use_statement
+    (character_literal)))
