@@ -470,6 +470,7 @@ module.exports = grammar({
 
             $.bell_statement,
             $.buffer_compare_statement,
+            $.buffer_copy_statement,
 
             $.case_statement,
             $.compile_statement,
@@ -566,6 +567,18 @@ module.exports = grammar({
           // ),
           kw("NO-LOBS"),
         ),
+        optional(kw("NO-ERROR")),
+      ),
+
+    buffer_copy_statement: $ =>
+      seq(
+        kw("BUFFER-COPY"),
+        $.identifier,
+        optional(seq(choice(kw("EXCEPT"), kw("USING")), repeat1($.identifier))),
+        kw("TO"),
+        $.identifier,
+        optional(seq(kw("ASSIGN"), repeat1($._assign_spec))),
+        optional(kw("NO-LOBS")),
         optional(kw("NO-ERROR")),
       ),
 

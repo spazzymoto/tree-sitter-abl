@@ -220,6 +220,7 @@
   "RESULT"
   "IN"
   "NO-LOBS"
+  "BUFFER-COPY"
   "CASE"
   "END"
   "COMPILE"
