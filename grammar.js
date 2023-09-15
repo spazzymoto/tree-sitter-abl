@@ -421,6 +421,8 @@ module.exports = grammar({
             kw("ASC"),
             kw("AUDIT-ENABLED"),
             kw("ALIAS"),
+            kw("BASE64-DECODE"),
+            kw("BASE64-ENCODE"),
             kw("ENTRY"),
             kw("FILL"),
             kw("INDEX"),

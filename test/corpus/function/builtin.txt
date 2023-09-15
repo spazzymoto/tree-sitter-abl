@@ -86,6 +86,29 @@ ASSIGN
           (identifier))))))
 
 ================================================================================
+Base64 Encode/Decode
+================================================================================
+
+ASSIGN
+  data = BASE64-ENCODE(memptr)
+  memptr = BASE64-DECODE(data).
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assign_statement
+    (assignment_expression
+      (identifier)
+      (builtin_function
+        (argument_list
+          (identifier))))
+    (assignment_expression
+      (identifier)
+      (builtin_function
+        (argument_list
+          (identifier))))))
+
+================================================================================
 Entry
 ================================================================================
 
@@ -400,7 +423,7 @@ ASSIGN cUser = USERID.
     (assignment_expression
       (identifier)
       (builtin_function))))
-      
+
 ================================================================================
 UserID DBName Function
 ================================================================================

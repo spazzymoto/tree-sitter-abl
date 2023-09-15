@@ -4360,6 +4360,42 @@
                   "members": [
                     {
                       "type": "STRING",
+                      "value": "base64-decode"
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "BASE64-DECODE"
+                    }
+                  ]
+                },
+                "named": false,
+                "value": "BASE64-DECODE"
+              },
+              {
+                "type": "ALIAS",
+                "content": {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "STRING",
+                      "value": "base64-encode"
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "BASE64-ENCODE"
+                    }
+                  ]
+                },
+                "named": false,
+                "value": "BASE64-ENCODE"
+              },
+              {
+                "type": "ALIAS",
+                "content": {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "STRING",
                       "value": "entry"
                     },
                     {

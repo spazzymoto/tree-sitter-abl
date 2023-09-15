@@ -2631,6 +2631,14 @@
     "named": false
   },
   {
+    "type": "BASE64-DECODE",
+    "named": false
+  },
+  {
+    "type": "BASE64-ENCODE",
+    "named": false
+  },
+  {
     "type": "BATCH-MODE",
     "named": false
   },
