@@ -190,10 +190,7 @@
   "NUM-ENTRIES"
   "REPLACE"
   "SUBSTRING"
-<<<<<<< main
-=======
   "USERID"
->>>>>>> Update
   "VALID-EVENT"
   "VALID-HANDLE"
   "VALID-OBJECT"
@@ -257,8 +254,6 @@
   "CHOOSE"
   "OF"
   "&ANALYZE-SUSPEND"
-<<<<<<< main
-=======
   "MAXIMUM"
   "MINIMUM"
   "SUB-AVERAGE"
@@ -267,7 +262,6 @@
   "SUB-MINIMUM"
   "SUB-TOTAL"
   "BY"
->>>>>>> Update
   "CLASS"
   "LIKE"
   "EXTENT"
@@ -291,8 +285,9 @@
   "WHERE"
   "FRAME"
   "FIELD"
-  "BROWSE"
   "MENU"
   "SUB-MENU"
+  "MENU-ITEM"
+  "BROWSE"
 
 ] @keyword
