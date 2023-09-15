@@ -2842,6 +2842,26 @@
     "named": false
   },
   {
+    "type": "BUFFER-GROUP-ID",
+    "named": false
+  },
+  {
+    "type": "BUFFER-GROUP-NAME",
+    "named": false
+  },
+  {
+    "type": "BUFFER-PARTITION-ID",
+    "named": false
+  },
+  {
+    "type": "BUFFER-TENANT-ID",
+    "named": false
+  },
+  {
+    "type": "BUFFER-TENANT-NAME",
+    "named": false
+  },
+  {
     "type": "BY",
     "named": false
   },

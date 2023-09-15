@@ -4414,6 +4414,96 @@
                   "members": [
                     {
                       "type": "STRING",
+                      "value": "buffer-group-id"
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "BUFFER-GROUP-ID"
+                    }
+                  ]
+                },
+                "named": false,
+                "value": "BUFFER-GROUP-ID"
+              },
+              {
+                "type": "ALIAS",
+                "content": {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "STRING",
+                      "value": "buffer-group-name"
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "BUFFER-GROUP-NAME"
+                    }
+                  ]
+                },
+                "named": false,
+                "value": "BUFFER-GROUP-NAME"
+              },
+              {
+                "type": "ALIAS",
+                "content": {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "STRING",
+                      "value": "buffer-partition-id"
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "BUFFER-PARTITION-ID"
+                    }
+                  ]
+                },
+                "named": false,
+                "value": "BUFFER-PARTITION-ID"
+              },
+              {
+                "type": "ALIAS",
+                "content": {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "STRING",
+                      "value": "buffer-tenant-id"
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "BUFFER-TENANT-ID"
+                    }
+                  ]
+                },
+                "named": false,
+                "value": "BUFFER-TENANT-ID"
+              },
+              {
+                "type": "ALIAS",
+                "content": {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "STRING",
+                      "value": "buffer-tenant-name"
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "BUFFER-TENANT-NAME"
+                    }
+                  ]
+                },
+                "named": false,
+                "value": "BUFFER-TENANT-NAME"
+              },
+              {
+                "type": "ALIAS",
+                "content": {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "STRING",
                       "value": "entry"
                     },
                     {
