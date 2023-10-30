@@ -868,6 +868,10 @@
           "named": true
         },
         {
+          "type": "update_statement",
+          "named": true
+        },
+        {
           "type": "use_statement",
           "named": true
         },
@@ -1231,6 +1235,10 @@
           "named": true
         },
         {
+          "type": "update_statement",
+          "named": true
+        },
+        {
           "type": "use_statement",
           "named": true
         },
@@ -1500,6 +1508,10 @@
           "named": true
         },
         {
+          "type": "update_statement",
+          "named": true
+        },
+        {
           "type": "use_statement",
           "named": true
         },
@@ -1707,6 +1719,10 @@
         },
         {
           "type": "run_statement",
+          "named": true
+        },
+        {
+          "type": "update_statement",
           "named": true
         },
         {
@@ -2047,6 +2063,10 @@
           "named": true
         },
         {
+          "type": "update_statement",
+          "named": true
+        },
+        {
           "type": "use_statement",
           "named": true
         },
@@ -2171,6 +2191,21 @@
         },
         {
           "type": "unknown_literal",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "update_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "identifier",
           "named": true
         }
       ]
@@ -2615,6 +2650,10 @@
     "named": false
   },
   {
+    "type": "AT",
+    "named": false
+  },
+  {
     "type": "AUDIT-ENABLED",
     "named": false
   },
@@ -2687,7 +2726,19 @@
     "named": false
   },
   {
+    "type": "COLON-ALIGNED",
+    "named": false
+  },
+  {
+    "type": "COLUMN",
+    "named": false
+  },
+  {
     "type": "COLUMN-LABEL",
+    "named": false
+  },
+  {
+    "type": "COLUMN-OF",
     "named": false
   },
   {
@@ -2952,6 +3003,10 @@
   },
   {
     "type": "GLOBAL",
+    "named": false
+  },
+  {
+    "type": "GO-ON",
     "named": false
   },
   {
@@ -3307,7 +3362,19 @@
     "named": false
   },
   {
+    "type": "RIGHT-ALIGNED",
+    "named": false
+  },
+  {
     "type": "ROUTINE-LEVEL",
+    "named": false
+  },
+  {
+    "type": "ROW",
+    "named": false
+  },
+  {
+    "type": "ROW-OF",
     "named": false
   },
   {
@@ -3539,6 +3606,14 @@
     "named": false
   },
   {
+    "type": "UNLESS-HIDDEN",
+    "named": false
+  },
+  {
+    "type": "UPDATE",
+    "named": false
+  },
+  {
     "type": "USE",
     "named": false
   },
@@ -3647,11 +3722,27 @@
     "named": false
   },
   {
+    "type": "X",
+    "named": false
+  },
+  {
+    "type": "X-OF",
+    "named": false
+  },
+  {
     "type": "XML-NODE-NAME",
     "named": false
   },
   {
     "type": "XREF-XML",
+    "named": false
+  },
+  {
+    "type": "Y",
+    "named": false
+  },
+  {
+    "type": "Y-OF",
     "named": false
   },
   {

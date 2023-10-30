@@ -1,3 +1,4 @@
+const { strictEqual } = require("assert");
 const fs = require("fs");
 fs.writeFileSync("keyword.txt", "");
 const knownKeywords = [];
@@ -483,6 +484,7 @@ module.exports = grammar({
 
             $.run_statement,
 
+            $.update_statement,
             $.use_statement,
             $.using_statement,
 
@@ -686,6 +688,16 @@ module.exports = grammar({
         ),
       ),
 
+    update_statement: $ =>
+      seq(
+        kw("UPDATE"),
+        anyOf(
+          kw("UNLESS-HIDDEN"),
+
+          seq(kw("GO-ON"), "(", repeat1($.identifier), ")"),
+        ),
+      ),
+
     use_statement: $ => seq(kw("USE"), $._expression, optional(kw("NO-ERROR"))),
 
     using_statement: $ =>
@@ -774,6 +786,32 @@ module.exports = grammar({
         ),
         optional($._label),
         repeat($._break_group),
+      ),
+
+    _at_phrase: $ =>
+      seq(
+        kw("AT"),
+        anyOf(
+          choice(
+            seq(kw("COLUMN"), $._literal),
+            seq(kw("COLUMN-OF"), seq("[", $._literal, "]")),
+          ),
+          choice(
+            seq(kw("ROW"), $._literal),
+            seq(kw("ROW-OF"), seq("[", $._literal, "]")),
+          ),
+          choice(
+            seq(kw("X"), $._literal),
+            seq(kw("X-OF"), seq("[", $._literal, "]")),
+          ),
+          choice(
+            seq(kw("Y"), $._literal),
+            seq(kw("Y-OF"), seq("[", $._literal, "]")),
+          ),
+        ),
+        optional(
+          choice(kw("COLON-ALIGNED"), kw("LEFT-ALIGNED"), kw("RIGHT-ALIGNED")),
+        ),
       ),
 
     _break_group: $ => seq(kw("BY"), $.identifier),
