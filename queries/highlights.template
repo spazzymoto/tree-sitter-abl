@@ -1,15 +1,23 @@
 
 (identifier) @variable
 
+
 ; Literals
 
-(character_literal) @string
+(character) @string
 (character_modifier) @number
 
 [
-  (integer_literal)
+  (integer)
 ] @number
 
 [
  <-KEYWORDS->
 ] @keyword
+
+[
+	(preprocessor)
+	(preprocessor_directive)
+	(line_comment)
+	(block_comment)
+] @comment

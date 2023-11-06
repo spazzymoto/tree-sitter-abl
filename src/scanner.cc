@@ -1,5 +1,6 @@
 #include <tree_sitter/parser.h>
 #include <string>
+#include <cstring>
 #include <cwctype>
 
 namespace {
@@ -13,6 +14,7 @@ enum TokenType {
   COLON,
   CHARACTER_LITERAL,
   PREPROCESSOR,
+  BLOCK_COMMENT,
 };
 
 struct Scanner {
@@ -99,35 +101,71 @@ struct Scanner {
       }
     }
 
-      if(valid_symbols[PREPROCESSOR]) {
-        int level = 0;
+    if(valid_symbols[PREPROCESSOR]) {
         
-        if (lexer->lookahead == '{') {
-          advance(lexer);
+      int level = 0;
 
-          level++;
+      if (lexer->lookahead == '{') {
+        advance(lexer);
 
-          while(!eof(lexer)) {
-            if (lexer->lookahead == '}') {
-              level--;
+        level++;
 
-              if (level == 0) {
-                advance(lexer);
-                break;
-              }
+        while(!eof(lexer)) {
+          if (lexer->lookahead == '}') {
+            level--;
+
+            if (level == 0) {
+              advance(lexer);
+              break;
             }
-
-            if (lexer->lookahead == '{') {
-              level++;
-            }
-
-            advance(lexer);
           }
 
-          lexer->result_symbol = PREPROCESSOR;
-          return true;
+          if (lexer->lookahead == '{') {
+            level++;
+          }
+
+          advance(lexer);
+        }
+
+        lexer->result_symbol = PREPROCESSOR;
+        return true;
+      }
+    }
+      
+    if(valid_symbols[BLOCK_COMMENT]) {
+      if (lexer->lookahead == '/') {
+        advance(lexer);
+
+        if (lexer->lookahead != '*')
+          return false;
+
+        advance(lexer);
+
+        int depth = 1;
+
+        for (;;) {
+          if (depth == 0) {
+            lexer->result_symbol = BLOCK_COMMENT;
+            return true;
+          }
+
+          switch (lexer->lookahead) {
+          case '/':
+            advance(lexer);
+            if (lexer->lookahead == '*')
+              depth++;
+            break;
+          case '*':
+            advance(lexer);
+            if (lexer->lookahead == '/')
+              depth--;
+            break;
+          }
+
+          advance(lexer);
         }
       }
+    }
       
     return false;
   }
